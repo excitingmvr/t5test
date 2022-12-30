@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+codegrouplist
+<form>
+<table>
+<tbody>
+<tr th:each="member : ${list}">
+    <td>
+        <div class="checkbox">
+            <input type="checkbox"  th:id="checkboxSeq" name="checkboxSeq" th:value="${member.codeGroupSeq}">
+            <label th:for="checkboxSeq"></label>
+        </div>
+    </td>
+    <td th:text="${member.codeGroupSeq}"></td>
+    <td th:text="${member.codeGroupName}"></td>
+    <td th:text="${member.codeGroupNameEng}"></td>
+    <td th:text="${member.codeGroupUseNY}"></td>
+    <td th:text="${member.codeGroupDelNY}"></td>
+</tr>
+</tbody>
+</table>
+</form>
+</body>
+</html>

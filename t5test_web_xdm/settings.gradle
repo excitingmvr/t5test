@@ -1,0 +1,5 @@
+rootProject.name = 't5test_web_xdm'
+
+//use module by Tony 12.29
+include 't5test_core'
+project(':t5test_core').projectDir = new File(settingsDir, '../t5test_core')
