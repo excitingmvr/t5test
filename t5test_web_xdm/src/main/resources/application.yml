@@ -1,14 +1,35 @@
 server:
   port: 8081
 
+#multi database config
 spring:
   datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver     # for query log by Tony 12.29
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-#    url: jdbc:mysql://mydb.cyqagiaocgni.ap-northeast-2.rds.amazonaws.com:33066/mydb     # for query log by Tony 12.29
-    url: jdbc:log4jdbc:mysql://mydb.cyqagiaocgni.ap-northeast-2.rds.amazonaws.com:33066/mydb
-    username: wowmin
-    password: '!Dmssk6480'
+    mysql:
+      main:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#        url: jdbc:log4jdbc:mysql://mydb.cyqagiaocgni.ap-northeast-2.rds.amazonaws.com:33066/mydb
+        jdbc-url: jdbc:log4jdbc:mysql://mydb.cyqagiaocgni.ap-northeast-2.rds.amazonaws.com:33066/mydb
+        username: wowmin
+        password: '!Dmssk6480'
+      sub:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        #        url: jdbc:log4jdbc:mysql://mydb.cyqagiaocgni.ap-northeast-2.rds.amazonaws.com:33066/mydb
+        jdbc-url: jdbc:log4jdbc:mysql://mydb.cyqagiaocgni.ap-northeast-2.rds.amazonaws.com:33066/mydb
+        username: wowmin
+        password: '!Dmssk6480'
 
-mybatis:
-  mapper-locations: classpath:/mybatis/mapper/infra/*.xml
+#mybatis:
+#  mapper-locations: classpath:/mybatis/mapper/infra/*.xml
+
+#single database config
+#spring:
+#  datasource:
+##    driver-class-name: com.mysql.cj.jdbc.Driver     # for query log by Tony 12.29
+#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+##    url: jdbc:mysql://mydb.cyqagiaocgni.ap-northeast-2.rds.amazonaws.com:33066/mydb     # for query log by Tony 12.29
+#    url: jdbc:log4jdbc:mysql://mydb.cyqagiaocgni.ap-northeast-2.rds.amazonaws.com:33066/mydb
+#    username: wowmin
+#    password: '!Dmssk6480'
+#
+#mybatis:
+#  mapper-locations: classpath:/mybatis/mapper/infra/*.xml

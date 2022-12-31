@@ -1,8 +1,10 @@
 package com.example.t5test.core.infra.codegroup;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -11,9 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CodeGroupService {
     private final CodeGroupMapper mapper;
-    public List<CodeGroupDto> selectList() {
-        return mapper.selectList();
-    }
+
+    @Qualifier("SqlSessionTemplateMysqlSub")
+    private final CodeGroup2Mapper mapper2;
+    public List<CodeGroupDto> selectList() { return mapper.selectList(); }
 //    public int insert(CodeGroup dto) {
 //        return codeGroupDao.insert(dto);
 //    }
