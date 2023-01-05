@@ -1,5 +1,6 @@
 package com.example.t5test.core.infra.codegroup;
 
+import com.example.t5test.core.common.base.BaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,20 +10,13 @@ import java.util.List;
 //@RequiredArgsConstructor
 @Service
 @RequiredArgsConstructor
-public class CodeGroupService {
-    private final CodeGroupDao mapper;
-
-    public List<CodeGroupDto> selectList(CodeGroupVo vo) {
-        return mapper.selectList(vo);
-    }
-    public int insert(CodeGroupDto dto) {
-        return mapper.insert(dto);
-    }
-    public int update(CodeGroupDto dto) {
-        return mapper.update(dto);
-    }
-    public CodeGroupDto selectOne(CodeGroupVo vo) { return mapper.selectOne(vo); }
-    public int delete(CodeGroupVo vo) { return mapper.delete(vo); }
-    public int selectOneCount(CodeGroupVo vo) { return mapper.selectOneCount(vo); }
-    public int uelete(CodeGroupDto dto) { return mapper.uelete(dto); }
+public class CodeGroupService extends BaseService {
+    private final CodeGroupDao dao;
+    public int selectOneCount(CodeGroupVo vo) { return dao.selectOneCount(vo); }
+    public List<CodeGroupDto> selectList(CodeGroupVo vo) { return dao.selectList(vo); }
+    public CodeGroupDto selectOne(CodeGroupVo vo) { return dao.selectOne(vo); }
+    public int insert(CodeGroupDto dto) { return dao.insert(dto); }
+    public int update(CodeGroupDto dto) { return dao.update(dto); }
+    public int uelete(CodeGroupDto dto) { return dao.uelete(dto); }
+    public int delete(CodeGroupVo vo) { return dao.delete(vo); }
 }

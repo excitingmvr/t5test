@@ -9,12 +9,13 @@ import java.util.List;
 @Repository
 public interface CodeGroupDao {
 
+    int selectOneCount(CodeGroupVo vo);
     List<CodeGroupDto> selectList(CodeGroupVo vo);
+    CodeGroupDto selectOne(CodeGroupVo vo);
     int insert(CodeGroupDto dto);
     int update(CodeGroupDto dto);
-    CodeGroupDto selectOne(CodeGroupVo vo);
-    int delete(CodeGroupVo vo);
-    int selectOneCount(CodeGroupVo vo);
     int uelete(CodeGroupDto dto);
+    int delete(CodeGroupVo vo);
+
 
 }
