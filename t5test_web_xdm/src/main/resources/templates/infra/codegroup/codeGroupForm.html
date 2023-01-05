@@ -18,8 +18,8 @@
         <div th:replace="/infra/codegroup/codeGroupVo"></div>
         <div class="wrapper">
             <div id="loader"></div>
-            <div th:replace="/zxincludev1/header :: header"></div>
-            <div th:replace="/zxincludev1/sidemenu :: aside"></div>
+            <div th:replace="infra/zxincludev1/header :: header"></div>
+            <div th:replace="infra/zxincludev1/sidemenu :: aside"></div>
             <div class="content-wrapper">
                 <div class="container-full">
                     <div class="content-header">
@@ -112,7 +112,7 @@
                 </div>
             </div>
         </div>
-        <div th:replace="/zxincludev1/baseModal :: div"></div>
+        <div th:replace="infra/zxincludev1/baseModal :: div"></div>
     </form>
     <form name="formVo" method="post">
         <div th:replace="/infra/codegroup/codeGroupVo"></div>
@@ -124,11 +124,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script src="/js/validation.js"></script>
     <script type="text/javascript">
-        let goUrlInst = "/codegroup/insert";
-        let goUrlUpdt = "/codegroup/update";
-        let goUrlDele = "/codegroup/delete";
-        let goUrlList = "/codegroup/list"
-        let goUrlUele = "/codegroup/uelete"
+        let goUrlInst = "/infra/codegroup/insert";
+        let goUrlUpdt = "/infra/codegroup/update";
+        let goUrlDele = "/infra/codegroup/delete";
+        let goUrlList = "/infra/codegroup/list"
+        let goUrlUele = "/infra/codegroup/uelete"
 
         let seq = $("input:text[name=codeGroupSeq]");
         let form = $("form[name=form]");

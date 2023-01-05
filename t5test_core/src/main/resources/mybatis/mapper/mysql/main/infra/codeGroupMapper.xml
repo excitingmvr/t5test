@@ -27,7 +27,7 @@
         <include refid="selectCommon" />
     </select>
 
-    <select id="selectOne" resultMap="com.example.t5test.core.infra.codegroup.CodeGroupDto">
+    <select id="selectOne" resultType="com.example.t5test.core.infra.codegroup.CodeGroupDto">
         SELECT codeGroupSeq,
         <include refid="base.deptColumns"/>
         codeGroupRegdate,
