@@ -23,6 +23,15 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/t5test_web_usr" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/t5test_web_usr" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/t5test_web_xdm" />
         <option name="modules">
           <set>

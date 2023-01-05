@@ -14,7 +14,7 @@ public class CodeGroupController {
     private final CodeGroupService service;
 
     @RequestMapping(value = "codeGroupList")
-    public String codeGrouplist(Model model) throws Exception{
+    public String codeGroupList(Model model) throws Exception{
             model.addAttribute("list", service.selectList());
         return "infra/codegroup/codeGroupList";
     }
