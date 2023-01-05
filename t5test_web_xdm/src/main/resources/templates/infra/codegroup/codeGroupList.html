@@ -1,29 +1,196 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>StyleBot</title>
+    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/vendors_css.css">
+    <!-- Style-->
+    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/skin_color.css">
 </head>
-<body>
-codegrouplist
-<form>
-<table>
-<tbody>
-<tr th:each="member : ${list}">
-    <td>
-        <div class="checkbox">
-            <input type="checkbox"  th:id="checkboxSeq" name="checkboxSeq" th:value="${member.codeGroupSeq}">
-            <label th:for="checkboxSeq"></label>
+
+<body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
+
+<div class="wrapper">
+    <div id="loader"></div>
+
+    <div th:replace="/zxincludev1/header :: header"></div>
+    <div th:replace="/zxincludev1/sidemenu :: aside"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <div class="container-full">
+            <!-- Main content -->
+            <section class="content">
+                <form name="form" id="form" method="post">
+                    <input type="hidden" name="codeGroupSeq">
+                    <h2>CodeGroup</h2>
+                    <div class="box">
+                        <div class="box-body">
+                            <div id="searchWrap" style="display: none">
+                                <div class="row row-cols-2 row-cols-sm-6 g-2 px-2 mb-4">
+                                    <div class="col">
+                                        <select class="form-select" name="shDelNy" id="shDelNy">
+                                            <option th:selected="${vo.shDelNy == null}" value="">삭제여부</option>
+                                            <option th:selected="${vo.shDelNy == 1}" value="1">Y</option>
+                                            <option th:selected="${vo.shDelNy == 0}" value="0">N</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" name="shUseNy" id="shUseNy">
+                                            <option th:selected="${vo.shUseNy == null}" value="">사용여부</option>
+                                            <option th:selected="${vo.shUseNy == 1}" value="1">Y</option>
+                                            <option th:selected="${vo.shUseNy == 0}" value="0">N</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" name="shOptionDate" id="shOptionDate">
+                                            <option th:selected="${vo.shOptionDate == null}" value="">날짜</option>
+                                            <option th:selected="${vo.shOptionDate == 1}" value="1">생성일</option>
+                                            <option th:selected="${vo.shOptionDate == 2}" value="2">수정일</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <input type="date" class="form-control" name="shDateStart" placeholder="시작일">
+                                    </div>
+                                    <div class="col">
+                                        <input type="date" class="form-control" name="shDateEnd" placeholder="종료일">
+                                    </div>
+                                </div>
+                                <div class="row row-cols-2 row-cols-sm-6 g-2 px-2">
+                                    <div class="col">
+                                        <select class="form-select" id="shOption" name="shOption">
+                                            <option th:selected="${vo.shOption == null}" value="">검색구분</option>
+                                            <option th:selected="${vo.shOption == 1}" value="1">코드그룹 코드</option>
+                                            <option th:selected="${vo.shOption == 2}" value="2">코드그룹 이름</option>
+                                            <option th:selected="${vo.shOption == 3}" value="3">코드그룹 영어 이름</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" th:value="${vo.shValue}" id="shValue" name="shValue" placeholder="검색어">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <div class="p-2">
+                                    <span style="cursor:pointer; margin-left: 10px;" onclick="showHide('searchWrap');">
+                                        <a id="showBtn" onclick='change()'><i class="fa fa-chevron-down" style="color: #FFFFFF"></i></a>
+                                    </span>
+                                </div>
+                                <div class="p-2">
+                                    <button class="btn btn-secondary btn-sm" id="btnReset"><i class="fa fa-rotate-left"></i></button>
+                                    <button class="btn btn-secondary btn-sm" id="btnSearch"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="lita"></div>
+                </form>
+            </section>
         </div>
-    </td>
-    <td th:text="${member.codeGroupSeq}"></td>
-    <td th:text="${member.codeGroupName}"></td>
-    <td th:text="${member.codeGroupNameEng}"></td>
-    <td th:text="${member.codeGroupUseNY}"></td>
-    <td th:text="${member.codeGroupDelNY}"></td>
-</tr>
-</tbody>
-</table>
-</form>
+    </div>
+    <div th:replace="/zxincludev1/baseModal :: div"></div>
+</div>
+<!-- Page Content overlay -->
+
+<script type="text/javascript" src="/uitemplate/eduadmin/js/vendors.min.js"></script>
+<script type="text/javascript" src="/uitemplate/eduadmin/assets/icons/feather-icons/feather.min.js"></script>
+<script type="text/javascript" src="/uitemplate/eduadmin/assets/vendor_components/moment/min/moment.min.js"></script>
+
+<script type="text/javascript" src="/uitemplate/eduadmin/js/template.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+    let goUrlList = "/codegroup/list";
+    let goUrlLita = "/codegroup/lita";
+    let goUrlForm = "/codegroup/form";
+    let form = $("form[name=form]");
+    let seq = $("[name=codeGroupSeq]");
+
+    $(document).ready(function () {
+        setLita();
+    });
+
+    function showHide(id){
+        let objId = document.getElementById(id);
+        if(objId.style.display == "block"){
+            objId.style.display = "none";
+        } else {
+            objId.style.display = "block";
+        }
+    }
+    $("#btnSearch").on("click", function(){
+        form.attr("action", goUrlList).submit();
+    });
+
+    function change() {
+        const subs = document.getElementById("showBtn")
+        if(subs.innerHTML == '<i class="fa fa-chevron-up" style="color: #FFFFFF"></i>') {
+            subs.innerHTML = '<i class="fa fa-chevron-down" style="color: #FFFFFF"></i>';
+        } else subs.innerHTML ='<i class="fa fa-chevron-up" style="color: #FFFFFF"></i>';
+    }
+    let page = 0;
+    // function setLita() {
+    //     $.ajax({
+    //         async: true
+    //         ,cache: false
+    //         ,type: "post"
+    //         ,url: goUrlLita
+    //         ,data : $("#form").serialize()
+    //         ,success: function(response) {
+    //             $("#lita").empty();
+    //             $("#lita").append(response);
+    //             window.location.hash = '#page' + page;
+    //             page = page + 1;
+    //
+    //         }
+    //         ,error : function(jqXHR, textStatus, errorThrown){
+    //             alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+    //         }
+    //     });
+    // }
+    // $(window).on('hashchange', function() {
+    //
+    //     $.ajax({
+    //         async: true
+    //         ,cache: false
+    //         ,type: "post"
+    //         ,url: goUrlLita
+    //         ,data : $("#form").serialize()
+    //         ,success: function(response) {
+    //             let num = parseInt(location.hash.slice(5));
+    //             $("#lita").empty();
+    //             $("#lita").append(response);
+    //             window.location.href = '#page' + num;
+    //         }
+    //         ,error : function(jqXHR, textStatus, errorThrown){
+    //             alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+    //         }
+    //     });
+    // });
+    function setLita(){
+        // ajax option
+        let ajaxOption = {
+            url : goUrlLita,
+            async : true,
+            type : "POST",
+            dataType : "html",
+            cache : false,
+            data : $("#form").serialize()
+        };
+        $.ajax(ajaxOption).done(function(data){
+            history.pushState(null, null, window.location);
+            $('#lita').children().remove();
+            $('#lita').html(data);
+        });
+    }
+
+    $(window).on('popstate', function(event) {
+        window.location = document.location.href;
+    });
+</script>
 </body>
 </html>

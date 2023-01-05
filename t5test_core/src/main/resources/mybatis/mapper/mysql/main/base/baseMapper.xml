@@ -8,4 +8,13 @@
         codeGroupUseNY,
         codeGroupDelNY,
     </sql>
+
+    <sql id="selectListUpperForMysql">
+        select aa.* from (
+    </sql>
+
+    <sql id="selectListLowerForMysql">
+        ) aa
+		limit #{rowNumToShow} offset #{startRnumForMysql}
+    </sql>
 </mapper>

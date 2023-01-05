@@ -1,10 +1,14 @@
 package com.example.t5test.web.xdm.infra.codegroup;
 
+import com.example.t5test.core.infra.codegroup.CodeGroupDto;
 import com.example.t5test.core.infra.codegroup.CodeGroupService;
+import com.example.t5test.core.infra.codegroup.CodeGroupVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -13,10 +17,54 @@ public class CodeGroupController {
 
     private final CodeGroupService service;
 
-    @RequestMapping(value = "codeGroupList")
-    public String codeGroupList(Model model) throws Exception{
-            model.addAttribute("list", service.selectList());
+    @RequestMapping(value = "/list")
+    public String CodeGroupList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
+            model.addAttribute("list", service.selectList(vo));
         return "infra/codegroup/codeGroupList";
     }
-
+    @RequestMapping(value= "/insert")
+    public String CodeGroupInst(@ModelAttribute("vo") CodeGroupVo vo, CodeGroupDto dto, RedirectAttributes redirectAttributes) throws  Exception {
+        service.insert(dto);
+        vo.setCodeGroupSeq(dto.getCodeGroupSeq());
+        redirectAttributes.addFlashAttribute("vo", vo);
+        return "redirect:/codegroup/form";
+    }
+    @RequestMapping(value= "/update")
+    public String CodeGroupUpdt(@ModelAttribute("vo") CodeGroupVo vo, CodeGroupDto dto, RedirectAttributes redirectAttributes) throws Exception {
+        service.update(dto);
+        vo.setCodeGroupSeq(dto.getCodeGroupSeq());
+        redirectAttributes.addFlashAttribute("vo", vo);
+        return "redirect:/codegroup/form";
+    }
+    @RequestMapping(value= "/uelete")
+    public String CodeGroupUele(CodeGroupDto dto) throws  Exception {
+        service.uelete(dto);
+        return "redirect:/codegroup/list";
+    }
+    @RequestMapping(value= "/delete")
+    public String CodeGroupDele(CodeGroupVo vo) throws  Exception {
+        service.delete(vo);
+        return "redirect:/codegroup/list";
+    }
+    @RequestMapping(value= "/form")
+    public String CodeGroupForm(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws  Exception {
+        model.addAttribute("item", service.selectOne(vo));
+        return "infra/codegroup/codeGroupForm";
+    }
+    @RequestMapping(value = "codeGroupMultiDele")
+    public String codeGroupMultiDele(CodeGroupVo vo) throws Exception {
+        for (String checkboxSeq : vo.getCheckboxSeqArray()) {
+            vo.setCodeGroupSeq(checkboxSeq);
+            service.delete(vo);
+        }
+        return "redirect:/codegroup/list";
+    }
+    @RequestMapping(value = "codeGroupMultiUele")
+    public String codeGroupMultiUele(CodeGroupDto dto, CodeGroupVo vo) throws Exception {
+        for (String checkboxSeq : vo.getCheckboxSeqArray()) {
+            dto.setCodeGroupSeq(checkboxSeq);
+            service.uelete(dto);
+        }
+        return "redirect:/codegroup/list";
+    }
 }

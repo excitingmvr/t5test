@@ -12,15 +12,17 @@ import java.util.List;
 public class CodeGroupService {
     private final CodeGroupDao mapper;
 
-    public List<CodeGroupDto> selectList() { return mapper.selectList(); }
-
-//    public int insert(CodeGroup dto) {
-//        return codeGroupDao.insert(dto);
-//    }
-//    public int update(CodeGroup dto) {
-//        return codeGroupDao.update(dto);
-//    }
-//    public CodeGroup selectOne(CodeGroupVo vo) {
-//        return codeGroupDao.selectOne(vo);
-//    }
+    public List<CodeGroupDto> selectList(CodeGroupVo vo) {
+        return mapper.selectList(vo);
+    }
+    public int insert(CodeGroupDto dto) {
+        return mapper.insert(dto);
+    }
+    public int update(CodeGroupDto dto) {
+        return mapper.update(dto);
+    }
+    public CodeGroupDto selectOne(CodeGroupVo vo) { return mapper.selectOne(vo); }
+    public int delete(CodeGroupVo vo) { return mapper.delete(vo); }
+    public int selectOneCount(CodeGroupVo vo) { return mapper.selectOneCount(vo); }
+    public int uelete(CodeGroupDto dto) { return mapper.uelete(dto); }
 }

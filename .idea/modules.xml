@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.t5test_core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.t5test_core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.t5test_web_xdm.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.t5test_web_xdm.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/t5test_core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/t5test_core.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/t5test_web_xdm.main.iml" filepath="$PROJECT_DIR$/.idea/modules/t5test_web_xdm.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/38919682/t5test_web_xdm.t5test_core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/38919682/t5test_web_xdm.t5test_core.main.iml" />
