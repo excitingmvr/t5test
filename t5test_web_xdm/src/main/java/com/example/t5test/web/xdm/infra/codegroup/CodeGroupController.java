@@ -18,9 +18,14 @@ public class CodeGroupController {
     private final CodeGroupService service;
 
     @RequestMapping(value = "/list")
-    public String CodeGroupList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
+    public String codeGroupList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
             model.addAttribute("list", service.selectList(vo));
         return "infra/codegroup/codeGroupList";
+    }
+    @RequestMapping(value= "/form")
+    public String CodeGroupForm(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws  Exception {
+        model.addAttribute("item", service.selectOne(vo));
+        return "infra/codegroup/codeGroupForm";
     }
     @RequestMapping(value= "/insert")
     public String CodeGroupInst(@ModelAttribute("vo") CodeGroupVo vo, CodeGroupDto dto, RedirectAttributes redirectAttributes) throws  Exception {
@@ -41,15 +46,18 @@ public class CodeGroupController {
         service.uelete(dto);
         return "redirect:/infra/codegroup/list";
     }
+    @RequestMapping(value = "codeGroupMultiUele")
+    public String codeGroupMultiUele(CodeGroupDto dto, CodeGroupVo vo) throws Exception {
+        for (String checkboxSeq : vo.getCheckboxSeqArray()) {
+            dto.setCodeGroupSeq(checkboxSeq);
+            service.uelete(dto);
+        }
+        return "redirect:/infra/codegroup/list";
+    }
     @RequestMapping(value= "/delete")
     public String CodeGroupDele(CodeGroupVo vo) throws  Exception {
         service.delete(vo);
         return "redirect:/infra/codegroup/list";
-    }
-    @RequestMapping(value= "/form")
-    public String CodeGroupForm(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws  Exception {
-        model.addAttribute("item", service.selectOne(vo));
-        return "infra/codegroup/codeGroupForm";
     }
     @RequestMapping(value = "codeGroupMultiDele")
     public String codeGroupMultiDele(CodeGroupVo vo) throws Exception {
@@ -59,12 +67,5 @@ public class CodeGroupController {
         }
         return "redirect:/infra/codegroup/list";
     }
-    @RequestMapping(value = "codeGroupMultiUele")
-    public String codeGroupMultiUele(CodeGroupDto dto, CodeGroupVo vo) throws Exception {
-        for (String checkboxSeq : vo.getCheckboxSeqArray()) {
-            dto.setCodeGroupSeq(checkboxSeq);
-            service.uelete(dto);
-        }
-        return "redirect:/infra/codegroup/list";
-    }
+
 }
