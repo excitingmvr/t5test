@@ -2,93 +2,139 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.t5test.core.infra.codegroup.CodeGroupDao">
-<!--    <sql id="deptColumns">-->
-<!--        codeGroupName,-->
-<!--        codeGroupNameEng,-->
-<!--        codeGroupUseNY,-->
-<!--        codeGroupDelNY,-->
-<!--    </sql>-->
 
     <select id="selectList" resultType="com.example.t5test.core.infra.codegroup.CodeGroupDto">
         <include refid="base.selectListUpperForMysql" />
         SELECT
-            codeGroupSeq,
-            <include refid="base.deptColumns"/>
-            codeGroupRegdate,
-            codeGroupUpdate
-            <include refid="selectCommon"/>
-        ORDER BY
-                codeGroupSeq DESC
-            <include refid="base.selectListLowerForMysql" />
+            a.ifcgSeq
+            ,a.ifcgName
+            ,a.ifcgNameEng
+            ,(select count(aa.ifcdSeq) from infrCode aa where 1=1 and aa.ifcdDelNy = 0 and aa.ifcgSeq = a.ifcgSeq) as xifcdSeqCount
+            ,a.ifcgUseNy
+            ,a.ifcgOrder
+            ,a.regDateTime
+            ,a.modDateTime
+        <include refid="selectCommon" />
+        ORDER BY a.ifcgSeq DESC
+        <include refid="base.selectListLowerForMysql" />
     </select>
 
     <select id="selectOneCount" resultType="Integer">
         SELECT COUNT(*)
-        <include refid="selectCommon" />
+        <include refid="selectCommon"/>
     </select>
 
     <select id="selectOne" resultType="com.example.t5test.core.infra.codegroup.CodeGroupDto">
-        SELECT codeGroupSeq,
-        <include refid="base.deptColumns"/>
-        codeGroupRegdate,
-        codeGroupUpdate
-        FROM CodeGroup
+        SELECT
+            a.ifcgSeq
+            ,a.ifcgSeqAnother
+            ,a.ifcgName
+            ,a.ifcgNameEng
+            ,a.ifcgUseNy
+            ,a.ifcgOrder
+            ,a.ifcgReferenceV1
+            ,a.ifcgReferenceV2
+            ,a.ifcgReferenceV3
+            ,a.ifcgReferenceV4
+            ,a.ifcgReferenceI1
+            ,a.ifcgReferenceI2
+            ,a.ifcgReferenceI3
+            ,a.ifcgReferenceI4
+            ,a.ifcgDesc
+            ,a.ifcgDelNy
+        FROM infrCodeGroup a
         WHERE 1=1
-        AND codeGroupSeq = #{codeGroupSeq}
+        AND a.ifcgSeq = #{ifcgSeq}
     </select>
+
     <insert id="insert" parameterType="com.example.t5test.core.infra.codegroup.CodeGroupDto">
-        INSERT INTO CodeGroup(
-        <include refid="base.deptColumns"/>
-        codeGroupRegdate
+        INSERT INTO infrCodeGroup (
+            ifcgSeqAnother
+            ,ifcgName
+            ,ifcgNameEng
+            ,ifcgUseNy
+            ,ifcgOrder
+            ,ifcgReferenceV1
+            ,ifcgReferenceV2
+            ,ifcgReferenceV3
+            ,ifcgReferenceV4
+            ,ifcgReferenceI1
+            ,ifcgReferenceI2
+            ,ifcgReferenceI3
+            ,ifcgReferenceI4
+            ,ifcgDesc
+            ,ifcgDelNy
         ) VALUES (
-        #{codeGroupName},
-        #{codeGroupNameEng},
-        #{codeGroupUseNY},
-        #{codeGroupDelNY},
-        now()
-        )
-        <selectKey resultType="String" keyProperty="codeGroupSeq" order="AFTER">
-            select last_insert_id()
+            #{ifcgSeqAnother}
+            ,#{ifcgName}
+            ,#{ifcgNameEng}
+            ,#{ifcgUseNy}
+            ,#{ifcgOrder}
+            ,#{ifcgReferenceV1}
+            ,#{ifcgReferenceV2}
+            ,#{ifcgReferenceV3}
+            ,#{ifcgReferenceV4}
+            ,#{ifcgReferenceI1}
+            ,#{ifcgReferenceI2}
+            ,#{ifcgReferenceI3}
+            ,#{ifcgReferenceI4}
+            ,#{ifcgDesc}
+            ,0
+            )
+        <selectKey resultType="String" keyProperty="ifcgSeq" order="AFTER">
+            SELECT last_insert_id()
         </selectKey>
     </insert>
+
     <update id="update" parameterType="com.example.t5test.core.infra.codegroup.CodeGroupDto">
-        update CodeGroup
+        UPDATE infrCodeGroup
         SET
-            codeGroupName = #{codeGroupName}
-          ,codeGroupNameEng = #{codeGroupNameEng}
-          ,codeGroupUseNY = #{codeGroupUseNY}
-          ,codeGroupDelNY = #{codeGroupDelNY}
-          ,codeGroupUpdate = now()
-        WHERE
-            codeGroupSeq = #{codeGroupSeq}
+            ifcgSeqAnother = #{ifcgSeqAnother}
+            ,ifcgName = #{ifcgName}
+            ,ifcgNameEng = #{ifcgNameEng}
+            ,ifcgUseNy = #{ifcgUseNy}
+            ,ifcgOrder = #{ifcgOrder}
+            ,ifcgReferenceV1 = #{ifcgReferenceV1}
+            ,ifcgReferenceV2 = #{ifcgReferenceV2}
+            ,ifcgReferenceV3 = #{ifcgReferenceV3}
+            ,ifcgReferenceV4 = #{ifcgReferenceV4}
+            ,ifcgReferenceI1 = #{ifcgReferenceI1}
+            ,ifcgReferenceI2 = #{ifcgReferenceI2}
+            ,ifcgReferenceI3 = #{ifcgReferenceI3}
+            ,ifcgReferenceI4 = #{ifcgReferenceI4}
+            ,ifcgDesc = #{ifcgDesc}
+        WHERE 1=1
+            AND ifcgSeq = #{ifcgSeq}
     </update>
+
     <update id="uelete" parameterType="com.example.t5test.core.infra.codegroup.CodeGroupDto">
-        update CodeGroup
+        UPDATE infrCodeGroup
         SET
-            codeGroupDelNY = 1
-        WHERE
-            codeGroupSeq = #{codeGroupSeq}
+            ifcgDelNy = 1
+        WHERE 1=1
+            AND ifcgSeq = #{ifcgSeq}
     </update>
+
     <delete id="delete">
-        delete from CodeGroup
-        where 1=1
-          and codeGroupSeq = #{codeGroupSeq}
+        DELETE FROM infrCodeGroup
+        WHERE 1=1
+          AND ifcgSeq = #{ifcgSeq}
     </delete>
 
     <sql id="selectCommon">
-        FROM CodeGroup
+        FROM infrCodeGroup a
         WHERE 1=1
-        <if test="shUseNy != null and !shUseNy.equals('')">AND codeGroupUseNY = #{shUseNy}</if>
-        <if test="shDelNy != null and !shDelNy.equals('')">AND codeGroupDelNY = #{shDelNy}</if>
-        <choose>
-            <when test="shOptionDate == 1">AND codeGroupRegdate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-            <when test="shOptionDate == 2">AND codeGroupUpdate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-        </choose>
-        <choose>
-            <when test="shOption == 1">AND codeGroupSeq = #{shValue}</when>
-            <when test="shOption == 2">AND codeGroupName LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 3">AND codeGroupNameEng LIKE CONCAT('%',#{shValue},'%')</when>
-        </choose>
+            <if test="shUseNy != null and !shUseNy.equals('')">AND ifcgUseNy = #{shUseNy}</if>
+            <if test="shDelNy != null and !shDelNy.equals('')">AND ifcgDelNy = #{shDelNy}</if>
+            <choose>
+                <when test="shOptionDate == 1">AND codeGroupRegdate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+                <when test="shOptionDate == 2">AND codeGroupUpdate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+            </choose>
+            <choose>
+                <when test="shOption == 1">AND ifcgSeq = #{shValue}</when>
+                <when test="shOption == 2">AND ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
+                <when test="shOption == 3">AND ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when>
+            </choose>
     </sql>
 
 </mapper>

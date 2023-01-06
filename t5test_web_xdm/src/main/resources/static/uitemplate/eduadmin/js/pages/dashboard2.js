@@ -71,7 +71,7 @@ $(function () {
 			}
 		},	
         grid: {
-			borderColor: '#172b4c', 
+			borderColor: '#f7f7f7', 
           row: {
             colors: ['transparent'], // takes an array which will be repeated on columns
             opacity: 0
@@ -131,7 +131,7 @@ $(function () {
           chart: {
 		  foreColor:"#bac0c7",
           type: 'bar',
-          height: 347,
+          height: 365,
           stacked: true,
           toolbar: {
             show: false
@@ -152,7 +152,7 @@ $(function () {
         }],		
 		grid: {
 			show: true,
-			borderColor: '#172b4c',      
+			borderColor: '#f7f7f7',      
 		},
 		colors:['#6993ff', '#f64e60'],
         plotOptions: {
@@ -160,7 +160,7 @@ $(function () {
             horizontal: false,
             columnWidth: '20%',
 		    colors: {
-				backgroundBarColors: ['#172b4c'],
+				backgroundBarColors: ['#f0f0f0'],
 				backgroundBarOpacity: 1,
 			},
           },

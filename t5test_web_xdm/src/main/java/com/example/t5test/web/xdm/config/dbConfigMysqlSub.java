@@ -18,8 +18,8 @@ import javax.sql.DataSource;
 // @MapperScan(value="",...) value 안의 내용이 기존 것들과 달라야 함
 
 @Configuration
-@MapperScan(value="com.example.t5test.core.infra.code"                  //#-->
-        , sqlSessionFactoryRef="sqlSessionFactoryMysqlSub")             //#-->
+//@MapperScan(value="com.example.t5test.core.infra.codegroup"
+//        , sqlSessionFactoryRef="sqlSessionFactoryMysqlSub")
 @EnableTransactionManagement
 public class dbConfigMysqlSub {                                         //#-->
 

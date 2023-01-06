@@ -16,6 +16,4 @@ public interface CodeGroupDao {
     int update(CodeGroupDto dto);
     int uelete(CodeGroupDto dto);
     int delete(CodeGroupVo vo);
-
-
 }

@@ -1,5 +1,6 @@
 package com.example.t5test.core.infra.code;
 
+import com.example.t5test.core.infra.codegroup.CodeGroupDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,7 @@ public interface CodeDao {
     int update(CodeDto dto);
     int uelete(CodeDto dto);
     int delete(CodeVo vo);
+    List<CodeDto> selectListWithoutPaging();
 
 
 }

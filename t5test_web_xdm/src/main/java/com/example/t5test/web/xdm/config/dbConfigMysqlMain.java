@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages="com.example.t5test.core.infra.codegroup"      //#-->
+@MapperScan(basePackages="com.example.t5test.core.infra.*"     //#-->
         ,sqlSessionFactoryRef="sqlSessionFactoryMysqlMain")             //#-->
 @EnableTransactionManagement
 public class dbConfigMysqlMain {                                        //#-->

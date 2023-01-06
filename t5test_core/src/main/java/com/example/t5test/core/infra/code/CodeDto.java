@@ -29,7 +29,6 @@ public class CodeDto {
     private String ifcdDesc;
     private Integer ifcdDelNy;
     private String ifcgSeq;
-
     private String ifcgName;
 
 }

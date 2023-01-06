@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class CodeGroupVo extends BaseVo {
-    private String codeGroupSeq;
+    private String ifcgSeq;
 
 
 }

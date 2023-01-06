@@ -19,6 +19,7 @@ public class CodeGroupController {
 
     @RequestMapping(value = "/list")
     public String codeGroupList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
+            vo.setParamsPaging(service.selectOneCount(vo));
             model.addAttribute("list", service.selectList(vo));
         return "infra/codegroup/codeGroupList";
     }
@@ -30,14 +31,14 @@ public class CodeGroupController {
     @RequestMapping(value= "/insert")
     public String CodeGroupInst(@ModelAttribute("vo") CodeGroupVo vo, CodeGroupDto dto, RedirectAttributes redirectAttributes) throws  Exception {
         service.insert(dto);
-        vo.setCodeGroupSeq(dto.getCodeGroupSeq());
+        vo.setIfcgSeq(dto.getIfcgSeq());
         redirectAttributes.addFlashAttribute("vo", vo);
         return "redirect:/infra/codegroup/form";
     }
     @RequestMapping(value= "/update")
     public String CodeGroupUpdt(@ModelAttribute("vo") CodeGroupVo vo, CodeGroupDto dto, RedirectAttributes redirectAttributes) throws Exception {
         service.update(dto);
-        vo.setCodeGroupSeq(dto.getCodeGroupSeq());
+        vo.setIfcgSeq(dto.getIfcgSeq());
         redirectAttributes.addFlashAttribute("vo", vo);
         return "redirect:/infra/codegroup/form";
     }
@@ -49,7 +50,7 @@ public class CodeGroupController {
     @RequestMapping(value = "codeGroupMultiUele")
     public String codeGroupMultiUele(CodeGroupDto dto, CodeGroupVo vo) throws Exception {
         for (String checkboxSeq : vo.getCheckboxSeqArray()) {
-            dto.setCodeGroupSeq(checkboxSeq);
+            dto.setIfcgSeq(checkboxSeq);
             service.uelete(dto);
         }
         return "redirect:/infra/codegroup/list";
@@ -62,7 +63,7 @@ public class CodeGroupController {
     @RequestMapping(value = "codeGroupMultiDele")
     public String codeGroupMultiDele(CodeGroupVo vo) throws Exception {
         for (String checkboxSeq : vo.getCheckboxSeqArray()) {
-            vo.setCodeGroupSeq(checkboxSeq);
+            vo.setIfcgSeq(checkboxSeq);
             service.delete(vo);
         }
         return "redirect:/infra/codegroup/list";

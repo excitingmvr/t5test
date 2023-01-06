@@ -377,7 +377,7 @@ throw new Error('template requires jQuery')
   var DataKey = 'Masteradmin.tree'
 
   var Default = {
-    animationSpeed: 0,
+    animationSpeed: 500,
     accordion     : true,
     followLink    : false,
     trigger       : '.treeview a'
@@ -653,7 +653,7 @@ throw new Error('template requires jQuery')
   var DataKey = 'Masteradmin.boxwidget'
 
   var Default = {
-    animationSpeed : 0,
+    animationSpeed : 500,
     collapseTrigger: '[data-widget="collapse"]',
     removeTrigger  : '[data-widget="remove"]',
     collapseIcon   : 'fa-minus',

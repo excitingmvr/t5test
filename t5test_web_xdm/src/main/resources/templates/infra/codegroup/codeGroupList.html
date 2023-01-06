@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/skin_color.css">
 </head>
 
-<body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
 
 <div class="wrapper">
     <div id="loader"></div>
@@ -33,7 +33,7 @@
                     <h2>CodeGroup</h2>
                     <div class="box">
                         <div class="box-body">
-                            <div id="searchWrap" style="display: none">
+                            <div id="searchWrap" style="display: block">
                                 <div class="row row-cols-2 row-cols-sm-6 g-2 px-2 mb-4">
                                     <div class="col">
                                         <select class="form-select" name="shDelNy" id="shDelNy">
@@ -80,7 +80,7 @@
                             <div class="d-flex justify-content-end">
                                 <div class="p-2">
                                     <span style="cursor:pointer; margin-left: 10px;" onclick="showHide('searchWrap');">
-                                        <a id="showBtn" onclick='change()'><i class="fa fa-chevron-down" style="color: #FFFFFF"></i></a>
+                                        <a id="showBtn" onclick='change()'><i class="fa fa-chevron-up"></i></a>
                                     </span>
                                 </div>
                                 <div class="p-2">
@@ -94,7 +94,7 @@
                         <div class="box-body">
                             <div class="table-responsive-sm">
                                 <table class="table">
-                                    <thead>
+                                    <thead style="width:100%">
                                     <tr>
                                         <td>
                                             <div class="checkbox">
@@ -102,30 +102,35 @@
                                                 <label for="CheckBoxAll"></label>
                                             </div>
                                         </td>
-                                        <td>seq</td>
-                                        <td>코드그룹이름</td>
-                                        <td>코드그룹 영어이름</td>
-                                        <td>코드그룹 사용여부</td>
-                                        <td>코드그룹 삭제여부</td>
-                                        <td>코드그룹 생성날짜</td>
-                                        <td>코드그룹 수정날짜</td>
+                                        <td>#</td>
+                                        <td>코드그룹 코드</td>
+                                        <td>코드그룹 이름</td>
+                                        <td>코드그룹 이름 (영문)</td>
+                                        <td>코드 갯수</td>
+                                        <td>사용</td>
+                                        <td>순서</td>
+                                        <td>등록일</td>
+                                        <td>수정일</td>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr th:each="member : ${list}">
+                                    <tbody style="width:100%">
+                                    <tr th:each="cgNum : ${list}">
                                         <td>
                                             <div class="checkbox">
-                                                <input type="checkbox"  th:id="'checkboxSeq_' + ${member.codeGroupSeq}" name="checkboxSeq" th:value="${member.codeGroupSeq}">
-                                                <label th:for="'checkboxSeq_' + ${member.codeGroupSeq}"></label>
+                                                <input type="checkbox"  th:id="'checkboxSeq_' + ${cgNum.ifcgSeq}" name="checkboxSeq" th:value="${cgNum.ifcgSeq}">
+                                                <label th:for="'checkboxSeq_' + ${cgNum.ifcgSeq}"></label>
                                             </div>
                                         </td>
-                                        <td th:text="${member.codeGroupSeq}"></td>
-                                        <td th:text="${member.codeGroupName}" th:attr="onclick=|goForm('${member.codeGroupSeq}')|" style="cursor: pointer;"></td>
-                                        <td th:text="${member.codeGroupNameEng}"></td>
-                                        <td th:text="${member.codeGroupUseNY}"></td>
-                                        <td th:text="${member.codeGroupDelNY}"></td>
-                                        <td th:text="${member.codeGroupRegdate}"></td>
-                                        <td th:text="${member.codeGroupUpdate}"></td>
+                                        <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + cgNumStat.index)}"></td>
+                                        <td th:text="${cgNum.ifcgSeq}"></td>
+                                        <td th:text="${cgNum.ifcgName}" th:attr="onclick=|goForm('${cgNum.ifcgSeq}')|" style="cursor: pointer;"></td>
+                                        <td th:text="${cgNum.ifcgNameEng}"></td>
+                                        <td>갯수</td>
+                                        <td th:if="${cgNum.ifcgUseNy eq 0}">N</td>
+                                        <td th:unless="${cgNum.ifcgUseNy eq 0}">Y</td>
+                                        <td th:text="${cgNum.ifcgOrder}"></td>
+                                        <td>dddd</td>
+                                        <td>dddd</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -170,16 +175,12 @@
     let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";
     let checkboxSeqArray = [];
 
-    $(document).ready(function () {
-        setLita();
-    });
-
     function showHide(id){
         let objId = document.getElementById(id);
-        if(objId.style.display == "block"){
-            objId.style.display = "none";
-        } else {
+        if(objId.style.display == "none"){
             objId.style.display = "block";
+        } else {
+            objId.style.display = "none";
         }
     }
     $("#btnSearch").on("click", function(){
@@ -188,13 +189,13 @@
 
     function change() {
         const subs = document.getElementById("showBtn")
-        if(subs.innerHTML == '<i class="fa fa-chevron-up" style="color: #FFFFFF"></i>') {
-            subs.innerHTML = '<i class="fa fa-chevron-down" style="color: #FFFFFF"></i>';
-        } else subs.innerHTML ='<i class="fa fa-chevron-up" style="color: #FFFFFF"></i>';
+        if(subs.innerHTML == '<i class="fa fa-chevron-down"></i>') {
+            subs.innerHTML = '<i class="fa fa-chevron-up"></i>';
+        } else subs.innerHTML ='<i class="fa fa-chevron-down"></i>';
     }
     goList = function(thisPage) {
         $("input:hidden[name=thisPage]").val(thisPage);
-        setLita();
+        form.attr("action", goUrlList).submit();
     }
 
     goForm = function(keyValue) {
@@ -265,65 +266,7 @@
         $("#modalConfirm").modal("hide");
         form.attr("action", goUrlMultiDele).submit();
     });
-    let page = 0;
-    // function setLita() {
-    //     $.ajax({
-    //         async: true
-    //         ,cache: false
-    //         ,type: "post"
-    //         ,url: goUrlLita
-    //         ,data : $("#form").serialize()
-    //         ,success: function(response) {
-    //             $("#lita").empty();
-    //             $("#lita").append(response);
-    //             window.location.hash = '#page' + page;
-    //             page = page + 1;
-    //
-    //         }
-    //         ,error : function(jqXHR, textStatus, errorThrown){
-    //             alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
-    //         }
-    //     });
-    // }
-    // $(window).on('hashchange', function() {
-    //
-    //     $.ajax({
-    //         async: true
-    //         ,cache: false
-    //         ,type: "post"
-    //         ,url: goUrlLita
-    //         ,data : $("#form").serialize()
-    //         ,success: function(response) {
-    //             let num = parseInt(location.hash.slice(5));
-    //             $("#lita").empty();
-    //             $("#lita").append(response);
-    //             window.location.href = '#page' + num;
-    //         }
-    //         ,error : function(jqXHR, textStatus, errorThrown){
-    //             alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
-    //         }
-    //     });
-    // });
-    // function setLita(){
-    //     // ajax option
-    //     let ajaxOption = {
-    //         url : goUrlLita,
-    //         async : true,
-    //         type : "POST",
-    //         dataType : "html",
-    //         cache : false,
-    //         data : $("#form").serialize()
-    //     };
-    //     $.ajax(ajaxOption).done(function(data){
-    //         history.pushState(null, null, window.location);
-    //         $('#lita').children().remove();
-    //         $('#lita').html(data);
-    //     });
-    // }
-    //
-    // $(window).on('popstate', function(event) {
-    //     window.location = document.location.href;
-    // });
+
 </script>
 </body>
 </html>
