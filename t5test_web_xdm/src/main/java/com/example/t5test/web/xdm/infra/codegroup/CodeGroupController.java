@@ -17,13 +17,13 @@ public class CodeGroupController {
 
     private final CodeGroupService service;
 
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/codeGroupList")
     public String codeGroupList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
             vo.setParamsPaging(service.selectOneCount(vo));
             model.addAttribute("list", service.selectList(vo));
         return "infra/codegroup/codeGroupList";
     }
-    @RequestMapping(value= "/form")
+    @RequestMapping(value= "/codeGroupForm")
     public String CodeGroupForm(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws  Exception {
         model.addAttribute("item", service.selectOne(vo));
         return "infra/codegroup/codeGroupForm";

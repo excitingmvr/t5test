@@ -17,14 +17,14 @@ public class CodeController {
 
     private final CodeService service;
 
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/codeList")
     public String codeList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception{
             vo.setParamsPaging(service.selectOneCount(vo));
             model.addAttribute("list", service.selectList(vo));
 
         return "infra/code/codeList";
     }
-    @RequestMapping(value= "/form")
+    @RequestMapping(value= "/codeForm")
     public String codeForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
             model.addAttribute("item", service.selectOne(vo));
             model.addAttribute("cglist", service.selectListWithoutPaging());
