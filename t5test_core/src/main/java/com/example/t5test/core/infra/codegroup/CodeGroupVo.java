@@ -7,11 +7,5 @@ import lombok.Data;
 public class CodeGroupVo extends BaseVo {
     private String codeGroupSeq;
 
-    public String getCodeGroupSeq() {
-        return codeGroupSeq;
-    }
 
-    public void setCodeGroupSeq(String codeGroupSeq) {
-        this.codeGroupSeq = codeGroupSeq;
-    }
 }
