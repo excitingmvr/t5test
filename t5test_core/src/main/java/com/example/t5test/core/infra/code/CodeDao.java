@@ -1,7 +1,5 @@
 package com.example.t5test.core.infra.code;
 
-import com.example.t5test.core.infra.codegroup.CodeGroupDto;
-import com.example.t5test.core.infra.codegroup.CodeGroupVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +9,13 @@ import java.util.List;
 @Repository
 public interface CodeDao {
 
-    List<CodeGroupDto> selectList();
-    int insert(CodeGroupDto dto);
-
-    int update(CodeGroupDto dto);
-    CodeGroupDto selectOne(CodeGroupVo vo);
+    int selectOneCount(CodeVo vo);
+    List<CodeDto> selectList(CodeVo vo);
+    CodeDto selectOne(CodeVo vo);
+    int insert(CodeDto dto);
+    int update(CodeDto dto);
+    int uelete(CodeDto dto);
+    int delete(CodeVo vo);
 
 
 }
