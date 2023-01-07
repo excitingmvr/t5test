@@ -3,6 +3,27 @@
 
 <mapper namespace="com.example.t5test.core.infra.codegroup.CodeGroupDao">
 
+    <sql id="selectCommon">
+        FROM infrCodeGroup a
+        WHERE 1=1
+        <if test="shUseNy != null and !shUseNy.equals('')">AND ifcgUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND ifcgDelNy = #{shDelNy}</if>
+        <choose>
+            <when test="shOptionDate == 1">AND codeGroupRegdate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+            <when test="shOptionDate == 2">AND codeGroupUpdate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+        </choose>
+        <choose>
+            <when test="shOption == 1">AND ifcgSeq = #{shValue}</when>
+            <when test="shOption == 2">AND ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
+    </sql>
+
+    <select id="selectOneCount" resultType="Integer">
+        SELECT COUNT(*)
+        <include refid="selectCommon"/>
+    </select>
+
     <select id="selectList" resultType="com.example.t5test.core.infra.codegroup.CodeGroupDto">
         <include refid="base.selectListUpperForMysql" />
         SELECT
@@ -17,11 +38,6 @@
         <include refid="selectCommon" />
         ORDER BY a.ifcgSeq DESC
         <include refid="base.selectListLowerForMysql" />
-    </select>
-
-    <select id="selectOneCount" resultType="Integer">
-        SELECT COUNT(*)
-        <include refid="selectCommon"/>
     </select>
 
     <select id="selectOne" resultType="com.example.t5test.core.infra.codegroup.CodeGroupDto">
@@ -120,21 +136,4 @@
         WHERE 1=1
           AND ifcgSeq = #{ifcgSeq}
     </delete>
-
-    <sql id="selectCommon">
-        FROM infrCodeGroup a
-        WHERE 1=1
-            <if test="shUseNy != null and !shUseNy.equals('')">AND ifcgUseNy = #{shUseNy}</if>
-            <if test="shDelNy != null and !shDelNy.equals('')">AND ifcgDelNy = #{shDelNy}</if>
-            <choose>
-                <when test="shOptionDate == 1">AND codeGroupRegdate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-                <when test="shOptionDate == 2">AND codeGroupUpdate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-            </choose>
-            <choose>
-                <when test="shOption == 1">AND ifcgSeq = #{shValue}</when>
-                <when test="shOption == 2">AND ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
-                <when test="shOption == 3">AND ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when>
-            </choose>
-    </sql>
-
 </mapper>

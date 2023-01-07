@@ -1,5 +1,6 @@
 package com.example.t5test.web.xdm.infra.codegroup;
 
+import com.example.t5test.core.common.util.UtilDateTime;
 import com.example.t5test.core.infra.codegroup.CodeGroupDto;
 import com.example.t5test.core.infra.codegroup.CodeGroupService;
 import com.example.t5test.core.infra.codegroup.CodeGroupVo;
@@ -17,6 +18,20 @@ public class CodeGroupController {
 
     private final CodeGroupService service;
 
+    public void setSearch(CodeGroupVo vo){
+        vo.setShDelNy(vo.getShDelNy() == null ? 0 : vo.getShDelNy());
+        vo.setShOptionDate(vo.getShOptionDate() == null ? null : vo.getShOptionDate());
+        vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
+        vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
+
+//		vo.setShOptionDate(vo.getShOptionDate() == null ? 1 : vo.getShOptionDate());
+//		vo.setShDateStart(vo.getShDateStart() == null
+//		    ? UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL)
+//		    : UtilDateTime.add00TimeString(vo.getShDateStart()));
+//		vo.setShDateEnd(vo.getShDateEnd() == null
+//		    ? UtilDateTime.nowString()
+//		    : UtilDateTime.addNowTimeString(vo.getShDateEnd()));
+    }
     @RequestMapping(value = "/codeGroupList")
     public String codeGroupList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
             vo.setParamsPaging(service.selectOneCount(vo));
@@ -24,28 +39,28 @@ public class CodeGroupController {
         return "infra/codegroup/codeGroupList";
     }
     @RequestMapping(value= "/codeGroupForm")
-    public String CodeGroupForm(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws  Exception {
+    public String codeGroupForm(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws  Exception {
         model.addAttribute("item", service.selectOne(vo));
         return "infra/codegroup/codeGroupForm";
     }
-    @RequestMapping(value= "/insert")
-    public String CodeGroupInst(@ModelAttribute("vo") CodeGroupVo vo, CodeGroupDto dto, RedirectAttributes redirectAttributes) throws  Exception {
+    @RequestMapping(value= "/codeGroupInst")
+    public String codeGroupInst(@ModelAttribute("vo") CodeGroupVo vo, CodeGroupDto dto, RedirectAttributes redirectAttributes) throws  Exception {
         service.insert(dto);
         vo.setIfcgSeq(dto.getIfcgSeq());
         redirectAttributes.addFlashAttribute("vo", vo);
-        return "redirect:/infra/codegroup/form";
+        return "redirect:/infra/codegroup/codeGroupForm";
     }
-    @RequestMapping(value= "/update")
-    public String CodeGroupUpdt(@ModelAttribute("vo") CodeGroupVo vo, CodeGroupDto dto, RedirectAttributes redirectAttributes) throws Exception {
+    @RequestMapping(value= "/codeGroupUpdt")
+    public String codeGroupUpdt(@ModelAttribute("vo") CodeGroupVo vo, CodeGroupDto dto, RedirectAttributes redirectAttributes) throws Exception {
         service.update(dto);
         vo.setIfcgSeq(dto.getIfcgSeq());
         redirectAttributes.addFlashAttribute("vo", vo);
-        return "redirect:/infra/codegroup/form";
+        return "redirect:/infra/codegroup/codeGroupForm";
     }
-    @RequestMapping(value= "/uelete")
-    public String CodeGroupUele(CodeGroupDto dto) throws  Exception {
+    @RequestMapping(value= "/codeGroupUele")
+    public String codeGroupUele(CodeGroupDto dto) throws  Exception {
         service.uelete(dto);
-        return "redirect:/infra/codegroup/list";
+        return "redirect:/infra/codegroup/codeGroupList";
     }
     @RequestMapping(value = "codeGroupMultiUele")
     public String codeGroupMultiUele(CodeGroupDto dto, CodeGroupVo vo) throws Exception {
@@ -53,12 +68,12 @@ public class CodeGroupController {
             dto.setIfcgSeq(checkboxSeq);
             service.uelete(dto);
         }
-        return "redirect:/infra/codegroup/list";
+        return "redirect:/infra/codegroup/codeGroupList";
     }
-    @RequestMapping(value= "/delete")
-    public String CodeGroupDele(CodeGroupVo vo) throws  Exception {
+    @RequestMapping(value= "/codeGroupDele")
+    public String codeGroupDele(CodeGroupVo vo) throws  Exception {
         service.delete(vo);
-        return "redirect:/infra/codegroup/list";
+        return "redirect:/infra/codegroup/codeGroupList";
     }
     @RequestMapping(value = "codeGroupMultiDele")
     public String codeGroupMultiDele(CodeGroupVo vo) throws Exception {
@@ -66,7 +81,7 @@ public class CodeGroupController {
             vo.setIfcgSeq(checkboxSeq);
             service.delete(vo);
         }
-        return "redirect:/infra/codegroup/list";
+        return "redirect:/infra/codegroup/codeGroupList";
     }
 
 }
