@@ -48,7 +48,7 @@
                                         <div class="form-group">
                                             <label class="form-label">코드그룹</label>
                                             <select class="form-select">
-                                                <option>보류</option>
+                                                <option th:each="list : ${list}" th:value=""></option>
                                                 <option></option>
                                             </select>
                                         </div>

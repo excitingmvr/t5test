@@ -26,7 +26,7 @@
             <!-- Main content -->
             <section class="content">
                 <form name="form" id="form" method="post">
-                    <input type="hidden" name="codeGroupSeq">
+                    <input type="hidden" name="ifcgSeq">
                     <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
                     <input type="hidden" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
                     <input type="hidden" name="checkboxSeqArray">
@@ -167,10 +167,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
-    let goUrlList = "/infra/codegroup/list";
-    let goUrlForm = "/infra/codegroup/form";
+    let goUrlList = "/infra/codegroup/codeGroupList";
+    let goUrlForm = "/infra/codegroup/codeGroupForm";
     let form = $("form[name=form]");
-    let seq = $("[name=codeGroupSeq]");
+    let seq = $("[name=ifcgSeq]");
     let goUrlMultiDele = "/infra/codegroup/codeGroupMultiDele";
     let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";
     let checkboxSeqArray = [];

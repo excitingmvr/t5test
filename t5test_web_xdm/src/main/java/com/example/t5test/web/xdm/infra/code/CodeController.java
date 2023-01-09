@@ -27,7 +27,7 @@ public class CodeController {
     @RequestMapping(value= "/codeForm")
     public String codeForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
             model.addAttribute("item", service.selectOne(vo));
-            model.addAttribute("cglist", service.selectListWithoutPaging());
+            model.addAttribute("list", service.selectListWithoutPaging());
         return "infra/code/codeForm";
     }
 
@@ -61,7 +61,7 @@ public class CodeController {
     @RequestMapping(value= "/delete")
     public String codeDele(CodeVo vo) throws  Exception {
         service.delete(vo);
-        return "redirect:/infra/cod/list";
+        return "redirect:/infra/code/list";
     }
     @RequestMapping(value = "codeMultiDele")
     public String codeMultiDele(CodeVo vo) throws Exception {
