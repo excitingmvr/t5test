@@ -48,7 +48,7 @@
                                         <div class="form-group">
                                             <label class="form-label">코드그룹</label>
                                             <select class="form-select">
-                                                <option th:each="list : ${list}" th:value=""></option>
+                                                <option th:each="list : ${list}" th:value="${list.ifcgSeq}" th:text="${list.ifcgName}"></option>
                                                 <option></option>
                                             </select>
                                         </div>
@@ -261,11 +261,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script src="/js/validation.js"></script>
     <script type="text/javascript">
-        let goUrlInst = "/infra/code/insert";
-        let goUrlUpdt = "/infra/code/update";
-        let goUrlDele = "/infra/code/delete";
-        let goUrlList = "/infra/code/list"
-        let goUrlUele = "/infra/code/uelete"
+        let goUrlInst = "/infra/code/codeInst";
+        let goUrlUpdt = "/infra/code/codeUpdt";
+        let goUrlDele = "/infra/code/codeDele";
+        let goUrlList = "/infra/code/codeList"
+        let goUrlUele = "/infra/code/codeUele"
 
         let seq = $("input:text[name=ifcgSeq]");
         let form = $("form[name=form]");

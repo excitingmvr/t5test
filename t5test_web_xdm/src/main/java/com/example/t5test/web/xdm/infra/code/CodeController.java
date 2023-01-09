@@ -1,8 +1,10 @@
 package com.example.t5test.web.xdm.infra.code;
 
+import com.example.t5test.core.common.util.UtilDateTime;
 import com.example.t5test.core.infra.code.CodeService;
 import com.example.t5test.core.infra.code.CodeVo;
 import com.example.t5test.core.infra.code.CodeDto;
+import com.example.t5test.core.infra.codegroup.CodeGroupVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,19 @@ public class CodeController {
 
     private final CodeService service;
 
+    public void setSearch(CodeVo vo){
+        vo.setShDelNy(vo.getShDelNy() == null ? 0 : vo.getShDelNy());
+        vo.setShOptionDate(vo.getShOptionDate() == null ? null : vo.getShOptionDate());
+        vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));
+        vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTime.add59TimeString(vo.getShDateEnd()));
+//		vo.setShOptionDate(vo.getShOptionDate() == null ? 1 : vo.getShOptionDate());
+//		vo.setShDateStart(vo.getShDateStart() == null
+//		    ? UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL)
+//		    : UtilDateTime.add00TimeString(vo.getShDateStart()));
+//		vo.setShDateEnd(vo.getShDateEnd() == null
+//		    ? UtilDateTime.nowString()
+//		    : UtilDateTime.addNowTimeString(vo.getShDateEnd()));
+    }
     @RequestMapping(value = "/codeList")
     public String codeList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception{
             vo.setParamsPaging(service.selectOneCount(vo));
@@ -31,21 +46,21 @@ public class CodeController {
         return "infra/code/codeForm";
     }
 
-    @RequestMapping(value= "/insert")
+    @RequestMapping(value= "/codeInst")
     public String codeInst(@ModelAttribute("vo") CodeVo vo, CodeDto dto, RedirectAttributes redirectAttributes) throws  Exception {
         service.insert(dto);
         vo.setIfcdSeq(dto.getIfcdSeq());
         redirectAttributes.addFlashAttribute("vo", vo);
         return "redirect:/infra/code/form";
     }
-    @RequestMapping(value= "/update")
+    @RequestMapping(value= "/codeUpdt")
     public String codeUpdt(@ModelAttribute("vo") CodeVo vo, CodeDto dto, RedirectAttributes redirectAttributes) throws Exception {
         service.update(dto);
         vo.setIfcdSeq(dto.getIfcdSeq());
         redirectAttributes.addFlashAttribute("vo", vo);
         return "redirect:/infra/code/form";
     }
-    @RequestMapping(value= "/uelete")
+    @RequestMapping(value= "/codeUele")
     public String codeUele(CodeDto dto) throws  Exception {
         service.uelete(dto);
         return "redirect:/infra/codegroup/list";
@@ -58,7 +73,7 @@ public class CodeController {
         }
         return "redirect:/infra/code/list";
     }
-    @RequestMapping(value= "/delete")
+    @RequestMapping(value= "/codeDele")
     public String codeDele(CodeVo vo) throws  Exception {
         service.delete(vo);
         return "redirect:/infra/code/list";

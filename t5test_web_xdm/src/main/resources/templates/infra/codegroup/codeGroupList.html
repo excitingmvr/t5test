@@ -16,7 +16,6 @@
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
 
 <div class="wrapper">
-    <div id="loader"></div>
 
     <div th:replace="infra/zxincludev1/header :: header"></div>
     <div th:replace="infra/zxincludev1/sidemenu :: aside"></div>
@@ -57,10 +56,10 @@
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <input type="date" class="form-control" name="shDateStart" placeholder="시작일">
+                                        <input type="text" class="form-control" id="startDate" name="shDateStart" placeholder="시작일">
                                     </div>
                                     <div class="col">
-                                        <input type="date" class="form-control" name="shDateEnd" placeholder="종료일">
+                                        <input type="text" class="form-control" id="endDate" name="shDateEnd" placeholder="종료일">
                                     </div>
                                 </div>
                                 <div class="row row-cols-2 row-cols-sm-6 g-2 px-2">
@@ -80,10 +79,8 @@
                             <div class="d-flex justify-content-end">
                                 <div class="p-2">
                                     <span style="cursor:pointer; margin-left: 10px;" onclick="showHide('searchWrap');">
-                                        <a id="showBtn" onclick='change()'><i class="fa fa-chevron-up"></i></a>
+                                        <button id="showBtn" class="btn btn-secondary btn-sm" type="button" onclick='change()'><i class="fa fa-chevron-up"></i></button>
                                     </span>
-                                </div>
-                                <div class="p-2">
                                     <button class="btn btn-secondary btn-sm" id="btnReset"><i class="fa fa-rotate-left"></i></button>
                                     <button class="btn btn-secondary btn-sm" id="btnSearch"><i class="fa fa-search"></i></button>
                                 </div>
@@ -93,8 +90,8 @@
                     <div class="box">
                         <div class="box-body">
                             <div class="table-responsive-sm">
-                                <table class="table">
-                                    <thead style="width:100%">
+                                <table class="table table-hover table-striped">
+                                    <thead style="background-color:#172b4c; color:#b5b5c3;">
                                     <tr>
                                         <td>
                                             <div class="checkbox">
@@ -113,25 +110,25 @@
                                         <td>수정일</td>
                                     </tr>
                                     </thead>
-                                    <tbody style="width:100%">
-                                    <tr th:each="cgNum : ${list}">
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox"  th:id="'checkboxSeq_' + ${cgNum.ifcgSeq}" name="checkboxSeq" th:value="${cgNum.ifcgSeq}">
-                                                <label th:for="'checkboxSeq_' + ${cgNum.ifcgSeq}"></label>
-                                            </div>
-                                        </td>
-                                        <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + cgNumStat.index)}"></td>
-                                        <td th:text="${cgNum.ifcgSeq}"></td>
-                                        <td th:text="${cgNum.ifcgName}" th:attr="onclick=|goForm('${cgNum.ifcgSeq}')|" style="cursor: pointer;"></td>
-                                        <td th:text="${cgNum.ifcgNameEng}"></td>
-                                        <td>갯수</td>
-                                        <td th:if="${cgNum.ifcgUseNy eq 0}">N</td>
-                                        <td th:unless="${cgNum.ifcgUseNy eq 0}">Y</td>
-                                        <td th:text="${cgNum.ifcgOrder}"></td>
-                                        <td>dddd</td>
-                                        <td>dddd</td>
-                                    </tr>
+                                    <tbody>
+                                        <tr th:each="cgNum : ${list}" th:id="'trNum' + ${cgNumStat.index}">
+                                            <td>
+                                                <div class="checkbox">
+                                                    <input type="checkbox" th:id="'checkboxSeq_' + ${cgNum.ifcgSeq}" name="checkboxSeq" th:value="${cgNum.ifcgSeq}">
+                                                    <label th:for="'checkboxSeq_' + ${cgNum.ifcgSeq}"></label>
+                                                </div>
+                                            </td>
+                                            <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + cgNumStat.index)}"></td>
+                                            <td th:text="${cgNum.ifcgSeq}"></td>
+                                            <td th:text="${cgNum.ifcgName}" th:attr="onclick=|goForm('${cgNum.ifcgSeq}')|" style="cursor: pointer;"></td>
+                                            <td th:text="${cgNum.ifcgNameEng}"></td>
+                                            <td>갯수</td>
+                                            <td th:if="${cgNum.ifcgUseNy eq 0}">N</td>
+                                            <td th:unless="${cgNum.ifcgUseNy eq 0}">Y</td>
+                                            <td th:text="${cgNum.ifcgOrder}"></td>
+                                            <td th:text="${#dates.format(cgNum.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                            <td th:text="${#dates.format(cgNum.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -164,8 +161,9 @@
 <script type="text/javascript" src="/uitemplate/eduadmin/assets/vendor_components/moment/min/moment.min.js"></script>
 
 <script type="text/javascript" src="/uitemplate/eduadmin/js/template.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     let goUrlList = "/infra/codegroup/codeGroupList";
     let goUrlForm = "/infra/codegroup/codeGroupForm";
@@ -175,6 +173,37 @@
     let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";
     let checkboxSeqArray = [];
 
+    $(document).ready(function () {
+        $.datepicker.setDefaults($.datepicker.regional['ko']);
+        $("#startDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            nextText: '다음 달',
+            prevText: '이전 달',
+            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+            monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            dateFormat: "yy-mm-dd",
+            onClose: function( selectedDate ) {
+                $("#endDate").datepicker( "option", "minDate", selectedDate );
+            }
+        });
+        $("#endDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            nextText: '다음 달',
+            prevText: '이전 달',
+            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+            monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            dateFormat: "yy-mm-dd",
+            onClose: function( selectedDate ) {
+                $("#startDate").datepicker( "option", "maxDate", selectedDate );
+            }
+        });
+    });
     function showHide(id){
         let objId = document.getElementById(id);
         if(objId.style.display == "none"){
@@ -207,9 +236,20 @@
         goForm(0);
     });
 
+    $("input[name=checkboxSeq]").on("change", function() {
+        if($("input[name=checkboxSeq]").is(":checked")) {
+            $('#trNum' + $(this).val()).css("background-color", "#ffffff");
+            console.log("#trNum" + $(this).val())
+        } else {
+            }
+    });
+
     $("#CheckBoxAll").click(function() {
-        if($("#CheckBoxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked", true);
-        else $("input[name=checkboxSeq]").prop("checked", false);
+        if($("#CheckBoxAll").is(":checked")) {
+            $("input[name=checkboxSeq]").prop("checked", true);
+        } else {
+            $("input[name=checkboxSeq]").prop("checked", false);
+        }
     });
 
     $("input[name=CheckBoxAll]").click(function() {
@@ -218,6 +258,7 @@
 
         if(total != checked) $("#CheckBoxAll").prop("checked", false);
         else $("#CheckBoxAll").prop("checked", true);
+
     });
 
     $("#btnUelete").on("click", function(){

@@ -1,9 +1,10 @@
 package com.example.t5test.core.infra.codegroup;
 
+import com.example.t5test.core.common.base.BaseDto;
 import lombok.Data;
 
 @Data
-public class CodeGroupDto {
+public class CodeGroupDto extends BaseDto{
     private String ifcgSeq;
     private String ifcgSeqAnother;
     private String ifcgName;
