@@ -13,24 +13,24 @@
 
 </head>
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
-    <form name="form" method="post">
-        <div th:replace="/infra/codegroup/codeGroupVo"></div>
+    <form name="formList" id="formList" method="post">
+        <div th:replace="/infra/codegroup/codeGroupVo"></div>                   <!--###-->
         <div class="wrapper">
             <div id="loader"></div>
-            <div th:replace="infra/zxincludev1/top :: header"></div>
-            <div th:replace="infra/zxincludev1/sidemenu :: aside"></div>
+            <div th:replace="infra/zxincludev1/header"></div>
+            <div th:replace="infra/zxincludev1/sidemenu"></div>
             <div class="content-wrapper">
                 <div class="container-full">
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="me-auto">
-                                <h3 class="page-title">CodeGroup</h3>
+                                <h3 class="page-title">CodeGroup</h3>           <!--###-->
                                 <div class="d-inline-block align-items-center">
                                     <nav>
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
                                             <li class="breadcrumb-item" aria-current="page">GENERAL</li>
-                                            <li class="breadcrumb-item active" aria-current="page">CodeGroup</li>
+                                            <li class="breadcrumb-item active" aria-current="page">CodeGroup</li>                   <!--###-->
                                         </ol>
                                     </nav>
                                 </div>
@@ -41,7 +41,7 @@
                     <section class="content">
                         <div class="box">
                             <div class="box-body">
-                                <h4 class="box-title text-info mb-0"><i class="fa fa-folder-open-o"></i> CodeGroup</h4>
+                                <h4 class="box-title text-info mb-0"><i class="fa fa-folder-open-o"></i> CodeGroup</h4>             <!--###-->
                                 <hr class="my-15">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -85,8 +85,8 @@
                                             <div class="controls">
                                                 <select class="form-select" name="ifcgUseNy" id="ifcgUseNy">
                                                     <option></option>
-                                                    <option th:selected="${item?.ifcgUseNy == 1}" value="1">사용</option>
-                                                    <option th:selected="${item?.ifcgUseNy == 0}" value="0">미사용</option>
+                                                    <option value="1" th:selected="${item?.ifcgUseNy == 1}">사용</option>
+                                                    <option value="0" th:selected="${item?.ifcgUseNy == 0}">미사용</option>
                                                 </select>
                                                 <div class="invalid-feedback" id="ifcgUseNyFeedback"></div>
                                             </div>
@@ -101,19 +101,6 @@
                                             </div>
                                         </div>
                                     </div>
-<!--                                    <div class="col-md-3">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label class="form-label">CodeGroupDelNY</label>-->
-<!--                                            <div class="controls">-->
-<!--                                                <select class="form-select" name="codeGroupDelNY" id="codeGroupDelNY">-->
-<!--                                                    <option></option>-->
-<!--                                                    <option th:selected="${item?.codeGroupDelNY == 1}" value="1">사용</option>-->
-<!--                                                    <option th:selected="${item?.codeGroupDelNY == 0}" value="0">미사용</option>-->
-<!--                                                </select>-->
-<!--                                                <div class="invalid-feedback" id="codeGroupDelNYFeedback"></div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-3">
@@ -215,26 +202,27 @@
                 </div>
             </div>
         </div>
-        <div th:replace="infra/zxincludev1/modalBase :: div"></div>
+        <div th:replace="infra/zxincludev1/baseModal"></div>
     </form>
     <form name="formVo" method="post">
         <div th:replace="/infra/codegroup/codeGroupVo"></div>
     </form>
+
     <script type="text/javascript" src="/uitemplate/eduadmin/js/vendors.min.js"></script>
     <script type="text/javascript" src="/uitemplate/eduadmin/assets/icons/feather-icons/feather.min.js"></script>
     <script type="text/javascript" src="/uitemplate/eduadmin/js/template.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <script src="/js/validation.js"></script>
-    <script type="text/javascript">
-        let goUrlInst = "/infra/codegroup/codeGroupInst";
-        let goUrlUpdt = "/infra/codegroup/codeGroupUpdt";
-        let goUrlDele = "/infra/codegroup/codeGroupDele";
-        let goUrlList = "/infra/codegroup/codeGroupList";
-        let goUrlUele = "/infra/codegroup/codeGroupUele";
 
-        let seq = $("input:text[name=codeGroupSeq]");
-        let form = $("form[name=form]");
+    <script type="text/javascript">
+        let goUrlInst = "/infra/codegroup/codeGroupInst";               /*###*/
+        let goUrlUpdt = "/infra/codegroup/codeGroupUpdt";               /*###*/
+        let goUrlDele = "/infra/codegroup/codeGroupDele";               /*###*/
+        let goUrlList = "/infra/codegroup/codeGroupList";               /*###*/
+        let goUrlUele = "/infra/codegroup/codeGroupUele";               /*###*/
+
+        let seq = $("input:text[name=ifcgSeq]");                        /*###*/
+        let form = $("form[name=formList]");                            /*###*/
 
         $("#btnSubmit").on("click", function() {
             if (seq.val() == "0" || seq.val() == ""){

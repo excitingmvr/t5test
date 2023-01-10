@@ -181,7 +181,6 @@
         });
     });
 
-
     function showHide(id){
         let objId = document.getElementById(id);
         if(objId.style.display == "none"){
@@ -193,7 +192,6 @@
     // $("#btnSearch").on("click", function(){
     //     form.attr("action", goUrlList).submit();
     // });
-
 
 
     function change() {
@@ -218,17 +216,21 @@
 
     $("input[name=checkboxSeq]").on("change", function() {
         if($("input[name=checkboxSeq]").is(":checked")) {
-            $('#trNum' + $(this).val()).css("background-color", "#ffffff");
-            console.log("#trNum" + $(this).val())
+            $("#trnum_" + $(this).val()).css("background-color", "#ececec");
         } else {
-            }
+            $("#checkboxSeq_" + $(this).val()).prop("checked", false);
+            $("#trnum_" + $(this).val()).css("background-color", "");
+        }
     });
 
     $("#CheckBoxAll").click(function() {
         if($("#CheckBoxAll").is(":checked")) {
             $("input[name=checkboxSeq]").prop("checked", true);
+            $("tbody tr").css("background-color", "#ececec");
         } else {
-            $("input[name=checkboxSeq]").prop("checked", false);
+            $("input[name=checkboxSeq]").prop("checked", false)
+            $("tbody tr").css("background-color", "");
+
         }
     });
 
@@ -236,9 +238,13 @@
         let total = $("input[name=CheckBoxAll]").length;
         let checked = $("input[name=CheckBoxAll]:checked").length;
 
-        if(total != checked) $("#CheckBoxAll").prop("checked", false);
-        else $("#CheckBoxAll").prop("checked", true);
-
+        if(total != checked) {
+            $("#CheckBoxAll").prop("checked", false);
+            $("tbody tr").css("background-color", "");
+        }else {
+            $("#CheckBoxAll").prop("checked", true);
+            $("tbody tr").css("background-color", "#ececec");
+        }
     });
 
     $("#btnUelete").on("click", function(){
