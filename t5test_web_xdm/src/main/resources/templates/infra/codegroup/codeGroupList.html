@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>StyleBot</title>
-    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/vendors_css.css">
-    <!-- Style-->
+        <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/vendors_css.css">
     <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/style.css">
     <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/skin_color.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
@@ -24,12 +24,12 @@
         <div class="container-full">
             <!-- Main content -->
             <section class="content">
-                <form name="form" id="form" method="post">
-                    <input type="hidden" name="ifcgSeq">
+                <form name="formList" id="formList" method="post">
                     <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
                     <input type="hidden" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
                     <input type="hidden" name="checkboxSeqArray">
-                    <h2>CodeGroup</h2>
+                    <input type="hidden" name="ifcgSeq">        <!--###-->
+                    <h2>CodeGroup</h2>                          <!--###-->
                     <div class="box">
                         <div class="box-body">
                             <div id="searchWrap" style="display: block">
@@ -120,6 +120,7 @@
                                             </td>
                                             <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + cgNumStat.index)}"></td>
                                             <td th:text="${cgNum.ifcgSeq}"></td>
+                                            <td></td>
                                             <td th:text="${cgNum.ifcgName}" th:attr="onclick=|goForm('${cgNum.ifcgSeq}')|" style="cursor: pointer;"></td>
                                             <td th:text="${cgNum.ifcgNameEng}"></td>
                                             <td>갯수</td>
@@ -159,18 +160,18 @@
 <script type="text/javascript" src="/uitemplate/eduadmin/js/vendors.min.js"></script>
 <script type="text/javascript" src="/uitemplate/eduadmin/assets/icons/feather-icons/feather.min.js"></script>
 <script type="text/javascript" src="/uitemplate/eduadmin/assets/vendor_components/moment/min/moment.min.js"></script>
-
 <script type="text/javascript" src="/uitemplate/eduadmin/js/template.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
-    let goUrlList = "/infra/codegroup/codeGroupList";
-    let goUrlForm = "/infra/codegroup/codeGroupForm";
-    let form = $("form[name=form]");
-    let seq = $("[name=ifcgSeq]");
-    let goUrlMultiDele = "/infra/codegroup/codeGroupMultiDele";
-    let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";
+    let goUrlList = "/infra/codegroup/codeGroupList";               /*###*/
+    let goUrlForm = "/infra/codegroup/codeGroupForm";               /*###*/
+    let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";     /*###*/
+    let goUrlMultiDele = "/infra/codegroup/codeGroupMultiDele";     /*###*/
+    let seq = $("[name=ifcgSeq]");                                  /*###*/
+
+    let form = $("form[name=formList]");
     let checkboxSeqArray = [];
 
     $(document).ready(function () {
@@ -212,7 +213,11 @@
             objId.style.display = "none";
         }
     }
-    $("#btnSearch").on("click", function(){
+    // $("#btnSearch").on("click", function(){
+    //     form.attr("action", goUrlList).submit();
+    // });
+
+    document.getElementById("btnSearch").on("click", function(){
         form.attr("action", goUrlList).submit();
     });
 
