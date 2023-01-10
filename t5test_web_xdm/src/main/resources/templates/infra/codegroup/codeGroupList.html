@@ -48,7 +48,7 @@
                                         <option value="" th:selected="${vo.shOption == null}">검색구분</option>
                                         <option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
                                         <option value="2" th:selected="${vo.shOption == 2}" >코드그룹 이름</option>
-                                        <option value="3" th:selected="${vo.shOption == 3}" >코드그룹 영어 이름</option>
+                                        <option value="3" th:selected="${vo.shOption == 3}" >코드그룹 이름 (영문)</option>
                                     </select>
                                 </div>
                                 <div class="col">
@@ -56,12 +56,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-start">
                             <div class="p-2">
-                                <span style="cursor:pointer; margin-left: 10px;" onclick="showHide('searchWrap');">
+                                <span style="cursor:pointer;" onclick="showHide('searchWrap');">
                                     <button id="showBtn" class="btn btn-secondary btn-sm" type="button" onclick='change()'><i class="fa fa-chevron-up"></i></button>
                                 </span>
+                            </div>
+                            <div class="p-2">
                                 <button class="btn btn-secondary btn-sm" id="btnReset"><i class="fa fa-rotate-left"></i></button>
+                            </div>
+                            <div class="p-2">
                                 <button class="btn btn-secondary btn-sm" id="btnSearch"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
@@ -70,6 +74,18 @@
                 <div class="box">
                     <div class="box-body">
                         <div class="table-responsive-sm">
+                            <div class="d-flex">
+                                <div class="p-2 me-auto" th:text="'Total: '+${vo.totalRows}"></div>
+                                <div class="p-2 text-end">
+                                    <select class="form-select orm-select-sm" id="changeRowNum" name="changeRowNum">
+                                        <option value="10" th:selected="${vo.rowNumToShow eq 10}">10</option>
+                                        <option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
+                                        <option value="50" th:selected="${vo.rowNumToShow eq 50}">50</option>
+                                        <option value="80" th:selected="${vo.rowNumToShow eq 80}">80</option>
+                                        <option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>
+                                    </select>
+                                </div>
+                            </div>
                             <table class="table table-hover table-striped">
                                 <thead style="background-color:#172b4c; color:#b5b5c3;">
                                 <tr>
@@ -91,7 +107,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="list : ${list}" th:id="'trNum' + ${listStat.index}">
+                                    <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifcgSeq}">
                                         <td>
                                             <div class="checkbox">
                                                 <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifcgSeq}" name="checkboxSeq" th:value="${list.ifcgSeq}">
@@ -102,7 +118,7 @@
                                         <td th:text="${list.ifcgSeq}"></td>
                                         <td th:text="${list.ifcgName}" th:attr="onclick=|goForm('${list.ifcgSeq}')|" style="cursor: pointer;"></td>
                                         <td th:text="${list.ifcgNameEng}"></td>
-                                        <td>갯수</td>
+                                        <td th:text="${list.xifcdSeqCount}"></td>
                                         <td th:if="${list.ifcgUseNy eq 0}">N</td>
                                         <td th:unless="${list.ifcgUseNy eq 0}">Y</td>
                                         <td th:text="${list.ifcgOrder}"></td>
@@ -112,11 +128,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex">
-                            <div class="p-2"><button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button></div>
-                            <div class="p-2 me-auto"><button class="btn btn-danger-light btn-sm" id="btnDelete" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button></div>
-                            <div class="p-2"><button class="btn btn-success-light btn-sm" id="btnForm"><i class="fa fa-plus"></i></button></div>
-                        </div>
                         <div class="dataTables_paginate paging_simple_numbers">
                             <ul class="pagination justify-content-center mb-0">
                                 <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous"><a class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a></li>
@@ -125,6 +136,12 @@
                                 </li>
                                 <li th:if="${vo.endPage ne vo.totalPages}" class="paginate_button page-item next"><a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">></a></li>
                             </ul>
+                        </div>
+                        <div class="d-flex">
+                            <div class="p-2"><button class="btn btn-success-light btn-sm" id="btnExcel"><i class="fa fa-file-excel-o"></i></button></div>
+                            <div class="p-2"><button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button></div>
+                            <div class="p-2 me-auto"><button class="btn btn-danger-light btn-sm" id="btnDelete" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button></div>
+                            <div class="p-2"><button class="btn btn-primary-light btn-sm" id="btnForm"><i class="fa fa-plus"></i></button></div>
                         </div>
                     </div>
                 </div>
@@ -181,6 +198,21 @@
         });
     });
 
+    $("#changeRowNum").on("change", function(){
+            $("input:hidden[name=rowNumToShow]").val($("#changeRowNum option:selected").val());
+        form.attr("action", goUrlList).submit();
+    });
+
+    $("input[name=checkboxSeq]").on("change", function() {
+        if($("#checkboxSeq_" + $(this).val()).is(":checked")) {
+            $("#checkboxSeq_" + $(this).val()).prop("checked", true);
+            $("#trNum_" + $(this).val()).css("background-color", "#FFEAE5");
+        } else {
+            $("#checkboxSeq_" + $(this).val()).prop("checked", false);
+            $("#trNum_" + $(this).val()).css("background-color", "");
+        }
+    });
+
     function showHide(id){
         let objId = document.getElementById(id);
         if(objId.style.display == "none"){
@@ -192,7 +224,6 @@
     // $("#btnSearch").on("click", function(){
     //     form.attr("action", goUrlList).submit();
     // });
-
 
     function change() {
         const subs = document.getElementById("showBtn")
@@ -214,19 +245,10 @@
         goForm(0);
     });
 
-    $("input[name=checkboxSeq]").on("change", function() {
-        if($("input[name=checkboxSeq]").is(":checked")) {
-            $("#trnum_" + $(this).val()).css("background-color", "#ececec");
-        } else {
-            $("#checkboxSeq_" + $(this).val()).prop("checked", false);
-            $("#trnum_" + $(this).val()).css("background-color", "");
-        }
-    });
-
     $("#CheckBoxAll").click(function() {
         if($("#CheckBoxAll").is(":checked")) {
             $("input[name=checkboxSeq]").prop("checked", true);
-            $("tbody tr").css("background-color", "#ececec");
+            $("tbody tr").css("background-color", "#FFEAE5");
         } else {
             $("input[name=checkboxSeq]").prop("checked", false)
             $("tbody tr").css("background-color", "");
@@ -243,7 +265,7 @@
             $("tbody tr").css("background-color", "");
         }else {
             $("#CheckBoxAll").prop("checked", true);
-            $("tbody tr").css("background-color", "#ececec");
+            $("tbody tr").css("background-color", "#FFEAE5");
         }
     });
 
