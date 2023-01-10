@@ -129,7 +129,7 @@ body {
   font-weight: 400;
   font-family: "IBM Plex Sans", sans-serif;
   line-height: 1.5;
-  background-color: #fafbfd; }
+  background-color: #ececec; }
 
 /*---basic---*/
 a {
@@ -20419,6 +20419,7 @@ Height property
     margin-left: 0;
     text-align: center; }
 
+
   .fixed .content-wrapper {
     padding-top: 125px; }
   .fixed .right-side {
@@ -20642,7 +20643,7 @@ Height property
       .main-header .logo .logo-mini .light-logo {
         display: block; }
   .main-header #navbar-search-input.form-control {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #ececec;
     border-color: transparent; }
     .main-header #navbar-search-input.form-control:active, .main-header #navbar-search-input.form-control.active, .main-header #navbar-search-input.form-control:focus {
       border-color: rgba(0, 0, 0, 0.1);

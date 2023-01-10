@@ -3,7 +3,7 @@
 <div class="content-wrapper">
     <div class="container-full">
         <!-- Main content -->
-        <section class="content">
+        <section class="content" style="background-color: #ececec">
             <form name="formList" id="formList" method="post">
                 <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
                 <input type="hidden" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
@@ -77,7 +77,7 @@
                             <div class="d-flex">
                                 <div class="p-2 me-auto" th:text="'Total: '+${vo.totalRows}"></div>
                                 <div class="p-2 text-end">
-                                    <select class="form-select orm-select-sm" id="changeRowNum" name="changeRowNum">
+                                    <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
                                         <option value="10" th:selected="${vo.rowNumToShow eq 10}">10</option>
                                         <option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
                                         <option value="50" th:selected="${vo.rowNumToShow eq 50}">50</option>
@@ -129,7 +129,7 @@
                             </table>
                         </div>
                         <div class="dataTables_paginate paging_simple_numbers">
-                            <ul class="pagination justify-content-center mb-0">
+                            <ul class="pagination justify-content-center mb-0 pagination-sm">
                                 <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous"><a class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a></li>
                                 <li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" class="paginate_button page-item" th:classappend="${num eq vo.thisPage} ? active : ''">
                                     <a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
