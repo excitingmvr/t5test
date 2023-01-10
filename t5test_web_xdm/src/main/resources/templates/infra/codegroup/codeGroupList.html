@@ -17,8 +17,8 @@
 
 <div class="wrapper">
 
-    <div th:replace="infra/zxincludev1/header :: header"></div>
-    <div th:replace="infra/zxincludev1/sidemenu :: aside"></div>
+    <div th:replace="infra/zxincludev1/header"></div>
+    <div th:replace="infra/zxincludev1/sidemenu"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="container-full">
@@ -36,23 +36,23 @@
                                 <div class="row row-cols-2 row-cols-sm-6 g-2 px-2 mb-4">
                                     <div class="col">
                                         <select class="form-select" name="shDelNy" id="shDelNy">
-                                            <option th:selected="${vo.shDelNy == null}" value="">삭제여부</option>
-                                            <option th:selected="${vo.shDelNy == 1}" value="1">Y</option>
-                                            <option th:selected="${vo.shDelNy == 0}" value="0">N</option>
+                                            <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                                            <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+                                            <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
                                         </select>
                                     </div>
                                     <div class="col">
                                         <select class="form-select" name="shUseNy" id="shUseNy">
-                                            <option th:selected="${vo.shUseNy == null}" value="">사용여부</option>
-                                            <option th:selected="${vo.shUseNy == 1}" value="1">Y</option>
-                                            <option th:selected="${vo.shUseNy == 0}" value="0">N</option>
+                                            <option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
+                                            <option value="1" th:selected="${vo.shUseNy == 1}" >Y</option>
+                                            <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
                                         </select>
                                     </div>
                                     <div class="col">
                                         <select class="form-select" name="shOptionDate" id="shOptionDate">
-                                            <option th:selected="${vo.shOptionDate == null}" value="">날짜</option>
-                                            <option th:selected="${vo.shOptionDate == 1}" value="1">생성일</option>
-                                            <option th:selected="${vo.shOptionDate == 2}" value="2">수정일</option>
+                                            <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                                            <option value="1" th:selected="${vo.shOptionDate == 1}">생성일</option>
+                                            <option value="2" th:selected="${vo.shOptionDate == 2}" >수정일</option>
                                         </select>
                                     </div>
                                     <div class="col">
@@ -65,10 +65,10 @@
                                 <div class="row row-cols-2 row-cols-sm-6 g-2 px-2">
                                     <div class="col">
                                         <select class="form-select" id="shOption" name="shOption">
-                                            <option th:selected="${vo.shOption == null}" value="">검색구분</option>
-                                            <option th:selected="${vo.shOption == 1}" value="1">코드그룹 코드</option>
-                                            <option th:selected="${vo.shOption == 2}" value="2">코드그룹 이름</option>
-                                            <option th:selected="${vo.shOption == 3}" value="3">코드그룹 영어 이름</option>
+                                            <option value="" th:selected="${vo.shOption == null}">검색구분</option>
+                                            <option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
+                                            <option value="2" th:selected="${vo.shOption == 2}" >코드그룹 이름</option>
+                                            <option value="3" th:selected="${vo.shOption == 3}" >코드그룹 영어 이름</option>
                                         </select>
                                     </div>
                                     <div class="col">
@@ -111,24 +111,23 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="cgNum : ${list}" th:id="'trNum' + ${cgNumStat.index}">
+                                        <tr th:each="list : ${list}" th:id="'trNum' + ${listStat.index}">
                                             <td>
                                                 <div class="checkbox">
-                                                    <input type="checkbox" th:id="'checkboxSeq_' + ${cgNum.ifcgSeq}" name="checkboxSeq" th:value="${cgNum.ifcgSeq}">
-                                                    <label th:for="'checkboxSeq_' + ${cgNum.ifcgSeq}"></label>
+                                                    <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifcgSeq}" name="checkboxSeq" th:value="${list.ifcgSeq}">
+                                                    <label th:for="'checkboxSeq_' + ${list.ifcgSeq}"></label>
                                                 </div>
                                             </td>
-                                            <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + cgNumStat.index)}"></td>
-                                            <td th:text="${cgNum.ifcgSeq}"></td>
-                                            <td></td>
-                                            <td th:text="${cgNum.ifcgName}" th:attr="onclick=|goForm('${cgNum.ifcgSeq}')|" style="cursor: pointer;"></td>
-                                            <td th:text="${cgNum.ifcgNameEng}"></td>
+                                            <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                                            <td th:text="${list.ifcgSeq}"></td>
+                                            <td th:text="${list.ifcgName}" th:attr="onclick=|goForm('${list.ifcgSeq}')|" style="cursor: pointer;"></td>
+                                            <td th:text="${list.ifcgNameEng}"></td>
                                             <td>갯수</td>
-                                            <td th:if="${cgNum.ifcgUseNy eq 0}">N</td>
-                                            <td th:unless="${cgNum.ifcgUseNy eq 0}">Y</td>
-                                            <td th:text="${cgNum.ifcgOrder}"></td>
-                                            <td th:text="${#dates.format(cgNum.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                            <td th:text="${#dates.format(cgNum.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                            <td th:if="${list.ifcgUseNy eq 0}">N</td>
+                                            <td th:unless="${list.ifcgUseNy eq 0}">Y</td>
+                                            <td th:text="${list.ifcgOrder}"></td>
+                                            <td th:text="${#dates.format(list.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                            <td th:text="${#dates.format(list.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -153,15 +152,14 @@
             </section>
         </div>
     </div>
-    <div th:replace="infra/zxincludev1/baseModal :: div"></div>
+    <div th:replace="infra/zxincludev1/baseModal"></div>
 </div>
-<!-- Page Content overlay -->
 
+<!-- Page Content overlay -->
 <script type="text/javascript" src="/uitemplate/eduadmin/js/vendors.min.js"></script>
 <script type="text/javascript" src="/uitemplate/eduadmin/assets/icons/feather-icons/feather.min.js"></script>
 <script type="text/javascript" src="/uitemplate/eduadmin/assets/vendor_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="/uitemplate/eduadmin/js/template.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
@@ -171,8 +169,8 @@
     let goUrlMultiDele = "/infra/codegroup/codeGroupMultiDele";     /*###*/
     let seq = $("[name=ifcgSeq]");                                  /*###*/
 
-    let form = $("form[name=formList]");
-    let checkboxSeqArray = [];
+    let form = $("form[name=formList]");                            /*###*/
+    let checkboxSeqArray = [];                                      /*###*/
 
     $(document).ready(function () {
         $.datepicker.setDefaults($.datepicker.regional['ko']);
@@ -217,9 +215,7 @@
     //     form.attr("action", goUrlList).submit();
     // });
 
-    document.getElementById("btnSearch").on("click", function(){
-        form.attr("action", goUrlList).submit();
-    });
+
 
     function change() {
         const subs = document.getElementById("showBtn")
