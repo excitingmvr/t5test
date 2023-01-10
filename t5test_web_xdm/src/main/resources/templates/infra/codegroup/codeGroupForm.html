@@ -1,288 +1,267 @@
-<!doctype html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>StyleBot</title>
-    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/vendors_css.css">
-    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/skin_color.css">
-
-</head>
-<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
-    <form name="formList" id="formList" method="post">
-        <div th:replace="/infra/codegroup/codeGroupVo"></div>                   <!--###-->
-        <div class="wrapper">
-            <div id="loader"></div>
-            <div th:replace="infra/zxincludev1/header"></div>
-            <div th:replace="infra/zxincludev1/sidemenu"></div>
-            <div class="content-wrapper">
-                <div class="container-full">
-                    <div class="content-header">
-                        <div class="d-flex align-items-center">
-                            <div class="me-auto">
-                                <h3 class="page-title">CodeGroup</h3>           <!--###-->
-                                <div class="d-inline-block align-items-center">
-                                    <nav>
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-                                            <li class="breadcrumb-item" aria-current="page">GENERAL</li>
-                                            <li class="breadcrumb-item active" aria-current="page">CodeGroup</li>                   <!--###-->
-                                        </ol>
-                                    </nav>
-                                </div>
+<div th:replace="zxincludev1/header"></div>
+<form name="formList" id="formList" method="post">
+    <div th:replace="/infra/codegroup/codeGroupVo"></div>                   <!--###-->
+        <div class="content-wrapper">
+            <div class="container-full">
+                <div class="content-header">
+                    <div class="d-flex align-items-center">
+                        <div class="me-auto">
+                            <h3 class="page-title">CodeGroup</h3>           <!--###-->
+                            <div class="d-inline-block align-items-center">
+                                <nav>
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                                        <li class="breadcrumb-item" aria-current="page">GENERAL</li>
+                                        <li class="breadcrumb-item active" aria-current="page">CodeGroup</li>                   <!--###-->
+                                    </ol>
+                                </nav>
                             </div>
                         </div>
                     </div>
-                    <!-- Main content -->
-                    <section class="content">
-                        <div class="box">
-                            <div class="box-body">
-                                <h4 class="box-title text-info mb-0"><i class="fa fa-folder-open-o"></i> CodeGroup</h4>             <!--###-->
-                                <hr class="my-15">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">코드그룹 코드</label>
-                                            <input type="text" class="form-control" name="ifcgSeq" th:value="${item?.ifcgSeq}" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">코드그룹 코드(Another)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" name="ifcgSeqAnother" th:value="${item?.ifcgSeqAnother}">
-                                                <div class="invalid-feedback" id="ifcgSeqAnotherFeedback"></div>
-                                            </div>
-                                        </div>
+                </div>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="box">
+                        <div class="box-body">
+                            <h4 class="box-title text-info mb-0"><i class="fa fa-folder-open-o"></i> CodeGroup</h4>             <!--###-->
+                            <hr class="my-15">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">코드그룹 코드</label>
+                                        <input type="text" class="form-control" name="ifcgSeq" th:value="${item?.ifcgSeq}" readonly>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">코드그룹 이름</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" name="ifcgName" id="ifcgName" th:value="${item?.ifcgName}">
-                                                <div class="invalid-feedback" id="ifcgNameFeedback"></div>
-                                            </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">코드그룹 코드(Another)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="ifcgSeqAnother" th:value="${item?.ifcgSeqAnother}">
+                                            <div class="invalid-feedback" id="ifcgSeqAnotherFeedback"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">코드그룹 이름(영문)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgNameEng" name="ifcgNameEng" th:value="${item?.ifcgNameEng}">
-                                                <div class="invalid-feedback" id="ifcgNameEngFeedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">사용 여부</label>
-                                            <div class="controls">
-                                                <select class="form-select" name="ifcgUseNy" id="ifcgUseNy">
-                                                    <option></option>
-                                                    <option value="1" th:selected="${item?.ifcgUseNy == 1}">사용</option>
-                                                    <option value="0" th:selected="${item?.ifcgUseNy == 0}">미사용</option>
-                                                </select>
-                                                <div class="invalid-feedback" id="ifcgUseNyFeedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">순서</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgOrder" name="ifcgOrder" th:value="${item?.ifcgOrder}">
-                                                <div class="invalid-feedback" id="ifcgOrderFeedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">설명</label>
-                                            <div class="controls">
-                                                <textarea class="form-control" id="ifcgDesc" name="ifcgDesc" th:value="${item?.ifcgDesc}"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">예비1 (varchar type)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgReferenceV1" name="ifcgReferenceV1" th:value="${item?.ifcgReferenceV1}">
-                                                <div class="invalid-feedback" id="ifcgReferenceV1Feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">예비2 (varchar type)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgReferenceV2" name="ifcgReferenceV2" th:value="${item?.ifcgReferenceV2}">
-                                                <div class="invalid-feedback" id="ifcgReferenceV2Feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">예비3 (varchar type)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgReferenceV3" name="ifcgReferenceV3" th:value="${item?.ifcgReferenceV3}">
-                                                <div class="invalid-feedback" id="ifcgReferenceV3Feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">예비4 (varchar type)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgReferenceV4" name="ifcgReferenceV4" th:value="${item?.ifcgReferenceV4}">
-                                                <div class="invalid-feedback" id="ifcgReferenceV4Feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">예비1 (Int type)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgReferenceI1" name="ifcgReferenceI1" th:value="${item?.ifcgReferenceI1}">
-                                                <div class="invalid-feedback" id="ifcgReferenceI1Feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">예비2 (Int type)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgReferenceI2" name="ifcgReferenceI2" th:value="${item?.ifcgReferenceI2}">
-                                                <div class="invalid-feedback" id="ifcgReferenceI2Feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">예비3 (Int type)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgReferenceI3" name="ifcgReferenceI3" th:value="${item?.ifcgReferenceI3}">
-                                                <div class="invalid-feedback" id="ifcgReferenceI3Feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">예비4 (Int type)</label>
-                                            <div class="controls">
-                                                <input type="text" class="form-control" id="ifcgReferenceI4" name="ifcgReferenceI4" th:value="${item?.ifcgReferenceI4}">
-                                                <div class="invalid-feedback" id="ifcgReferenceI4Feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex">
-                                    <div class="p-2"><button class="btn btn-info-light btn-sm" id="btnList"><i class="fa fa-list"></i></button></div>
-                                    <div class="p-2"><button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button></div>
-                                    <div class="p-2 me-auto">
-                                        <button class="btn btn-danger-light btn-sm" type="button" id="btnDelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                    <div class="p-2"><button class="btn btn-success-light btn-sm" type="button" id="btnSubmit"><i class="fa fa-check"></i></button></div>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">코드그룹 이름</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="ifcgName" id="ifcgName" th:value="${item?.ifcgName}">
+                                            <div class="invalid-feedback" id="ifcgNameFeedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">코드그룹 이름(영문)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgNameEng" name="ifcgNameEng" th:value="${item?.ifcgNameEng}">
+                                            <div class="invalid-feedback" id="ifcgNameEngFeedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">사용 여부</label>
+                                        <div class="controls">
+                                            <select class="form-select" name="ifcgUseNy" id="ifcgUseNy">
+                                                <option></option>
+                                                <option value="1" th:selected="${item?.ifcgUseNy == 1}">사용</option>
+                                                <option value="0" th:selected="${item?.ifcgUseNy == 0}">미사용</option>
+                                            </select>
+                                            <div class="invalid-feedback" id="ifcgUseNyFeedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">순서</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgOrder" name="ifcgOrder" th:value="${item?.ifcgOrder}">
+                                            <div class="invalid-feedback" id="ifcgOrderFeedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">설명</label>
+                                        <div class="controls">
+                                            <textarea class="form-control" id="ifcgDesc" name="ifcgDesc" th:value="${item?.ifcgDesc}"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">예비1 (varchar type)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgReferenceV1" name="ifcgReferenceV1" th:value="${item?.ifcgReferenceV1}">
+                                            <div class="invalid-feedback" id="ifcgReferenceV1Feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">예비2 (varchar type)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgReferenceV2" name="ifcgReferenceV2" th:value="${item?.ifcgReferenceV2}">
+                                            <div class="invalid-feedback" id="ifcgReferenceV2Feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">예비3 (varchar type)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgReferenceV3" name="ifcgReferenceV3" th:value="${item?.ifcgReferenceV3}">
+                                            <div class="invalid-feedback" id="ifcgReferenceV3Feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">예비4 (varchar type)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgReferenceV4" name="ifcgReferenceV4" th:value="${item?.ifcgReferenceV4}">
+                                            <div class="invalid-feedback" id="ifcgReferenceV4Feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">예비1 (Int type)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgReferenceI1" name="ifcgReferenceI1" th:value="${item?.ifcgReferenceI1}">
+                                            <div class="invalid-feedback" id="ifcgReferenceI1Feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">예비2 (Int type)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgReferenceI2" name="ifcgReferenceI2" th:value="${item?.ifcgReferenceI2}">
+                                            <div class="invalid-feedback" id="ifcgReferenceI2Feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">예비3 (Int type)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgReferenceI3" name="ifcgReferenceI3" th:value="${item?.ifcgReferenceI3}">
+                                            <div class="invalid-feedback" id="ifcgReferenceI3Feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">예비4 (Int type)</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="ifcgReferenceI4" name="ifcgReferenceI4" th:value="${item?.ifcgReferenceI4}">
+                                            <div class="invalid-feedback" id="ifcgReferenceI4Feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="p-2"><button class="btn btn-info-light btn-sm" id="btnList"><i class="fa fa-list"></i></button></div>
+                                <div class="p-2"><button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button></div>
+                                <div class="p-2 me-auto">
+                                    <button class="btn btn-danger-light btn-sm" type="button" id="btnDelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button>
+                                </div>
+                                <div class="p-2"><button class="btn btn-success-light btn-sm" type="button" id="btnSubmit"><i class="fa fa-check"></i></button></div>
+                            </div>
                         </div>
-                    </section>
-                </div>
+                    </div>
+                </section>
             </div>
         </div>
-        <div th:replace="infra/zxincludev1/baseModal"></div>
-    </form>
+    </div>
+</form>
+<div th:replace="zxincludev1/footer"></div>
+<div th:replace="zxincludev1/modalbase"></div>
+        </div><!--end wrapper-->
     <form name="formVo" method="post">
         <div th:replace="/infra/codegroup/codeGroupVo"></div>
     </form>
+<!-- Page Content overlay -->
+<div th:replace="zxincludev1/linkJs"></div>
+<script type="text/javascript">
+    let goUrlInst = "/infra/codegroup/codeGroupInst";               /*###*/
+    let goUrlUpdt = "/infra/codegroup/codeGroupUpdt";               /*###*/
+    let goUrlDele = "/infra/codegroup/codeGroupDele";               /*###*/
+    let goUrlList = "/infra/codegroup/codeGroupList";               /*###*/
+    let goUrlUele = "/infra/codegroup/codeGroupUele";               /*###*/
 
-    <script type="text/javascript" src="/uitemplate/eduadmin/js/vendors.min.js"></script>
-    <script type="text/javascript" src="/uitemplate/eduadmin/assets/icons/feather-icons/feather.min.js"></script>
-    <script type="text/javascript" src="/uitemplate/eduadmin/js/template.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-    <script src="/js/validation.js"></script>
+    let seq = $("input:text[name=ifcgSeq]");                        /*###*/
+    let form = $("form[name=formList]");                            /*###*/
 
-    <script type="text/javascript">
-        let goUrlInst = "/infra/codegroup/codeGroupInst";               /*###*/
-        let goUrlUpdt = "/infra/codegroup/codeGroupUpdt";               /*###*/
-        let goUrlDele = "/infra/codegroup/codeGroupDele";               /*###*/
-        let goUrlList = "/infra/codegroup/codeGroupList";               /*###*/
-        let goUrlUele = "/infra/codegroup/codeGroupUele";               /*###*/
-
-        let seq = $("input:text[name=ifcgSeq]");                        /*###*/
-        let form = $("form[name=formList]");                            /*###*/
-
-        $("#btnSubmit").on("click", function() {
-            if (seq.val() == "0" || seq.val() == ""){
-                if(validationInst() == false) return false;
-                form.attr("action", goUrlInst).submit();
-            } else {
-                if(validationUpdt() == false) return false;
-                form.attr("action", goUrlUpdt).submit();
-            }
-        });
-
-        $("#btnList").on("click", function(){
-            form.attr("action", goUrlList).submit();
-        });
-
-        validationInst = function() {
+    $("#btnSubmit").on("click", function() {
+        if (seq.val() == "0" || seq.val() == ""){
+            if(validationInst() == false) return false;
+            form.attr("action", goUrlInst).submit();
+        } else {
             if(validationUpdt() == false) return false;
+            form.attr("action", goUrlUpdt).submit();
         }
-        function validationUpdt() {
-            if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
-            if(!checkOnlyKoreanEnglishNumber('ifcgName', 2, 0, "코드그룹 이름은 한글, 영문대소문자, 숫자만 입력 가능합니다.")) return false;
-            if(!checkOnlyEnglishNumber('ifcgNameEng', 2, 1, "코드그룹 이름 (영문)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
-            if(!checkOnlyNumber('ifcgOrder', 2, 0, 1, 0, 255, "순서는 숫자(0~255)만 입력 가능합니다.")) return false;
-            if(!checkOnlyEnglishNumber('ifcgReferenceV1', 2, 1, "예비1 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
-            if(!checkOnlyEnglishNumber('ifcgReferenceV2', 2, 1, "예비2 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
-            if(!checkOnlyEnglishNumber('ifcgReferenceV3', 2, 1, "예비3 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
-            if(!checkOnlyEnglishNumber('ifcgReferenceV4', 2, 1, "예비4 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
-            if(!checkOnlyNumber('ifcgReferenceI1', 2, 1, 1, -128, 127, "예비1 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
-            if(!checkOnlyNumber('ifcgReferenceI2', 2, 1, 1, -128, 127, "예비2 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
-            if(!checkOnlyNumber('ifcgReferenceI3', 2, 1, 1, -128, 127, "예비3 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
-            if(!checkOnlyNumber('ifcgReferenceI4', 2, 1, 1, -128, 127, "예비4 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
-        }
+    });
 
-        $("#btnDelete").on("click", function(){
-            $(".modal-title").text("확 인");
-            $(".modal-body").text("해당 데이터를 삭제하시겠습니까 ?");
-            $("#btnModalDelete").show();
-            $("#btnModalUelete").hide();
-            $("#modalConfirm").modal("show");
-        });
+    $("#btnList").on("click", function(){
+        form.attr("action", goUrlList).submit();
+    });
 
-        $("#btnUelete").on("click", function(){
-            $("input:hidden[name=exDeleteType]").val(1);
-            $(".modal-title").text("확 인");
-            $(".modal-body").text("해당 데이터를 삭제하시겠습니까 ?");
-            $("#btnModalUelete").show();
-            $("#btnModalDelete").hide();
-            $("#modalConfirm").modal("show");
-        });
+    validationInst = function() {
+        if(validationUpdt() == false) return false;
+    }
+    function validationUpdt() {
+        if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyKoreanEnglishNumber('ifcgName', 2, 0, "코드그룹 이름은 한글, 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyEnglishNumber('ifcgNameEng', 2, 1, "코드그룹 이름 (영문)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyNumber('ifcgOrder', 2, 0, 1, 0, 255, "순서는 숫자(0~255)만 입력 가능합니다.")) return false;
+        if(!checkOnlyEnglishNumber('ifcgReferenceV1', 2, 1, "예비1 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyEnglishNumber('ifcgReferenceV2', 2, 1, "예비2 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyEnglishNumber('ifcgReferenceV3', 2, 1, "예비3 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyEnglishNumber('ifcgReferenceV4', 2, 1, "예비4 (varchar type)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyNumber('ifcgReferenceI1', 2, 1, 1, -128, 127, "예비1 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
+        if(!checkOnlyNumber('ifcgReferenceI2', 2, 1, 1, -128, 127, "예비2 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
+        if(!checkOnlyNumber('ifcgReferenceI3', 2, 1, 1, -128, 127, "예비3 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
+        if(!checkOnlyNumber('ifcgReferenceI4', 2, 1, 1, -128, 127, "예비4 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
+    }
 
-        $("#btnModalUelete").on("click", function(){
-            $("#modalConfirm").modal("hide");
-            form.attr("action", goUrlUele).submit();
-        });
+    $("#btnDelete").on("click", function(){
+        $(".modal-title").text("확 인");
+        $(".modal-body").text("해당 데이터를 삭제하시겠습니까 ?");
+        $("#btnModalDelete").show();
+        $("#btnModalUelete").hide();
+        $("#modalConfirm").modal("show");
+    });
 
-        $("#btnModalDelete").on("click", function(){
-            $("#modalConfirm").modal("hide");
-            form.attr("action", goUrlDele).submit();
-        });
-    </script>
+    $("#btnUelete").on("click", function(){
+        $("input:hidden[name=exDeleteType]").val(1);
+        $(".modal-title").text("확 인");
+        $(".modal-body").text("해당 데이터를 삭제하시겠습니까 ?");
+        $("#btnModalUelete").show();
+        $("#btnModalDelete").hide();
+        $("#modalConfirm").modal("show");
+    });
+
+    $("#btnModalUelete").on("click", function(){
+        $("#modalConfirm").modal("hide");
+        form.attr("action", goUrlUele).submit();
+    });
+
+    $("#btnModalDelete").on("click", function(){
+        $("#modalConfirm").modal("hide");
+        form.attr("action", goUrlDele).submit();
+    });
+</script>
 
 </body>
 </html>
