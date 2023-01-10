@@ -1,0 +1,1 @@
+document.write("<script src='/resources/static/js/constants.js'></script>");
