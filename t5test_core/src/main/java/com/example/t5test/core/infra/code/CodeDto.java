@@ -1,9 +1,10 @@
 package com.example.t5test.core.infra.code;
 
+import com.example.t5test.core.common.base.BaseDto;
 import lombok.Data;
 
 @Data
-public class CodeDto {
+public class CodeDto extends BaseDto {
 
     //	infr_code
     private String ifcdSeq;

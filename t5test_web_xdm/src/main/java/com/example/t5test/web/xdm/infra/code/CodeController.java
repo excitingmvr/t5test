@@ -48,6 +48,8 @@ public class CodeController {
 
     @RequestMapping(value= "/codeInst")
     public String codeInst(@ModelAttribute("vo") CodeVo vo, CodeDto dto, RedirectAttributes redirectAttributes) throws  Exception {
+        dto.getIfcgSeq().replace(",","");
+        System.out.println(dto.getIfcgSeq());
         service.insert(dto);
         vo.setIfcdSeq(dto.getIfcdSeq());
         redirectAttributes.addFlashAttribute("vo", vo);

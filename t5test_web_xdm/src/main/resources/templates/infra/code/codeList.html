@@ -1,75 +1,57 @@
-<!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>StyleBot</title>
-    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/vendors_css.css">
-    <!-- Style-->
-    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/skin_color.css">
-</head>
-
-<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
-
-<div class="wrapper">
-    <div id="loader"></div>
-
-    <div th:replace="infra/zxincludev1/top :: header"></div>
-    <div th:replace="infra/zxincludev1/sidemenu :: aside"></div>
-    <!-- Content Wrapper. Contains page content -->
+<div th:replace="zxincludev1/header"></div>
+<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="container-full">
             <!-- Main content -->
             <section class="content">
-                <form name="form" id="form" method="post">
+                <form name="formList" id="formList" method="post">
                     <input type="hidden" name="ifcdSeq">
                     <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
                     <input type="hidden" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
                     <input type="hidden" name="checkboxSeqArray">
-                    <h2>Code</h2>
+                    <h3 class="page-title">Code</h3>                          <!--###-->
                     <div class="box">
                         <div class="box-body">
                             <div id="searchWrap" style="display: block">
                                 <div class="row row-cols-2 row-cols-sm-6 g-2 px-2 mb-4">
                                     <div class="col">
                                         <select class="form-select" name="shDelNy" id="shDelNy">
-                                            <option th:selected="${vo.shDelNy == null}" value="">삭제여부</option>
-                                            <option th:selected="${vo.shDelNy == 1}" value="1">Y</option>
-                                            <option th:selected="${vo.shDelNy == 0}" value="0">N</option>
+                                            <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                                            <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+                                            <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
                                         </select>
                                     </div>
                                     <div class="col">
                                         <select class="form-select" name="shUseNy" id="shUseNy">
-                                            <option th:selected="${vo.shUseNy == null}" value="">사용여부</option>
-                                            <option th:selected="${vo.shUseNy == 1}" value="1">Y</option>
-                                            <option th:selected="${vo.shUseNy == 0}" value="0">N</option>
+                                            <option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
+                                            <option value="1" th:selected="${vo.shUseNy == 1}" >Y</option>
+                                            <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
                                         </select>
                                     </div>
                                     <div class="col">
                                         <select class="form-select" name="shOptionDate" id="shOptionDate">
-                                            <option th:selected="${vo.shOptionDate == null}" value="">날짜</option>
-                                            <option th:selected="${vo.shOptionDate == 1}" value="1">생성일</option>
-                                            <option th:selected="${vo.shOptionDate == 2}" value="2">수정일</option>
+                                            <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                                            <option value="1" th:selected="${vo.shOptionDate == 1}">생성일</option>
+                                            <option value="2" th:selected="${vo.shOptionDate == 2}" >수정일</option>
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <input type="date" class="form-control" name="shDateStart" placeholder="시작일">
+                                        <input type="text" class="form-control" id="shDateStart" name="shDateStart" placeholder="시작일">
                                     </div>
                                     <div class="col">
-                                        <input type="date" class="form-control" name="shDateEnd" placeholder="종료일">
+                                        <input type="text" class="form-control" id="shDateEnd" name="shDateEnd" placeholder="종료일">
                                     </div>
                                 </div>
                                 <div class="row row-cols-2 row-cols-sm-6 g-2 px-2">
                                     <div class="col">
                                         <select class="form-select" id="shOption" name="shOption">
-                                            <option th:selected="${vo.shOption == null}" value="">검색구분</option>
-                                            <option th:selected="${vo.shOption == 1}" value="1">코드 코드</option>
-                                            <option th:selected="${vo.shOption == 2}" value="2">코드 이름</option>
-                                            <option th:selected="${vo.shOption == 3}" value="3">코드 영어 이름</option>
+                                            <option value="" th:selected="${vo.shOption == null}">검색구분</option>
+                                            <option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
+                                            <option value="2" th:selected="${vo.shOption == 2}" >코드그룹 이름</option>
+                                            <option value="3" th:selected="${vo.shOption == 3}" >코드</option>
+                                            <option value="4" th:selected="${vo.shOption == 4}" >대체 코드</option>
+                                            <option value="5" th:selected="${vo.shOption == 5}" >코드 이름</option>
+                                            <option value="6" th:selected="${vo.shOption == 6}" >코드 이름 (영문)</option>
                                         </select>
                                     </div>
                                     <div class="col">
@@ -77,14 +59,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-end">
-                                <div class="p-2">
-                                    <span style="cursor:pointer; margin-left: 10px;" onclick="showHide('searchWrap');">
-                                        <a id="showBtn" onclick='change()'><i class="fa fa-chevron-up"></i></a>
-                                    </span>
+                            <div class="d-flex justify-content-start">
+                                <div class="mt-3 ms-2">
+                                <span style="cursor:pointer;" onclick="showHide('searchWrap');">
+                                    <button id="showBtn" class="btn btn-secondary btn-sm" type="button" onclick='change()'><i class="fa fa-chevron-up"></i></button>
+                                </span>
                                 </div>
-                                <div class="p-2">
+                                <div class="mt-3 ms-2">
                                     <button class="btn btn-secondary btn-sm" id="btnReset"><i class="fa fa-rotate-left"></i></button>
+                                </div>
+                                <div class="mt-3 ms-2">
                                     <button class="btn btn-secondary btn-sm" id="btnSearch"><i class="fa fa-search"></i></button>
                                 </div>
                             </div>
@@ -93,59 +77,66 @@
                     <div class="box">
                         <div class="box-body">
                             <div class="table-responsive-sm">
-                                <table class="table">
-                                    <thead style="width:100%">
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input type="checkbox" id="CheckBoxAll">
-                                                <label for="CheckBoxAll"></label>
-                                            </div>
-                                        </td>
-                                        <td>#</td>
-                                        <td>코드그룹 코드</td>
-                                        <td>코드그룹 이름</td>
-                                        <td>코드</td>
-                                        <td>대체 코드</td>
-                                        <td>코드 이름</td>
-                                        <td>코드 이름 (영문)</td>
-                                        <td>사용</td>
-                                        <td>순서</td>
-                                        <td>등록일</td>
-                                        <td>수정일</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="cgNum : ${list}">
+                                <div class="d-flex">
+                                    <div class="p-2 me-auto" th:text="'Total: '+${vo.totalRows}"></div>
+                                    <div class="p-2 text-end">
+                                        <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
+                                            <option value="10" th:selected="${vo.rowNumToShow eq 10}">10</option>
+                                            <option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
+                                            <option value="50" th:selected="${vo.rowNumToShow eq 50}">50</option>
+                                            <option value="80" th:selected="${vo.rowNumToShow eq 80}">80</option>
+                                            <option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <table class="table table-hover table-striped">
+                                    <thead style="background-color:#172b4c; color:#b5b5c3;">
+                                        <tr>
                                             <td>
                                                 <div class="checkbox">
-                                                    <input type="checkbox"  th:id="'checkboxSeq_' + ${cgNum.ifcdSeq}" name="checkboxSeq" th:value="${cgNum.ifcdSeq}">
-                                                    <label th:for="'checkboxSeq_' + ${cgNum.ifcdSeq}"></label>
+                                                    <input type="checkbox" id="CheckBoxAll">
+                                                    <label for="CheckBoxAll"></label>
                                                 </div>
                                             </td>
-                                            <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + cgNumStat.index)}"></td>
-                                            <td th:text="${cgNum.ifcgSeq}"></td>
-                                            <td th:text="${cgNum.ifcgName}"></td>
-                                            <td th:text="${cgNum.ifcdSeq}"></td>
-                                            <td th:text="${cgNum.ifcdSeqAnother}"></td>
-                                            <td th:text="${cgNum.ifcdName}" th:attr="onclick=|goForm('${cgNum.ifcgSeq}')|" style="cursor: pointer;"></td>
-                                            <td th:text="${cgNum.ifcdNameEng}"></td>
-                                            <td th:if="${cgNum.ifcdUseNy eq 0}">N</td>
-                                            <td th:unless="${cgNum.ifcdUseNy eq 0}">Y</td>
-                                            <td th:text="${cgNum.ifcdOrder}"></td>
-                                            <td>dddd</td>
-                                            <td>dddd</td>
+                                            <td>#</td>
+                                            <td>코드그룹 코드</td>
+                                            <td>코드그룹 이름</td>
+                                            <td>코드</td>
+                                            <td>대체 코드</td>
+                                            <td>코드 이름</td>
+                                            <td>코드 이름 (영문)</td>
+                                            <td>사용</td>
+                                            <td>순서</td>
+                                            <td>등록일</td>
+                                            <td>수정일</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifcdSeq}">
+                                            <td>
+                                                <div class="checkbox">
+                                                    <input type="checkbox"  th:id="'checkboxSeq_' + ${list.ifcdSeq}" name="checkboxSeq" th:value="${list.ifcdSeq}">
+                                                    <label th:for="'checkboxSeq_' + ${list.ifcdSeq}"></label>
+                                                </div>
+                                            </td>
+                                            <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                                            <td th:text="${list.ifcgSeq}"></td>
+                                            <td th:text="${list.ifcgName}"></td>
+                                            <td th:text="${list.ifcdSeq}"></td>
+                                            <td th:text="${list.ifcdSeqAnother}"></td>
+                                            <td th:text="${list.ifcdName}" th:attr="onclick=|goForm('${list.ifcgSeq}')|" style="cursor: pointer;"></td>
+                                            <td th:text="${list.ifcdNameEng}"></td>
+                                            <td th:if="${list.ifcdUseNy eq 0}">N</td>
+                                            <td th:unless="${list.ifcdUseNy eq 0}">Y</td>
+                                            <td th:text="${list.ifcdOrder}"></td>
+                                            <td th:text="${#dates.format(list.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                            <td th:text="${#dates.format(list.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="d-flex">
-                                <div class="p-2"><button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button></div>
-                                <div class="p-2 me-auto"><button class="btn btn-danger-light btn-sm" id="btnDelete" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button></div>
-                                <div class="p-2"><button class="btn btn-success-light btn-sm" id="btnForm"><i class="fa fa-plus"></i></button></div>
-                            </div>
                             <div class="dataTables_paginate paging_simple_numbers">
-                                <ul class="pagination justify-content-center mb-0">
+                                <ul class="pagination justify-content-center mb-0 pagination-sm">
                                     <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous"><a class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a></li>
                                     <li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" class="paginate_button page-item" th:classappend="${num eq vo.thisPage} ? active : ''">
                                         <a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
@@ -153,31 +144,52 @@
                                     <li th:if="${vo.endPage ne vo.totalPages}" class="paginate_button page-item next"><a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">></a></li>
                                 </ul>
                             </div>
+                            <div class="d-flex">
+                                <div class="ms-2"><button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button></div>
+                                <div class="ms-2 me-auto"><button class="btn btn-danger-light btn-sm" id="btnDelete" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button></div>
+                                <div class="ms-2"><button class="btn btn-success-light btn-sm" id="btnExcel"><i class="fa fa-file-excel-o"></i></button></div>
+                                <div class="ms-2"><button class="btn btn-primary-light btn-sm" id="btnForm"><i class="fa fa-plus"></i></button></div>
+                            </div>
                         </div>
                     </div>
                 </form>
             </section>
         </div>
     </div>
-    <div th:replace="infra/zxincludev1/modalBase :: div"></div>
+    <div th:replace="zxincludev1/footer"></div>
+    <div th:replace="zxincludev1/modalbase"></div>
 </div>
+
 <!-- Page Content overlay -->
-
-<script type="text/javascript" src="/uitemplate/eduadmin/js/vendors.min.js"></script>
-<script type="text/javascript" src="/uitemplate/eduadmin/assets/icons/feather-icons/feather.min.js"></script>
-<script type="text/javascript" src="/uitemplate/eduadmin/assets/vendor_components/moment/min/moment.min.js"></script>
-
-<script type="text/javascript" src="/uitemplate/eduadmin/js/template.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<div th:replace="zxincludev1/linkJs"></div>
 <script>
     let goUrlList = "/infra/code/codeList";
     let goUrlForm = "/infra/code/codeForm";
-    let form = $("form[name=form]");
-    let seq = $("[name=ifcdSeq]");
     let goUrlMultiDele = "/infra/code/codeMultiDele";
     let goUrlMultiUele = "/infra/code/codeMultiUele";
+
+    let form = $("form[name=formList]");
+    let seq = $("[name=ifcdSeq]");
     let checkboxSeqArray = [];
+
+    $(document).ready(function () {
+        $("#shDateStart, #shDateEnd").datepicker();
+    });
+
+    $("#changeRowNum").on("change", function(){
+        $("input:hidden[name=rowNumToShow]").val($("#changeRowNum option:selected").val());
+        form.attr("action", goUrlList).submit();
+    });
+
+    $("input[name=checkboxSeq]").on("change", function() {
+        if($("#checkboxSeq_" + $(this).val()).is(":checked")) {
+            $("#checkboxSeq_" + $(this).val()).prop("checked", true);
+            $("#trNum_" + $(this).val()).css("background-color", "#FFEAE5");
+        } else {
+            $("#checkboxSeq_" + $(this).val()).prop("checked", false);
+            $("#trNum_" + $(this).val()).css("background-color", "");
+        }
+    });
 
     function showHide(id){
         let objId = document.getElementById(id);
@@ -187,6 +199,7 @@
             objId.style.display = "none";
         }
     }
+
     $("#btnSearch").on("click", function(){
         form.attr("action", goUrlList).submit();
     });
@@ -212,18 +225,27 @@
     });
 
     $("#CheckBoxAll").click(function() {
-        if($("#CheckBoxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked", true);
-        else $("input[name=checkboxSeq]").prop("checked", false);
+        if($("#CheckBoxAll").is(":checked")) {
+            $("input[name=checkboxSeq]").prop("checked", true);
+            $("tbody tr").css("background-color", "#FFEAE5");
+        } else {
+            $("input[name=checkboxSeq]").prop("checked", false)
+            $("tbody tr").css("background-color", "");
+        }
     });
 
     $("input[name=CheckBoxAll]").click(function() {
         let total = $("input[name=CheckBoxAll]").length;
         let checked = $("input[name=CheckBoxAll]:checked").length;
 
-        if(total != checked) $("#CheckBoxAll").prop("checked", false);
-        else $("#CheckBoxAll").prop("checked", true);
+        if(total != checked) {
+            $("#CheckBoxAll").prop("checked", false);
+            $("tbody tr").css("background-color", "");
+        }else {
+            $("#CheckBoxAll").prop("checked", true);
+            $("tbody tr").css("background-color", "#FFEAE5");
+        }
     });
-
     $("#btnUelete").on("click", function(){
         if($("input[name=checkboxSeq]:checked").length > 0 ) {
             $(".modal-title").text("확 인");

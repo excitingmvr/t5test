@@ -149,7 +149,7 @@
     <select id="selectListWithoutPaging" resultType="com.example.t5test.core.infra.code.CodeDto">
         SELECT
             ifcgSeq
-             ,ifcgName
+            ,ifcgName
         FROM infrCodeGroup
         WHERE 1=1
         ORDER BY ifcgSeq DESC
