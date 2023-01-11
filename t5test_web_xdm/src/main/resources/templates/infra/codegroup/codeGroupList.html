@@ -74,18 +74,7 @@
                 <div class="box">
                     <div class="box-body">
                         <div class="table-responsive-sm">
-                            <div class="d-flex">
-                                <div class="p-2 me-auto" th:text="'Total: '+${vo.totalRows}"></div>
-                                <div class="p-2 text-end">
-                                    <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
-                                        <option value="10" th:selected="${vo.rowNumToShow eq 10}">10</option>
-                                        <option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
-                                        <option value="50" th:selected="${vo.rowNumToShow eq 50}">50</option>
-                                        <option value="80" th:selected="${vo.rowNumToShow eq 80}">80</option>
-                                        <option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <div th:replace="zxincludev1/totalAndRowNum"></div>
                             <table class="table table-hover table-striped">
                                 <thead style="background-color:#172b4c; color:#b5b5c3;">
                                 <tr>
