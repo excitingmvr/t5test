@@ -150,9 +150,9 @@
     let goUrlForm = "/infra/codegroup/codeGroupForm";               /*###*/
     let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";     /*###*/
     let goUrlMultiDele = "/infra/codegroup/codeGroupMultiDele";     /*###*/
-    let seq = $("[name=ifcgSeq]");                                  /*###*/
+    let seq = document.querySelector("input[name=ifcgSeq]");                      /*###*/
 
-    let form = $("form[name=formList]");
+    let form = document.querySelector("form[name=formList]");
     let checkboxSeqArray = [];
 
     $(document).ready(function () {
@@ -185,7 +185,8 @@
 
     document.getElementById("changeRowNum").onchange = function() {
         document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-        form.attr("action", goUrlList).submit();
+        form.action = goUrlList;
+        form.submit();
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -217,8 +218,9 @@
     }
 
     goForm = function(keyValue) {
-        seq.val(keyValue);
-        form.attr("action", goUrlForm).submit();
+        seq.value = keyValue;
+        form.action = goUrlForm;
+        form.submit();
     }
 
     document.getElementById("btnForm").onclick = function () {
@@ -226,8 +228,9 @@
     }
 
     goList = function(thisPage) {
-        $("input:hidden[name=thisPage]").val(thisPage);
-        form.attr("action", goUrlList).submit();
+        document.querySelector("input[name=thisPage]").value = thisPage;
+        form.action = goUrlList;
+        form.submit();
     }
 
     document.querySelector("#btnUelete").onclick = function () {
@@ -251,10 +254,11 @@
             if(checkBoxArr[i].checked) checkboxSeqArray.push(checkBoxArr[i].value);
         }
         document.querySelector("input[name='checkboxSeqArray']").value = checkboxSeqArray;
-        form.attr("action", goUrlMultiUele).submit();
+        form.action = goUrlMultiUele;
+        form.submit();
     }
 
-    document.getElementById("btnDelete").click = function () {
+    document.querySelector("#btnDelete").onclick = function () {
         if(document.querySelectorAll("input[name='checkboxSeq']:checked").length > 0 ) {
             document.querySelector(".modal-title").textContent = "확 인";
             document.querySelector(".modal-body").textContent = "해당 데이터를 삭제하시겠습니까 ?";
@@ -275,7 +279,8 @@
             if(checkBoxArr[i].checked) checkboxSeqArray.push(checkBoxArr[i].value);
         }
         document.querySelector("input[name='checkboxSeqArray']").value = checkboxSeqArray;
-        form.attr("action", goUrlMultiDele).submit();
+        form.action = goUrlMultiDele;
+        form.submit();
     }
 
 </script>

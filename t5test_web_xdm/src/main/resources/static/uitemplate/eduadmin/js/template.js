@@ -1546,7 +1546,7 @@ function w3_close() {
 
 // loader 
 		
-	var loader;
+/*	var loader;
 
 	function loadNow(opacity) {
 		if (opacity <= 0) {
@@ -1566,7 +1566,7 @@ function w3_close() {
 	document.addEventListener("DOMContentLoaded", function() {
 		loader = document.getElementById('loader');
 		loadNow(1);
-	});
+	});*/
 
 
 new PerfectScrollbar(".multinav-scroll");
