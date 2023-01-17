@@ -14,17 +14,18 @@
           </set>
         </option>
       </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="delegatedBuild" value="true" />
-        <option name="testRunner" value="GRADLE" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/t5test_api_b2c" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/t5test_api_b2c" />
-          </set>
-        </option>
-      </GradleProjectSettings>
+      <!-- gradle 재 빌드하려는데 없는 디렉토리를 빌드하려고 해서 실패 합니다 지웁니다 -->
+<!--      <GradleProjectSettings>-->
+<!--        <option name="delegatedBuild" value="true" />-->
+<!--        <option name="testRunner" value="GRADLE" />-->
+<!--        <option name="distributionType" value="DEFAULT_WRAPPED" />-->
+<!--        <option name="externalProjectPath" value="$PROJECT_DIR$/t5test_api_b2c" />-->
+<!--        <option name="modules">-->
+<!--          <set>-->
+<!--            <option value="$PROJECT_DIR$/t5test_api_b2c" />-->
+<!--          </set>-->
+<!--        </option>-->
+<!--      </GradleProjectSettings>-->
       <GradleProjectSettings>
         <option name="delegatedBuild" value="true" />
         <option name="testRunner" value="GRADLE" />
@@ -36,17 +37,18 @@
           </set>
         </option>
       </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="delegatedBuild" value="true" />
-        <option name="testRunner" value="GRADLE" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/t5test_web_usr" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/t5test_web_usr" />
-          </set>
-        </option>
-      </GradleProjectSettings>
+      <!-- gradle 재 빌드하려는데 없는 디렉토리를 빌드하려고 해서 실패 합니다 지웁니다 -->
+<!--      <GradleProjectSettings>-->
+<!--        <option name="delegatedBuild" value="true" />-->
+<!--        <option name="testRunner" value="GRADLE" />-->
+<!--        <option name="distributionType" value="DEFAULT_WRAPPED" />-->
+<!--        <option name="externalProjectPath" value="$PROJECT_DIR$/t5test_web_usr" />-->
+<!--        <option name="modules">-->
+<!--          <set>-->
+<!--            <option value="$PROJECT_DIR$/t5test_web_usr" />-->
+<!--          </set>-->
+<!--        </option>-->
+<!--      </GradleProjectSettings>-->
       <GradleProjectSettings>
         <option name="delegatedBuild" value="true" />
         <option name="testRunner" value="GRADLE" />

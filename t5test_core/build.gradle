@@ -32,3 +32,11 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+// 멀티 모듈에서 하위에 대한 jar 파일을 생성하면 안된다
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
