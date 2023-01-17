@@ -10,4 +10,4 @@ sudo sleep 20s # Waits  seconds.
 sudo nohup java -jar $DIR 1>>$STDOUT 2>> $STDERR &
 sudo sleep 60s
 
-exit 1
+exit 0
