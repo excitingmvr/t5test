@@ -5,8 +5,8 @@ on:
       repository:
         description: 'master/**'
         required: false
-      sync_only:
-        description: 'sync only flag'
+      tags:
+        description: 'tag message'
         required: false
     branch:
 env:
