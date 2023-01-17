@@ -190,12 +190,15 @@
         } else {
             objId.style.display = "none";
         }
+
     $("#btnRefresh").on("click", function(){
         form.attr("action", goUrlList).submit();
     });
+
     document.getElementById("btnSearch").onclick = function(){
         form.attr("action", goUrlList).submit();
     };
+
     document.getElementById("changeRowNum").change = function () {
         $("input:hidden[name=rowNumToShow]").val($("#changeRowNum option:selected").val());
         form.attr("action", goUrlList).submit();
@@ -220,6 +223,7 @@
             $("tbody tr").css("background-color", "");
         }
     }
+
     document.getElementByName("CheckBoxAll").onclick = function () {
         let total = $("input[name=CheckBoxAll]").length;
         let checked = $("input[name=CheckBoxAll]:checked").length;
@@ -237,6 +241,7 @@
         seq.val(keyValue);
         form.attr("action", goUrlForm).submit();
     }
+
     document.getElementById("btnForm").onclick = function () {
         goForm(0);
     }

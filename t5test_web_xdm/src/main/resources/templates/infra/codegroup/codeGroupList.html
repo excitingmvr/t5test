@@ -4,7 +4,7 @@
     <div class="container-full">
         <!-- Main content -->
         <section class="content" style="background-color: #ececec">
-            <form name="formList" id="formList" method="post">
+            <form name="formList" id="formList">
                 <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
                 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
                 <input type="hidden" name="checkboxSeqArray">
@@ -176,11 +176,12 @@
     }
 
     document.getElementById("btnReset").onclick = function () {
-            window.location.href = goUrlList;
+        form.href = goUrlList;
     }
 
     document.getElementById("btnSearch").onclick = function(){
-        form.attr("action", goUrlList).submit();
+        form.action = goUrlList;
+        form.submit();
     };
 
     document.getElementById("changeRowNum").onchange = function() {
@@ -233,7 +234,7 @@
         form.submit();
     }
 
-    document.querySelector("#btnUelete").onclick = function () {
+    document.getElementById("btnUelete").onclick = function () {
         if(document.querySelectorAll("input[name='checkboxSeq']:checked").length > 0 ) {
             document.querySelector(".modal-title").textContent = "확 인";
             document.querySelector(".modal-body").textContent = "해당 데이터를 삭제하시겠습니까 ?";
@@ -258,7 +259,7 @@
         form.submit();
     }
 
-    document.querySelector("#btnDelete").onclick = function () {
+    document.getElementById("btnDelete").onclick = function () {
         if(document.querySelectorAll("input[name='checkboxSeq']:checked").length > 0 ) {
             document.querySelector(".modal-title").textContent = "확 인";
             document.querySelector(".modal-body").textContent = "해당 데이터를 삭제하시겠습니까 ?";

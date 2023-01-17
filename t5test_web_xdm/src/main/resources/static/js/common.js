@@ -15,7 +15,7 @@ $.datepicker.setDefaults({
     dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
     dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
     onClose: function () {
-        if ($(window.event.srcElement).hasClass('ui-datepicker-close')) {
+        if ($(window.target).hasClass('ui-datepicker-close')) {
             $(this).val('');
         }
     }
