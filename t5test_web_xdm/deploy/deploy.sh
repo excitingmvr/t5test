@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+sudo chmod 775 -R /home/centos
+
 STDOUT=/home/centos/stdout.log
 STDERR=/home/centos/stderr.log
 
