@@ -11,7 +11,7 @@
 }
 
 .main-header{
-    div.logo-box{        
+    div.logo-box{
         width: $sid-bar-w;
         float: left;        
         -webkit-transition: -webkit-transform .3s ease-in-out, width .3s ease-in-out;
@@ -93,8 +93,9 @@
             margin: 22px 5px;
         }
     }
-    .navbar{
+    .navbar {
         @include transition(margin-left .3s ease-in-out);
+        background-color: #ECECEC;
         margin-bottom: 0;
         margin-left: $sid-bar-w;
         min-height: $main-hed-nav;

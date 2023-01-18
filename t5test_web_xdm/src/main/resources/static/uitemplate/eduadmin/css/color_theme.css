@@ -468,7 +468,7 @@ Theme Primary Color
   background: transparent; }
 
 .theme-primary.fixed .main-header {
-  background: #fafbfd; }
+  background: #ececec; }
 .theme-primary .main-header {
   background: transparent; }
 
@@ -2185,7 +2185,7 @@ Theme Secondary Color
   background: transparent; }
 
 .theme-secondary.fixed .main-header {
-  background: #fafbfd; }
+  background: #ececec; }
 .theme-secondary .main-header {
   background: transparent; }
 
@@ -3902,7 +3902,7 @@ Theme Info Color
   background: transparent; }
 
 .theme-info.fixed .main-header {
-  background: #fafbfd; }
+  background: #ececec; }
 .theme-info .main-header {
   background: transparent; }
 
@@ -5619,7 +5619,7 @@ Theme Success Color
   background: transparent; }
 
 .theme-success.fixed .main-header {
-  background: #fafbfd; }
+  background: #ececec; }
 .theme-success .main-header {
   background: transparent; }
 
@@ -7336,7 +7336,7 @@ Theme Danger Color
   background: transparent; }
 
 .theme-danger.fixed .main-header {
-  background: #fafbfd; }
+  background: #ececec; }
 .theme-danger .main-header {
   background: transparent; }
 
@@ -9053,7 +9053,7 @@ Theme Warning Color
   background: transparent; }
 
 .theme-warning.fixed .main-header {
-  background: #fafbfd; }
+  background: #ececec; }
 .theme-warning .main-header {
   background: transparent; }
 
