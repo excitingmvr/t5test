@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<input type="text" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 <input type="hidden" name="checkboxSeqArray">
 <input type="hidden" name="ifcgSeq">
@@ -83,7 +83,6 @@
 </div>
 
 <script>
-
     document.getElementById("changeRowNum").onchange = function() {
       document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
       form.action = goUrlList;
