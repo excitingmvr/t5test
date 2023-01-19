@@ -19,6 +19,7 @@ $("#shDateStart").datepicker({
     onClose: function( selectedDate ) {
         $("#shDateEnd").datepicker( "option", "minDate", selectedDate );
     }
+
 });
 
 $("#shDateEnd").datepicker({

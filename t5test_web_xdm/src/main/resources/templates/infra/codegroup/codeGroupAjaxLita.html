@@ -1,195 +1,98 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>StyleBot</title>
-  <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/vendors_css.css">
-  <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/style.css">
-  <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/skin_color.css">
-  <link rel="stylesheet" href="/jquery/jquery-ui-1.13.1.custom/jquery-ui.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>StyleBot</title>
+    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/vendors_css.css">
+    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/uitemplate/eduadmin/css/skin_color.css">
+    <link rel="stylesheet" href="/jquery/jquery-ui-1.13.1.custom/jquery-ui.css">
 </head>
 
 <body>
-<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
-<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-<input type="hidden" name="checkboxSeqArray">
-<input type="hidden" name="ifcgSeq">
 <div class="box">
-  <div class="box-body">
-    <div class="table-responsive-sm">
-      <div th:replace="zxincludev1/totalAndRowNum"></div>
-      <table class="table table-hover table-striped">
-        <thead style="background-color:#172b4c; color:#b5b5c3;">
-        <tr>
-          <td style="width:20px;">
-            <div class="checkbox">
-              <input type="checkbox" id="CheckBoxAll">
-              <label for="CheckBoxAll"></label>
+    <div class="box-body">
+        <div class="table-responsive-sm">
+            <div th:replace="zxincludev1/totalAndRowNum"></div>
+            <table class="table table-hover table-striped">
+                <thead style="background-color:#172b4c; color:#b5b5c3;">
+                <tr>
+                    <td style="width:20px;">
+                        <div class="checkbox">
+                            <input type="checkbox" id="CheckBoxAll">
+                            <label for="CheckBoxAll"></label>
+                        </div>
+                    </td>
+                    <td style="width:50px">#</td>
+                    <td>코드그룹 코드</td>
+                    <td>코드그룹 이름</td>
+                    <td>코드그룹 이름 (영문)</td>
+                    <td>코드 갯수</td>
+                    <td style="width:60px;">사용</td>
+                    <td style="width:60px;">순서</td>
+                    <td style="width:120px;">등록일</td>
+                    <td style="width:120px;">수정일</td>
+                </tr>
+                </thead>
+                <tbody id="AjaxList">
+                <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifcgSeq}">
+                    <td>
+                        <div class="checkbox">
+                            <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifcgSeq}" name="checkboxSeq"
+                                   th:value="${list.ifcgSeq}">
+                            <label th:for="'checkboxSeq_' + ${list.ifcgSeq}"></label>
+                        </div>
+                    </td>
+                    <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                    <td th:text="${list.ifcgSeq}"></td>
+                    <td th:text="${list.ifcgName}" th:attr="onclick=|goForm('${list.ifcgSeq}')|"
+                        style="cursor: pointer;"></td>
+                    <td th:text="${list.ifcgNameEng}"></td>
+                    <td th:text="${list.xifcdSeqCount}"></td>
+                    <td th:if="${list.ifcgUseNy eq 0}">N</td>
+                    <td th:unless="${list.ifcgUseNy eq 0}">Y</td>
+                    <td th:text="${list.ifcgOrder}"></td>
+                    <td th:text="${#dates.format(list.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${#dates.format(list.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination justify-content-center mb-0 pagination-sm">
+                <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous"><a
+                        class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a></li>
+                <li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" class="paginate_button page-item"
+                    th:classappend="${num eq vo.thisPage} ? active : ''">
+                    <a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
+                </li>
+                <li th:if="${vo.endPage ne vo.totalPages}" class="paginate_button page-item next"><a class="page-link"
+                                                                                                     th:attr="onclick=|goList('${vo.endPage + 1}')|">></a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex">
+            <div class="ms-2">
+                <button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal"
+                        data-bs-target="#myModal"><i class="fa fa-trash"></i></button>
             </div>
-          </td>
-          <td style="width:50px">#</td>
-          <td>코드그룹 코드</td>
-          <td>코드그룹 이름</td>
-          <td>코드그룹 이름 (영문)</td>
-          <td>코드 갯수</td>
-          <td style="width:60px;">사용</td>
-          <td style="width:60px;">순서</td>
-          <td style="width:120px;">등록일</td>
-          <td style="width:120px;">수정일</td>
-        </tr>
-        </thead>
-        <tbody id="AjaxList">
-        <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifcgSeq}">
-          <td>
-            <div class="checkbox">
-              <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifcgSeq}" name="checkboxSeq" th:value="${list.ifcgSeq}">
-              <label th:for="'checkboxSeq_' + ${list.ifcgSeq}"></label>
+            <div class="ms-2 me-auto">
+                <button class="btn btn-danger-light btn-sm" id="btnDelete" type="button" data-bs-toggle="modal"
+                        data-bs-target="#myModal"><i class="fa fa-remove"></i></button>
             </div>
-          </td>
-          <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-          <td th:text="${list.ifcgSeq}"></td>
-          <td th:text="${list.ifcgName}" th:attr="onclick=|goForm('${list.ifcgSeq}')|" style="cursor: pointer;"></td>
-          <td th:text="${list.ifcgNameEng}"></td>
-          <td th:text="${list.xifcdSeqCount}"></td>
-          <td th:if="${list.ifcgUseNy eq 0}">N</td>
-          <td th:unless="${list.ifcgUseNy eq 0}">Y</td>
-          <td th:text="${list.ifcgOrder}"></td>
-          <td th:text="${#dates.format(list.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-          <td th:text="${#dates.format(list.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-        </tr>
-        </tbody>
-      </table>
+            <div class="ms-2">
+                <button class="btn btn-success-light btn-sm" id="btnExcel"><i class="fa fa-file-excel-o"></i></button>
+            </div>
+            <div class="ms-2">
+                <button class="btn btn-primary-light btn-sm" id="btnForm"><i class="fa fa-plus"></i></button>
+            </div>
+        </div>
     </div>
-    <div class="dataTables_paginate paging_simple_numbers">
-      <ul class="pagination justify-content-center mb-0 pagination-sm">
-        <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous"><a class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a></li>
-        <li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" class="paginate_button page-item" th:classappend="${num eq vo.thisPage} ? active : ''">
-          <a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
-        </li>
-        <li th:if="${vo.endPage ne vo.totalPages}" class="paginate_button page-item next"><a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">></a></li>
-      </ul>
-    </div>
-    <div class="d-flex">
-      <div class="ms-2"><button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button></div>
-      <div class="ms-2 me-auto"><button class="btn btn-danger-light btn-sm" id="btnDelete" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button></div>
-      <div class="ms-2"><button class="btn btn-success-light btn-sm" id="btnExcel"><i class="fa fa-file-excel-o"></i></button></div>
-      <div class="ms-2"><button class="btn btn-primary-light btn-sm" id="btnForm"><i class="fa fa-plus"></i></button></div>
-    </div>
-  </div>
 </div>
-
-<script>
-    document.getElementById("changeRowNum").onchange = function() {
-      document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-      form.action = goUrlList;
-      form.submit();
-    }
-
-    document.getElementById("CheckBoxAll").onclick = function () {
-      let checkNum = document.getElementsByName("checkboxSeq");
-
-      if(document.getElementById("CheckBoxAll").checked == true) {
-        for(let i of checkNum) {
-          let trStyle =  i.parentNode.parentNode.parentNode;
-          i.checked = true;
-          trStyle.style.backgroundColor = TABLE_COLOR;
-        }
-      } else {
-        for(let i of checkNum) {
-          let trStyle =  i.parentNode.parentNode.parentNode;
-          i.checked = false;
-          trStyle.style.backgroundColor = '';
-        }
-      }
-    }
-
-    window.addEventListener('load', function() {
-      let checkboxes = document.querySelectorAll('input[name=checkboxSeq]');
-
-      for(let checkbox of checkboxes) {
-        checkbox.addEventListener('change', function(event) {
-          if(event.target.checked) {
-            document.getElementById("trNum_" + event.target.value).style.backgroundColor = TABLE_COLOR;
-          }
-          else {
-            document.getElementById("trNum_" + event.target.value).style.backgroundColor = "";
-          }
-        });
-      }
-    }, false);
-
-    goForm = function(keyValue) {
-      seq.value = keyValue;
-      form.action = goUrlForm;
-      form.submit();
-    }
-
-    goList = function(thisPage) {
-      document.querySelector("input[name=thisPage]").value = thisPage;
-      setLita();
-    }
-
-    document.getElementById("btnUelete").onclick = function () {
-      if(document.querySelectorAll("input[name='checkboxSeq']:checked").length > 0 ) {
-        document.querySelector(".modal-title").textContent = "확 인";
-        document.querySelector(".modal-body").textContent = "해당 데이터를 삭제하시겠습니까 ?";
-        document.querySelector("#btnModalUelete").style.display = '';
-        document.querySelector("#btnModalDelete").style.display = 'none';
-      } else {
-        document.querySelector(".modal-title").textContent = "확 인";
-        document.querySelector(".modal-body").textContent = "데이터를 선택해 주세요!";
-        document.querySelector("#btnModalDelete").style.display = 'none';
-        document.querySelector("#btnModalUelete").style.display = 'none';
-      }
-    }
-
-    document.getElementById("btnModalUelete").onclick = function () {
-      let checkBoxArr = document.querySelectorAll("input[name='checkboxSeq']:checked");
-
-      for(let i = 0; i< checkBoxArr.length; i++) {
-        if(checkBoxArr[i].checked) checkboxSeqArray.push(checkBoxArr[i].value);
-      }
-      document.querySelector("input[name='checkboxSeqArray']").value = checkboxSeqArray;
-      form.action = goUrlMultiUele;
-      form.submit();
-    }
-
-    document.getElementById("btnDelete").onclick = function () {
-      if(document.querySelectorAll("input[name='checkboxSeq']:checked").length > 0 ) {
-        document.querySelector(".modal-title").textContent = "확 인";
-        document.querySelector(".modal-body").textContent = "해당 데이터를 삭제하시겠습니까 ?";
-        document.querySelector("#btnModalUelete").style.display = 'none';
-        document.querySelector("#btnModalDelete").style.display = '';
-      } else {
-        document.querySelector(".modal-title").textContent = "확 인";
-        document.querySelector(".modal-body").textContent = "데이터를 선택해 주세요!";
-        document.querySelector("#btnModalDelete").style.display = 'none';
-        document.querySelector("#btnModalUelete").style.display = 'none';
-      }
-    }
-
-    document.getElementById("btnModalDelete").click = function () {
-      let checkBoxArr = document.querySelectorAll("input[name='checkboxSeq']:checked");
-
-      for(let i = 0; i< checkBoxArr.length; i++) {
-        if(checkBoxArr[i].checked) checkboxSeqArray.push(checkBoxArr[i].value);
-      }
-      document.querySelector("input[name='checkboxSeqArray']").value = checkboxSeqArray;
-      form.action = goUrlMultiDele;
-      form.submit();
-    }
-
-    document.getElementById("btnExcel").onclick = function () {
-      alert("도입전")
-    }
-
-    document.getElementById("btnForm").onclick = function () {
-      goForm(0);
-    }
-</script>
+<script src="/js/infra/codeGroup/codeGroupAjaxLita.js"></script>
 </body>
 </html>

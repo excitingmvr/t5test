@@ -1,6 +1,6 @@
 <div th:replace="zxincludev1/header"></div>
 <form name="formList" method="post">
-    <div th:replace="/infra/codegroup/codeGroupVo"></div>
+<!--    <div th:replace="/infra/codegroup/codeGroupVo"></div>-->
     <div class="content-wrapper">
         <div class="container-full">
             <section class="content">
@@ -23,7 +23,7 @@
                                 <div class="form-group">
                                     <label class="form-label">코드</label>
                                     <div class="controls">
-                                        <input type="text" class="form-control" name="ifcdSeq" th:value="${item?.ifcdSeq}">
+                                        <input type="text" class="form-control" name="ifcdSeq" th:value="${item?.ifcdSeq}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                                 <div class="form-group">
                                     <label class="form-label">순서</label>
                                     <div class="controls">
-                                        <input type="text" class="form-control" id="ifcdOrder" name="ifcgOrder" th:value="${item?.ifcdOrder}">
+                                        <input type="text" class="form-control" id="ifcdOrder" name="ifcdOrder" th:value="${item?.ifcdOrder}">
                                         <div class="invalid-feedback" id="ifcdOrderFeedback"></div>
                                     </div>
                                 </div>

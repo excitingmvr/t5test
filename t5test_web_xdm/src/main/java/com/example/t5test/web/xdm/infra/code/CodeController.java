@@ -48,24 +48,22 @@ public class CodeController {
 
     @RequestMapping(value= "/codeInst")
     public String codeInst(@ModelAttribute("vo") CodeVo vo, CodeDto dto, RedirectAttributes redirectAttributes) throws  Exception {
-        dto.getIfcgSeq().replace(",","");
-        System.out.println(dto.getIfcgSeq());
         service.insert(dto);
         vo.setIfcdSeq(dto.getIfcdSeq());
         redirectAttributes.addFlashAttribute("vo", vo);
-        return "redirect:/infra/code/form";
+        return "redirect:/infra/code/codeForm";
     }
     @RequestMapping(value= "/codeUpdt")
     public String codeUpdt(@ModelAttribute("vo") CodeVo vo, CodeDto dto, RedirectAttributes redirectAttributes) throws Exception {
         service.update(dto);
         vo.setIfcdSeq(dto.getIfcdSeq());
         redirectAttributes.addFlashAttribute("vo", vo);
-        return "redirect:/infra/code/form";
+        return "redirect:/infra/code/codeForm";
     }
     @RequestMapping(value= "/codeUele")
     public String codeUele(CodeDto dto) throws  Exception {
         service.uelete(dto);
-        return "redirect:/infra/codegroup/list";
+        return "redirect:/infra/code/codeList";
     }
     @RequestMapping(value = "codeMultiUele")
     public String codeMultiUele(CodeDto dto, CodeVo vo) throws Exception {
@@ -73,12 +71,12 @@ public class CodeController {
             dto.setIfcdSeq(checkboxSeq);
             service.uelete(dto);
         }
-        return "redirect:/infra/code/list";
+        return "redirect:/infra/code/codeList";
     }
     @RequestMapping(value= "/codeDele")
     public String codeDele(CodeVo vo) throws  Exception {
         service.delete(vo);
-        return "redirect:/infra/code/list";
+        return "redirect:/infra/code/codeList";
     }
     @RequestMapping(value = "codeMultiDele")
     public String codeMultiDele(CodeVo vo) throws Exception {
@@ -86,7 +84,7 @@ public class CodeController {
             vo.setIfcdSeq(checkboxSeq);
             service.delete(vo);
         }
-        return "redirect:/infra/code/list";
+        return "redirect:/infra/code/codeList";
     }
 
 }
