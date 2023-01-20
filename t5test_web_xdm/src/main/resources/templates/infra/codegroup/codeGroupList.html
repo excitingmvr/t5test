@@ -170,7 +170,15 @@
 
 <!-- Page Content overlay -->
 <div th:replace="zxincludev1/linkJs"></div>
-<script src="/js/includeAjaxList.js"></script>
+<script>
+    let goUrlList = "/infra/codegroup/codeGroupList";                        /*###*/
+    let goUrlForm = "/infra/codegroup/codeGroupForm";                        /*###*/
+    let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";              /*###*/
+    let goUrlMultiDele = "/infra/codegroup/codeGroupMultiDele";              /*###*/
+
+    let seq = document.querySelector("input[name=ifcgSeq]");        /*###*/
+</script>
+<script src="/js/includeList.js"></script>
 
 </body>
 </html>

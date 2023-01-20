@@ -1,9 +1,3 @@
-let goUrlList = "/infra/codegroup/codeGroupList";                        /*###*/
-let goUrlForm = "/infra/codegroup/codeGroupForm";                        /*###*/
-let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";              /*###*/
-let goUrlMultiDele = "/infra/codegroup/codeGroupMultiDele";              /*###*/
-let seq = document.querySelector("input[name=ifcgSeq]");        /*###*/
-
 let form = document.querySelector("form[name=formList]");
 let checkboxSeqArray = [];
 
@@ -24,7 +18,6 @@ document.getElementById("btnReset").onclick = function () {
     form.location.href = goUrlList;
     form.submit();
 }
-
 
 document.getElementById("btnSearch").onclick = function () {
     form.action = goUrlList;

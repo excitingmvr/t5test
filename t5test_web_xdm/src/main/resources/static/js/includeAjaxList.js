@@ -1,11 +1,3 @@
-let goUrlList = "/infra/codegroup/codeGroupAjaxList";               /*###*/
-let goUrlLita = "/infra/codegroup/codeGroupAjaxLita";               /*###*/
-let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";         /*###*/
-let goUrlMultiDele = "/infra/codegroup/codeGroupMultiDele";         /*###*/
-let goUrlAjaxList = "/infra/codegroup/codeGroupAjaxList?thisPage="; /*###*/
-let goUrlForm = "/infra/codegroup/codeGroupForm";                   /*###*/
-
-let seq = document.querySelector("input[name=ifcgSeq]");        /*###*/
 let form = document.querySelector("form[name=formList]");
 let checkboxSeqArray = [];
 
