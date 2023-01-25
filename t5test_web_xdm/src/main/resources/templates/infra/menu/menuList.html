@@ -5,11 +5,11 @@
         <!-- Main content -->
         <section class="content">
             <form name="formList" id="formList" method="post" autocomplete="off">
-                <input type="hidden" name="ifcdSeq">
                 <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
                 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
                 <input type="hidden" name="checkboxSeqArray">
-                <h3 class="page-title">Code</h3>                          <!--###-->
+                <input type="hidden" name="ifmuSeq">
+                <h3 class="page-title">Menu</h3>
                 <div class="box">
                     <div class="box-body">
                         <div id="searchWrap" style="display: block">
@@ -46,12 +46,9 @@
                                 <div class="col">
                                     <select class="form-select" id="shOption" name="shOption">
                                         <option value="" th:selected="${vo.shOption == null}">검색구분</option>
-                                        <option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
-                                        <option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
-                                        <option value="3" th:selected="${vo.shOption == 3}">코드</option>
-                                        <option value="4" th:selected="${vo.shOption == 4}">대체 코드</option>
-                                        <option value="5" th:selected="${vo.shOption == 5}">코드 이름</option>
-                                        <option value="6" th:selected="${vo.shOption == 6}">코드 이름 (영문)</option>
+                                        <option value="1" th:selected="${vo.shOption == 1}">메뉴 코드</option>
+                                        <option value="2" th:selected="${vo.shOption == 2}">메뉴 이름</option>
+                                        <option value="3" th:selected="${vo.shOption == 3}">메뉴 이름 (영문)</option>
                                     </select>
                                 </div>
                                 <div class="col">
@@ -85,13 +82,11 @@
                                                 <label for="CheckBoxAll"></label>
                                             </div>
                                         </td>
-                                        <td style="width:50px;">#</td>
-                                        <td>코드그룹 코드</td>
-                                        <td>코드그룹 이름</td>
-                                        <td>코드</td>
-                                        <td>대체 코드</td>
-                                        <td>코드 이름</td>
-                                        <td>코드 이름 (영문)</td>
+                                        <td style="width:50px">#</td>
+                                        <td style="width:80px;">메뉴 코드</td>
+                                        <td>메뉴 이름</td>
+                                        <td>메뉴 이름 (영문)</td>
+                                        <td>메뉴 URL</td>
                                         <td style="width:60px;">사용</td>
                                         <td style="width:60px;">순서</td>
                                         <td style="width:120px;">등록일</td>
@@ -99,23 +94,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifcdSeq}">
+                                    <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifmuSeq}">
                                         <td>
                                             <div class="checkbox">
-                                                <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifcdSeq}" name="checkboxSeq" th:value="${list.ifcdSeq}">
-                                                <label th:for="'checkboxSeq_' + ${list.ifcdSeq}"></label>
+                                                <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifmuSeq}" name="checkboxSeq" th:value="${list.ifmuSeq}">
+                                                <label th:for="'checkboxSeq_' + ${list.ifmuSeq}"></label>
                                             </div>
                                         </td>
                                         <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                        <td th:text="${list.ifcgSeq}"></td>
-                                        <td th:text="${list.ifcgName}"></td>
-                                        <td th:text="${list.ifcdSeq}"></td>
-                                        <td th:text="${list.ifcdSeqAnother}"></td>
-                                        <td th:text="${list.ifcdName}" th:attr="onclick=|goForm('${list.ifcgSeq}')|" style="cursor: pointer;"></td>
-                                        <td th:text="${list.ifcdNameEng}"></td>
-                                        <td th:if="${list.ifcdUseNy eq 0}">N</td>
-                                        <td th:unless="${list.ifcdUseNy eq 0}">Y</td>
-                                        <td th:text="${list.ifcdOrder}"></td>
+                                        <td th:text="${list.ifmuSeq}"></td>
+                                        <td th:text="${list.ifmuName}" th:attr="onclick=|goForm('${list.ifmuSeq}')|" style="cursor: pointer;"></td>
+                                        <td th:text="${list.ifmuNameEng}"></td>
+                                        <td th:text="${list.ifmuUrl}"></td>
+                                        <td th:if="${list.ifmuUseNy eq 0}">N</td>
+                                        <td th:unless="${list.ifmuUseNy eq 0}">Y</td>
+                                        <td th:text="${list.ifmuOrder}"></td>
                                         <td th:text="${#dates.format(list.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                         <td th:text="${#dates.format(list.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                     </tr>
@@ -124,9 +117,7 @@
                         </div>
                         <div class="dataTables_paginate paging_simple_numbers">
                             <ul class="pagination justify-content-center mb-0 pagination-sm">
-                                <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous">
-                                    <a class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a>
-                                </li>
+                                <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous"><a class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a></li>
                                 <li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" class="paginate_button page-item" th:classappend="${num eq vo.thisPage} ? active : ''">
                                     <a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
                                 </li>
@@ -155,18 +146,19 @@
 </div>
 <div th:replace="zxincludev1/footer"></div>
 <div th:replace="zxincludev1/modalbase"></div>
-</div>
+</div><!--end wrapper-->
 
 <!-- Page Content overlay -->
 <div th:replace="zxincludev1/linkJs"></div>
-<script src="/js/includeList.js"></script>
 <script>
-    let goUrlList = "/infra/code/codeList";
-    let goUrlForm = "/infra/code/codeForm";
-    let goUrlMultiDele = "/infra/code/codeMultiDele";
-    let goUrlMultiUele = "/infra/code/codeMultiUele";
+    let goUrlList = "/infra/menu/menuList";                        /*###*/
+    let goUrlForm = "/infra/menu/menuForm";                        /*###*/
+    let goUrlMultiUele = "/infra/menu/menuMultiUele";              /*###*/
+    let goUrlMultiDele = "/infra/menu/menuMultiDele";              /*###*/
 
-    let seq = $("[name=ifcdSeq]");
+    let seq = document.querySelector("input[name=ifmuSeq]");        /*###*/
 </script>
+<script src="/js/includeList.js"></script>
+
 </body>
 </html>

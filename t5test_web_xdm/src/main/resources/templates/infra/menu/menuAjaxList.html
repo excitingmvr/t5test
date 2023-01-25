@@ -8,8 +8,8 @@
                 <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
                 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
                 <input type="hidden" name="checkboxSeqArray">
-                <input type="hidden" name="ifcgSeq">
-                <h3 class="page-title">CodeGroup</h3>
+                <input type="hidden" name="ifmuSeq">
+                <h3 class="page-title">Menu</h3>
                 <div class="box">
                     <div class="box-body">
                         <div id="searchWrap" style="display: block">
@@ -46,9 +46,9 @@
                                 <div class="col">
                                     <select class="form-select" id="shOption" name="shOption">
                                         <option value="" th:selected="${vo.shOption == null}">검색구분</option>
-                                        <option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
-                                        <option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
-                                        <option value="3" th:selected="${vo.shOption == 3}">코드그룹 이름 (영문)</option>
+                                        <option value="1" th:selected="${vo.shOption == 1}">메뉴 코드</option>
+                                        <option value="2" th:selected="${vo.shOption == 2}">메뉴 이름</option>
+                                        <option value="3" th:selected="${vo.shOption == 3}">메뉴 이름 (영문)</option>
                                     </select>
                                 </div>
                                 <div class="col">
@@ -80,14 +80,13 @@
 <div th:replace="zxincludev1/linkJs"></div>
 <script type="text/javascript" src="/js/includeAjaxList.js"></script>
 <script>
-    let goUrlList = "/infra/codegroup/codeGroupAjaxList";               /*###*/
-    let goUrlLita = "/infra/codegroup/codeGroupAjaxLita";               /*###*/
-    let goUrlMultiUele = "/infra/codegroup/codeGroupMultiUele";         /*###*/
-    let goUrlMultiDele = "/infra/codegroup/codeGroupMultiDele";         /*###*/
-    let goUrlAjaxList = "/infra/codegroup/codeGroupAjaxList?thisPage="; /*###*/
-    let goUrlForm = "/infra/codegroup/codeGroupForm";                   /*###*/
-
-    let seq = document.querySelector("input[name=ifcgSeq]");        /*###*/
+    let goUrlLita = "/infra/menu/menuAjaxLita";               /*###*/
+    let goUrlAjaxList = "/infra/menu/menuAjaxList?thisPage="; /*###*/
+    let goUrlList = "/infra/menu/menuAjaxList";                        /*###*/
+    let goUrlForm = "/infra/menu/menuForm";                        /*###*/
+    let goUrlMultiUele = "/infra/menu/menuMultiUele";              /*###*/
+    let goUrlMultiDele = "/infra/menu/menuMultiDele";              /*###*/
+    let seq = document.querySelector("input[name=ifmuSeq]");        /*###*/
 </script>
 
 </body>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.t5test.core.infra.menu.MenuDao">
+
+    <sql id="selectCommon">
+        FROM infrMenu a
+        WHERE 1=1
+        <if test="shUseNy != null and !shUseNy.equals('')">AND ifmuUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND ifmuDelNy = #{shDelNy}</if>
+        <choose>
+            <when test="shOptionDate == 1">AND regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+            <when test="shOptionDate == 2">AND modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+        </choose>
+        <choose>
+            <when test="shOption == 1">AND ifmuSeq = #{shValue}</when>
+            <when test="shOption == 2">AND ifmuName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND ifmuNameEng LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
+    </sql>
+
+    <select id="selectOneCount" resultType="Integer">
+        SELECT COUNT(*)
+        <include refid="selectCommon"/>
+    </select>
+
+    <select id="selectList" resultType="com.example.t5test.core.infra.menu.MenuDto">
+        <include refid="base.selectListUpperForMysql" />
+        SELECT
+        a.ifmuSeq
+        ,a.ifmuName
+        ,a.ifmuNameEng
+        ,a.ifmuUseNy
+        ,a.ifmuOrder
+        ,a.ifmuUrl
+        ,a.regDateTime
+        ,a.modDateTime
+        <include refid="selectCommon" />
+        ORDER BY a.ifmuSeq DESC
+        <include refid="base.selectListLowerForMysql" />
+    </select>
+
+    <select id="selectOne" resultType="com.example.t5test.core.infra.menu.MenuDto">
+        SELECT
+            a.ifmuSeq
+             ,a.ifmuName
+             ,a.ifmuNameEng
+             ,a.ifmuAdminNy
+             ,a.ifmuUrl
+             ,a.ifmuUseNy
+             ,a.ifmuOrder
+             ,a.ifmuDesc
+             ,a.ifmuDelNy
+             ,a.ifmuParents
+             ,a.ifmuDepth
+        FROM infrMenu a
+        WHERE 1=1
+          AND a.ifmuSeq = #{ifmuSeq}
+    </select>
+
+    <insert id="insert" parameterType="com.example.t5test.core.infra.menu.MenuDto">
+        INSERT INTO infrMenu (
+             ifmuName
+            ,ifmuNameEng
+            ,ifmuAdminNy
+            ,ifmuUrl
+            ,ifmuDepth
+            ,ifmuParents
+            ,ifmuUseNy
+            ,ifmuOrder
+            ,ifmuDesc
+            ,ifmuDelNy
+        ) VALUES (
+             #{ifmuName}
+            ,#{ifmuNameEng}
+            ,#{ifmuAdminNy}
+            ,#{ifmuUrl}
+            ,#{ifmuDepth}
+            ,#{ifmuParents}
+            ,#{ifmuUseNy}
+            ,#{ifmuOrder}
+            ,#{ifmuDesc}
+            ,0
+        )
+        <selectKey resultType="String" keyProperty="ifmuSeq" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
+    <update id="update" parameterType="com.example.t5test.core.infra.menu.MenuDto">
+        UPDATE infrMenu
+        SET
+          ifmuName = #{ifmuName}
+          ,ifmuNameEng = #{ifmuNameEng}
+          ,ifmuUrl = #{ifmuUrl}
+          ,ifmuAdminNy = #{ifmuAdminNy}
+          ,ifmuUseNy = #{ifmuUseNy}
+          ,ifmuDepth = #{ifmuDepth}
+          ,ifmuParents = #{ifmuParents}
+          ,ifmuAdminNy = #{ifmuAdminNy}
+          ,ifmuOrder = #{ifmuOrder}
+          ,ifmuDesc = #{ifmuDesc}
+        WHERE 1=1
+          AND ifmuSeq = #{ifmuSeq}
+    </update>
+
+    <update id="uelete" parameterType="com.example.t5test.core.infra.menu.MenuDto">
+        UPDATE infrMenu
+        SET
+            ifmuDelNy = 1
+        WHERE 1=1
+          AND ifmuSeq = #{ifmuSeq}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM infrMenu
+        WHERE 1=1
+          AND ifmuSeq = #{ifmnSeq}
+    </delete>
+</mapper>

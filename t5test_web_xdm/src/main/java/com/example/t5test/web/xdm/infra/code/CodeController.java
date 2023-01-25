@@ -39,6 +39,17 @@ public class CodeController {
 
         return "infra/code/codeList";
     }
+    @RequestMapping(value = "/codeAjaxList")
+    public String codeAjaxList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception{
+        return "infra/code/codeAjaxList";
+    }
+
+    @RequestMapping(value = "/codeAjaxLita")
+    public String codeLita(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception{
+        vo.setParamsPaging(service.selectOneCount(vo));
+        model.addAttribute("list", service.selectList(vo));
+        return "infra/code/codeAjaxLita";
+    }
     @RequestMapping(value= "/codeForm")
     public String codeForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
             model.addAttribute("item", service.selectOne(vo));

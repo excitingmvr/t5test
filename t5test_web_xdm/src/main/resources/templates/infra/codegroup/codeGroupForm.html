@@ -76,10 +76,8 @@
                                 <div class="form-group">
                                     <label class="form-label">설명</label>
                                     <div class="controls">
-                                        <textarea class="form-control" id="ifcgDesc" name="ifcgDesc"
-                                                  th:value="${item?.ifcgDesc}"></textarea>
+                                        <textarea class="form-control" id="ifcgDesc" name="ifcgDesc" th:value="${item?.ifcgDesc}"></textarea>
                                         <div class="invalid-feedback" id="ifcgDescFeedback"></div>
-
                                     </div>
                                 </div>
                             </div>
@@ -203,6 +201,7 @@
 </form>
 <!-- Page Content overlay -->
 <div th:replace="zxincludev1/linkJs"></div>
+<script src="/js/includeForm.js"></script>
 <script>
     let goUrlInst = "/infra/codegroup/codeGroupInst";               /*###*/
     let goUrlUpdt = "/infra/codegroup/codeGroupUpdt";               /*###*/
@@ -211,10 +210,6 @@
     let goUrlUele = "/infra/codegroup/codeGroupUele";               /*###*/
 
     let seq = document.querySelector("input[name=ifcgSeq]");        /*###*/
-
-    validationInst = function() {
-        if(validationUpdt() == false) return false;
-    }
 
     function validationUpdt() {
         if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
@@ -231,7 +226,5 @@
         if(!checkOnlyNumber('ifcgReferenceI4', 2, 1, 1, -128, 127, "예비4 (Int type)은 숫자(-128~127)만 입력 가능합니다.")) return false;
     }
 </script>
-<script src="/js/includeForm.js"></script>
-
 </body>
 </html>

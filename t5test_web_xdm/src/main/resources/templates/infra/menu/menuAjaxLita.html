@@ -28,32 +28,32 @@
                         </div>
                     </td>
                     <td style="width:50px">#</td>
-                    <td>코드그룹 코드</td>
-                    <td>코드그룹 이름</td>
-                    <td>코드그룹 이름 (영문)</td>
-                    <td>코드 갯수</td>
+                    <td>메뉴 코드</td>
+                    <td>메뉴 이름</td>
+                    <td>메뉴 이름 (영문)</td>
+                    <td>메뉴 URL</td>
                     <td style="width:60px;">사용</td>
                     <td style="width:60px;">순서</td>
                     <td style="width:120px;">등록일</td>
                     <td style="width:120px;">수정일</td>
                 </tr>
                 </thead>
-                <tbody id="AjaxList">
-                <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifcgSeq}">
+                <tbody>
+                <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifmuSeq}">
                     <td>
                         <div class="checkbox">
-                            <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifcgSeq}" name="checkboxSeq" th:value="${list.ifcgSeq}">
-                            <label th:for="'checkboxSeq_' + ${list.ifcgSeq}"></label>
+                            <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifmuSeq}" name="checkboxSeq" th:value="${list.ifmuSeq}">
+                            <label th:for="'checkboxSeq_' + ${list.ifmuSeq}"></label>
                         </div>
                     </td>
                     <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                    <td th:text="${list.ifcgSeq}"></td>
-                    <td th:text="${list.ifcgName}" th:attr="onclick=|goForm('${list.ifcgSeq}')|" style="cursor: pointer;"></td>
-                    <td th:text="${list.ifcgNameEng}"></td>
-                    <td th:text="${list.xifcdSeqCount}"></td>
-                    <td th:if="${list.ifcgUseNy eq 0}">N</td>
-                    <td th:unless="${list.ifcgUseNy eq 0}">Y</td>
-                    <td th:text="${list.ifcgOrder}"></td>
+                    <td th:text="${list.ifmuSeq}"></td>
+                    <td th:text="${list.ifmuName}" th:attr="onclick=|goForm('${list.ifmuSeq}')|" style="cursor: pointer;"></td>
+                    <td th:text="${list.ifmuNameEng}"></td>
+                    <td th:text="${list.ifmuUrl}"></td>
+                    <td th:if="${list.ifmuUseNy eq 0}">N</td>
+                    <td th:unless="${list.ifmuUseNy eq 0}">Y</td>
+                    <td th:text="${list.ifmuOrder}"></td>
                     <td th:text="${#dates.format(list.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td th:text="${#dates.format(list.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 </tr>

@@ -1,4 +1,8 @@
-let form = document.querySelector("form[name=formList]");       /*###*/
+let form = document.querySelector("form[name=formList]");
+
+validationInst = function() {
+    if(validationUpdt() == false) return false;
+}
 
 document.getElementById("btnDelete").onclick = function () {
     document.querySelector(".modal-title").textContent = "확 인";

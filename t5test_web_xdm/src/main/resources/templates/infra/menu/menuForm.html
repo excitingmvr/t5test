@@ -1,0 +1,158 @@
+<div th:replace="zxincludev1/header"></div>
+<form name="formList" id="formList" method="post">
+    <div th:replace="/infra/menu/menuVo"></div>                   <!--###-->
+    <div class="content-wrapper">
+        <div class="container-full">
+            <!-- Main content -->
+            <section class="content">
+                <h3 class="page-title">Menu</h3>
+                <div class="box">
+                    <div class="box-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">메뉴 코드</label>
+                                    <input type="text" class="form-control" th:value="${item?.ifmuSeq}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">메뉴 이름</label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" name="ifmuName" id="ifmuName" th:value="${item?.ifmuName}">
+                                        <div class="invalid-feedback" id="ifmuNameFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">메뉴 이름(영문)</label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="ifmuNameEng" name="ifmuNameEng" th:value="${item?.ifmuNameEng}">
+                                        <div class="invalid-feedback" id="ifmuNameEngFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">어드민 사용</label>
+                                    <div class="controls">
+                                        <select class="form-select" name="ifmuAdminNy" id="ifmuAdminNy">
+                                            <option value="1" th:selected="${item?.ifmuAdminNy == 1}">사용</option>
+                                            <option value="0" th:selected="${item?.ifmuAdminNy == 0}">미사용</option>
+                                        </select>
+                                        <div class="invalid-feedback" id="ifmuAdminNyFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">메뉴 URL</label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="ifmuUrl" name="ifmuUrl" th:value="${item?.ifmuUrl}">
+                                        <div class="invalid-feedback" id="ifmuUrlFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Parents</label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="ifmuParents" name="ifmuParents" th:value="${item?.ifmuParents}">
+                                        <div class="invalid-feedback" id="ifmuParentsFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Depth</label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="ifmuDepth" name="ifmuDepth" th:value="${item?.ifmuDepth}">
+                                        <div class="invalid-feedback" id="ifmuDepthFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">순서</label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="ifmuOrder" name="ifmuOrder" th:value="${item?.ifmuOrder}">
+                                        <div class="invalid-feedback" id="ifmuOrderFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">사용 여부</label>
+                                    <div class="controls">
+                                        <select class="form-select" name="ifmuUseNy" id="ifmuUseNy">
+                                            <option value="1" th:selected="${item?.ifmuUseNy == 1}">사용</option>
+                                            <option value="0" th:selected="${item?.ifmuUseNy == 0}">미사용</option>
+                                        </select>
+                                        <div class="invalid-feedback" id="ifmuUseNyFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">설명</label>
+                                    <div class="controls">
+                                        <textarea class="form-control" id="ifmuDesc" name="ifmuDesc" th:value="${item?.ifmuDesc}"></textarea>
+                                        <div class="invalid-feedback" id="ifmuDescFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="ms-2">
+                                <button class="btn btn-info-light btn-sm" id="btnList"><i class="fa fa-list"></i></button>
+                            </div>
+                            <div class="ms-2">
+                                <button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button>
+                            </div>
+                            <div class="ms-2 me-auto">
+                                <button class="btn btn-danger-light btn-sm" type="button" id="btnDelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button>
+                            </div>
+                            <div class="ms-2">
+                                <button class="btn btn-primary-light btn-sm" type="button" id="btnSubmit"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    </div>
+</form>
+<div th:replace="zxincludev1/footer"></div>
+<div th:replace="zxincludev1/modalbase"></div>
+</div><!--end wrapper-->
+<div th:replace="zxincludev1/linkJs"></div>
+<script src="/js/includeForm.js"></script>
+<script>
+    let goUrlInst = "/infra/menu/menuInst";               /*###*/
+    let goUrlUpdt = "/infra/menu/menuUpdt";               /*###*/
+    let goUrlDele = "/infra/menu/menuDele";               /*###*/
+    let goUrlList = "/infra/menu/menuList";               /*###*/
+    let goUrlUele = "/infra/menu/menuUele";               /*###*/
+
+    let seq = document.querySelector("input[name=ifmuSeq]");        /*###*/
+
+    function validationUpdt() {
+        if(!checkOnlyKoreanEnglishNumber('ifmuName', 2, 0, "메뉴 이름은 한글, 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyEnglishNumber('ifmuNameEng', 2, 1, "메뉴 이름(영문)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkSelectNull('ifmuAdminNy', 2, "어드민 사용 여부를 선택해 주세요.")) return false;
+        if(!checkOnlyEnglishNumber('ifmuUrl', 2, 0, "URL 주소는 영대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyNumber('ifmuParents', 2, 0, 1, 0, 255, "Parents는 숫자(0~255)만 입력 가능합니다.")) return false;
+        if(!checkOnlyNumber('ifmuDepth', 2, 0, 1, 0, 255, "Depth는 숫자(0~255)만 입력 가능합니다.")) return false;
+        if(!checkOnlyNumber('ifmuOrder', 2, 0, 1, 0, 255, "순서는 숫자(0~255)만 입력 가능합니다.")) return false;
+    }
+</script>
+</body>
+</html>

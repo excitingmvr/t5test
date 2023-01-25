@@ -1,0 +1,99 @@
+<div th:replace="zxincludev1/header"></div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <div class="container-full">
+    <!-- Main content -->
+    <section class="content">
+      <form name="formList" id="formList" method="post" autocomplete="off">
+        <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+        <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+        <input type="hidden" name="checkboxSeqArray">
+        <input type="hidden" name="ifcdSeq">
+        <h3 class="page-title">Code</h3>                          <!--###-->
+        <div class="box">
+          <div class="box-body">
+            <div id="searchWrap" style="display: block">
+              <div class="row row-cols-2 row-cols-sm-6 g-2 px-2 mb-4">
+                <div class="col">
+                  <select class="form-select" name="shDelNy" id="shDelNy">
+                    <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                    <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+                    <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <select class="form-select" name="shUseNy" id="shUseNy">
+                    <option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
+                    <option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
+                    <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <select class="form-select" name="shOptionDate" id="shOptionDate">
+                    <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                    <option value="1" th:selected="${vo.shOptionDate == 1}">생성일</option>
+                    <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" id="shDateStart" name="shDateStart" placeholder="시작일">
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" id="shDateEnd" name="shDateEnd" placeholder="종료일">
+                </div>
+              </div>
+              <div class="row row-cols-2 row-cols-sm-6 g-2 px-2">
+                <div class="col">
+                  <select class="form-select" id="shOption" name="shOption">
+                    <option value="" th:selected="${vo.shOption == null}">검색구분</option>
+                    <option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
+                    <option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
+                    <option value="3" th:selected="${vo.shOption == 3}">코드</option>
+                    <option value="4" th:selected="${vo.shOption == 4}">대체 코드</option>
+                    <option value="5" th:selected="${vo.shOption == 5}">코드 이름</option>
+                    <option value="6" th:selected="${vo.shOption == 6}">코드 이름 (영문)</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" th:value="${vo.shValue}" id="shValue" name="shValue" placeholder="검색어">
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-start">
+              <div class="mt-3 ms-2">
+                <button class="btn btn-secondary btn-sm" type="button" id="btnShowHide"><i class="fa fa-chevron-up"></i></button>
+              </div>
+              <div class="mt-3 ms-2">
+                <button class="btn btn-secondary btn-sm" type="button" id="btnReset" ><i class="fa fa-rotate-left"></i></button>
+              </div>
+              <div class="mt-3 ms-2">
+                <button class="btn btn-secondary btn-sm" id="btnSearch"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="ajaxList"></div>
+      </form>
+    </section>
+  </div>
+</div>
+<div th:replace="zxincludev1/footer"></div>
+<div th:replace="zxincludev1/modalbase"></div>
+</div><!--end wrapper-->
+
+<!-- Page Content overlay -->
+<div th:replace="zxincludev1/linkJs"></div>
+<script src="/js/includeAjaxList.js"></script>
+<script>
+  let goUrlList = "/infra/code/codeAjaxList";               /*###*/
+  let goUrlLita = "/infra/code/codeAjaxLita";               /*###*/
+  let goUrlMultiUele = "/infra/code/codeMultiUele";         /*###*/
+  let goUrlMultiDele = "/infra/code/codeMultiDele";         /*###*/
+  let goUrlAjaxList = "/infra/code/codeAjaxList?thisPage="; /*###*/
+  let goUrlForm = "/infra/code/codeForm";                   /*###*/
+
+  let seq = document.querySelector("input[name=ifcdSeq]");        /*###*/
+</script>
+
+</body>
+</html>

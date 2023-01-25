@@ -19,8 +19,7 @@ document.getElementById("btnShowHide").onclick = function () {
 }
 
 document.getElementById("btnReset").onclick = function () {
-    form.href = goUrlList;
-    form.submit();
+    location.href = goUrlList;
 }
 
 document.getElementById("btnSearch").onclick = function(){

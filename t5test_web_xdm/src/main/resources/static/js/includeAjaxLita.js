@@ -21,21 +21,19 @@ document.getElementById("CheckBoxAll").onclick = function () {
         }
     }
 }
-
-window.addEventListener('load', function() {
+$(function () {
     let checkboxes = document.querySelectorAll('input[name=checkboxSeq]');
 
-    for(let checkbox of checkboxes) {
-        checkbox.addEventListener('change', function(event) {
-            if(event.target.checked) {
+    for (let checkbox of checkboxes) {
+        checkbox.addEventListener('change', function (event) {
+            if (event.target.checked) {
                 document.getElementById("trNum_" + event.target.value).style.backgroundColor = TABLE_COLOR;
-            }
-            else {
+            } else {
                 document.getElementById("trNum_" + event.target.value).style.backgroundColor = "";
             }
         });
     }
-}, false);
+});
 
 goForm = function(keyValue) {
     seq.value = keyValue;

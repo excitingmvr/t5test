@@ -94,7 +94,7 @@ function checkSelectNull (objName, pattern, message) {
         obj.classList.remove('is-invalid');
         return true;
     } else {
-        checkLogicExpression (obj, objFeedback, pattern, message)
+        checkLogicExpression(obj, objFeedback, pattern, message)
         return false;
     }
 }
