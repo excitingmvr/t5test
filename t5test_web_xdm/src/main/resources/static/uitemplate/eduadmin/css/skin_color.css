@@ -53,8 +53,6 @@ File: scss
     border-style: solid;
     border-width: 22px 10px 22px 0;
     border-color: transparent #fafafa transparent transparent !important; }
-.light-skin .sidebar-menu > li.menu-open > a {
-  color: #172b4c; }
 .light-skin .sidebar-menu > li > .treeview-menu {
   margin: 0 0px; }
 .light-skin.sidebar-collapse .sidebar-menu > li > .treeview-menu {

@@ -27,14 +27,16 @@
     <select id="selectList" resultType="com.example.t5test.core.infra.menu.MenuDto">
         <include refid="base.selectListUpperForMysql" />
         SELECT
-        a.ifmuSeq
-        ,a.ifmuName
-        ,a.ifmuNameEng
-        ,a.ifmuUseNy
-        ,a.ifmuOrder
-        ,a.ifmuUrl
-        ,a.regDateTime
-        ,a.modDateTime
+            a.ifmuSeq
+            ,a.ifmuName
+            ,a.ifmuNameEng
+            ,a.ifmuParents
+            ,a.ifmuDepth
+            ,a.ifmuUseNy
+            ,a.ifmuOrder
+            ,a.ifmuUrl
+            ,a.regDateTime
+            ,a.modDateTime
         <include refid="selectCommon" />
         ORDER BY a.ifmuSeq DESC
         <include refid="base.selectListLowerForMysql" />
@@ -87,13 +89,27 @@
         </selectKey>
     </insert>
 
+    <insert id="AuthMenuInsert" parameterType="com.example.t5test.core.infra.menu.MenuDto">
+            INSERT INTO infrAuthMenu(
+                ifmuSeq
+                ,ifauDelNy
+                ,ifatSeq
+            ) VALUES (
+                #{ifmuSeq}
+                ,0
+                ,#{ifatSeq}
+            )
+        <selectKey resultType="String" keyProperty="ifauSeq" order="AFTER">
+                SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
     <update id="update" parameterType="com.example.t5test.core.infra.menu.MenuDto">
         UPDATE infrMenu
         SET
           ifmuName = #{ifmuName}
           ,ifmuNameEng = #{ifmuNameEng}
           ,ifmuUrl = #{ifmuUrl}
-          ,ifmuAdminNy = #{ifmuAdminNy}
           ,ifmuUseNy = #{ifmuUseNy}
           ,ifmuDepth = #{ifmuDepth}
           ,ifmuParents = #{ifmuParents}
@@ -117,4 +133,11 @@
         WHERE 1=1
           AND ifmuSeq = #{ifmnSeq}
     </delete>
+
+    <select id="selectListWithoutPaging" resultType="com.example.t5test.core.infra.menu.MenuDto">
+        SELECT
+            ifmuSeq
+        FROM infrMenu
+        WHERE 1=1
+    </select>
 </mapper>

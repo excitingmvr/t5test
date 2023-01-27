@@ -103,7 +103,7 @@ File: scss
             }
             &.menu-open{
                 >a{
-                   color: $dark;  
+                   color: #ffffff;
                 }
             }
             >.treeview-menu{
@@ -1483,7 +1483,7 @@ body{
         >li{
             &.treeview.menu-open{            
                 >a{
-                   opacity: 1; 
+                   opacity: 1;
                 }
             }
             &:hover{
@@ -1528,7 +1528,7 @@ body{
             &.menu-open{
                 >a{  
                     >i{
-                       color: lighten($body-dark, 60%);
+                       color: $dark;
 	                   border: 0px solid lighten($body-dark, 60%);
                     }
                 }

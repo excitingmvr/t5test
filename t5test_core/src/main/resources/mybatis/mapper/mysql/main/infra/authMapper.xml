@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.t5test.core.infra.auth.AuthDao">
+
+    <sql id="selectCommon">
+        FROM infrAuth a
+        WHERE 1=1
+        <if test="shUseNy != null and !shUseNy.equals('')">AND ifatUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND ifatDelNy = #{shDelNy}</if>
+        <choose>
+            <when test="shOptionDate == 1">AND regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+            <when test="shOptionDate == 2">AND modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+        </choose>
+        <choose>
+            <when test="shOption == 1">AND ifatSeq = #{shValue}</when>
+            <when test="shOption == 2">AND ifatName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND ifatNameEng LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
+    </sql>
+
+    <select id="selectOneCount" resultType="Integer">
+        SELECT COUNT(*)
+        <include refid="selectCommon"/>
+    </select>
+
+    <select id="selectList" resultType="com.example.t5test.core.infra.auth.AuthDto">
+        <include refid="base.selectListUpperForMysql" />
+        SELECT
+        a.ifatSeq
+        ,a.ifatName
+        ,a.ifatNameEng
+        ,a.ifatUseNy
+        ,a.ifatOrder
+        ,a.regDateTime
+        ,a.modDateTime
+        <include refid="selectCommon" />
+        ORDER BY a.ifatSeq DESC
+        <include refid="base.selectListLowerForMysql" />
+    </select>
+
+    <select id="selectOne" resultType="com.example.t5test.core.infra.auth.AuthDto">
+        SELECT
+            a.ifatSeq
+             ,a.ifatName
+             ,a.ifatNameEng
+             ,a.ifatAdminNy
+             ,a.ifatUseNy
+             ,a.ifatOrder
+             ,a.ifatDesc
+             ,a.ifatDelNy
+        FROM infrAuth a
+        WHERE 1=1
+          AND a.ifatSeq = #{ifatSeq}
+    </select>
+
+    <insert id="insert" parameterType="com.example.t5test.core.infra.auth.AuthDto">
+        INSERT INTO infrAuth (
+        ifatName
+        ,ifatNameEng
+        ,ifatAdminNy
+        ,ifatUseNy
+        ,ifatOrder
+        ,ifatDesc
+        ,ifatDelNy
+        ) VALUES (
+        #{ifatName}
+        ,#{ifatNameEng}
+        ,#{ifatAdminNy}
+        ,#{ifatUseNy}
+        ,#{ifatOrder}
+        ,#{ifatDesc}
+        ,0
+        )
+        <selectKey resultType="String" keyProperty="ifatSeq" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
+    <insert id="AuthMenuInsert" parameterType="com.example.t5test.core.infra.auth.AuthDto">
+        INSERT INTO infrAuthMenu(
+        ifmuSeq
+        ,ifauDelNy
+        ,ifatSeq
+        ) VALUES (
+        #{ifmuSeq}
+        ,0
+        ,#{ifatSeq}
+        )
+        <selectKey resultType="String" keyProperty="ifauSeq" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
+    <update id="update" parameterType="com.example.t5test.core.infra.auth.AuthDto">
+        UPDATE infrAuth
+        SET
+            ifatName = #{ifatName}
+          ,ifatNameEng = #{ifatNameEng}
+          ,ifatAdminNy = #{ifatAdminNy}
+          ,ifatUseNy = #{ifatUseNy}
+          ,ifatOrder = #{ifatOrder}
+          ,ifatDesc = #{ifatDesc}
+        WHERE 1=1
+          AND ifatSeq = #{ifatSeq}
+    </update>
+
+    <update id="uelete" parameterType="com.example.t5test.core.infra.auth.AuthDto">
+        UPDATE infrAuth
+        SET
+            ifatDelNy = 1
+        WHERE 1=1
+          AND ifatSeq = #{ifatSeq}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM infrAuth
+        WHERE 1=1
+          AND ifatSeq = #{ifmnSeq}
+    </delete>
+
+    <select id="selectListWithoutPaging" resultType="com.example.t5test.core.infra.auth.AuthDto">
+        SELECT
+            ifatSeq
+        FROM infrAuth
+        WHERE 1=1
+    </select>
+</mapper>

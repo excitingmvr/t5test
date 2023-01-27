@@ -1167,7 +1167,6 @@ $('.demo-panel-bx').slimScroll({
 	
 // Dynamic active menu
     var path = window.location.pathname;
-    console.log(path);
     var target = $('.sidebar-menu li a[href="'+path+'"]');
     target.parent().addClass('active');
     $('.sidebar-menu li.active').parents('li').addClass('active');

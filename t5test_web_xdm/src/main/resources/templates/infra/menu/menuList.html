@@ -86,6 +86,8 @@
                                         <td style="width:80px;">메뉴 코드</td>
                                         <td>메뉴 이름</td>
                                         <td>메뉴 이름 (영문)</td>
+                                        <td>상위 메뉴</td>
+                                        <td>하위 메뉴</td>
                                         <td>메뉴 URL</td>
                                         <td style="width:60px;">사용</td>
                                         <td style="width:60px;">순서</td>
@@ -105,6 +107,8 @@
                                         <td th:text="${list.ifmuSeq}"></td>
                                         <td th:text="${list.ifmuName}" th:attr="onclick=|goForm('${list.ifmuSeq}')|" style="cursor: pointer;"></td>
                                         <td th:text="${list.ifmuNameEng}"></td>
+                                        <td th:text="${list.ifmuParents}" th:attr="onclick=|goForm2('${list.ifmuSeq}')|" style="cursor: pointer;"></td>
+                                        <td th:text="${list.ifmuDepth}" th:attr="onclick=|goForm3('${list.ifmuSeq}')|" style="cursor: pointer;"></td>
                                         <td th:text="${list.ifmuUrl}"></td>
                                         <td th:if="${list.ifmuUseNy eq 0}">N</td>
                                         <td th:unless="${list.ifmuUseNy eq 0}">Y</td>
@@ -153,10 +157,24 @@
 <script>
     let goUrlList = "/infra/menu/menuList";                        /*###*/
     let goUrlForm = "/infra/menu/menuForm";                        /*###*/
+    let goUrlForm2 = "/infra/menu/menuParentsForm";
+    let goUrlForm3 = "/infra/menu/menuDepthForm";
     let goUrlMultiUele = "/infra/menu/menuMultiUele";              /*###*/
     let goUrlMultiDele = "/infra/menu/menuMultiDele";              /*###*/
 
     let seq = document.querySelector("input[name=ifmuSeq]");        /*###*/
+
+    goForm2 = function (keyValue) {
+        seq.value = keyValue;
+        form.action = goUrlForm2;
+        form.submit();
+    }
+
+    goForm3 = function (keyValue) {
+        seq.value = keyValue;
+        form.action = goUrlForm3;
+        form.submit();
+    }
 </script>
 <script src="/js/includeList.js"></script>
 

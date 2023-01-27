@@ -11,14 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import com.example.t5test.core.infra.auth.AuthService;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/infra/menu")
 public class MenuController {
-
     private final MenuService service;
-
+    private final AuthService Aservice;
     public void setSearch(MenuVo vo){
         vo.setShDelNy(vo.getShDelNy() == null ? 0 : vo.getShDelNy());
         vo.setShOptionDate(vo.getShOptionDate() == null ? null : vo.getShOptionDate());
@@ -56,6 +55,16 @@ public class MenuController {
         model.addAttribute("item", service.selectOne(vo));
         return "infra/menu/menuForm";
     }
+    @RequestMapping(value= "/menuParentsForm")
+    public String parentsForm(@ModelAttribute("vo") MenuVo vo, Model model) throws  Exception {
+        model.addAttribute("item", service.selectOne(vo));
+        return "infra/menu/menuParentsForm";
+    }
+    @RequestMapping(value= "/menuDepthForm")
+    public String depthForm(@ModelAttribute("vo") MenuVo vo, Model model) throws  Exception {
+        model.addAttribute("item", service.selectOne(vo));
+        return "infra/menu/menuDepthForm";
+    }
     @RequestMapping(value= "/menuInst")
     public String menuInst(@ModelAttribute("vo") MenuVo vo, MenuDto dto, RedirectAttributes redirectAttributes) throws  Exception {
         service.insert(dto);
@@ -68,7 +77,7 @@ public class MenuController {
         service.update(dto);
         vo.setIfmuSeq(dto.getIfmuSeq());
         redirectAttributes.addFlashAttribute("vo", vo);
-        return "redirect:/infra/menu/cmenuForm";
+        return "redirect:/infra/menu/menuForm";
     }
     @RequestMapping(value= "/menuUele")
     public String menuUele(MenuDto dto) throws  Exception {

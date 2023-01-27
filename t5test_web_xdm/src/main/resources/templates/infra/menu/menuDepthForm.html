@@ -11,10 +11,12 @@
                         <div class="row mb-3">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">메뉴 코드</label>
+                                    <label class="form-label">상위 메뉴 코드</label>
                                     <input type="text" class="form-control" th:value="${item?.ifmuSeq}" readonly>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row mb-3">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Parents 코드</label>
@@ -136,19 +138,13 @@
 <div th:replace="zxincludev1/linkJs"></div>
 <script src="/js/includeForm.js"></script>
 <script>
-    let goUrlInst = "/infra/menu/menuInst";               /*###*/
+    let goUrlInst = "/infra/menu/DepthInst";               /*###*/
     let goUrlUpdt = "/infra/menu/menuUpdt";               /*###*/
     let goUrlDele = "/infra/menu/menuDele";               /*###*/
     let goUrlList = "/infra/menu/menuList";               /*###*/
     let goUrlUele = "/infra/menu/menuUele";               /*###*/
 
-    let seq = document.querySelector("input[name=ifmuSeq]");        /*###*/
-
-    let Parseq = document.querySelector("input[name=ifmuParents]");
-    let Depseq = document.querySelector("input[name=ifmuDepth]");
-
-    if(Depseq.value == 0 || Depseq.value == "") Depseq.value = 0;
-    if(Parseq.value == 0 || Parseq.value == "") Parseq.value = 0;
+    let seq = document.querySelector("input[name=ifmuDepth]");        /*###*/
 
     function validationUpdt() {
         if(!checkOnlyKoreanEnglishNumber('ifmuName', 2, 0, "메뉴 이름은 한글, 영문대소문자, 숫자만 입력 가능합니다.")) return false;

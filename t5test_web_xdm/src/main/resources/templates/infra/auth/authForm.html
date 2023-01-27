@@ -1,0 +1,129 @@
+<div th:replace="zxincludev1/header"></div>
+<form name="formList" id="formList" method="post">
+<!--    <div th:replace="/infra/auth/authVo"></div>                   &lt;!&ndash;###&ndash;&gt;-->
+    <div class="content-wrapper">
+        <div class="container-full">
+            <!-- Main content -->
+            <section class="content">
+                <h3 class="page-title">Auth</h3>
+                <div class="box">
+                    <div class="box-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">권한 코드</label>
+                                    <input type="text" class="form-control" name="ifatSeq" th:value="${item?.ifatSeq}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">권한 이름</label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" name="ifatName" id="ifatName" th:value="${item?.ifatName}">
+                                        <div class="invalid-feedback" id="ifatNameFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">권한 이름(영문)</label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="ifatNameEng" name="ifatNameEng" th:value="${item?.ifatNameEng}">
+                                        <div class="invalid-feedback" id="ifatNameEngFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">어드민 여부</label>
+                                    <div class="controls">
+                                        <select class="form-select" name="ifatAdminNy" id="ifatAdminNy">
+                                            <option value="1" th:selected="${item?.ifatAdminNy == 1}">사용</option>
+                                            <option value="0" th:selected="${item?.ifatAdminNy == 0}">미사용</option>
+                                        </select>
+                                        <div class="invalid-feedback" id="ifatAdminNyFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">순서</label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="ifatOrder" name="ifatOrder" th:value="${item?.ifatOrder}">
+                                        <div class="invalid-feedback" id="ifatOrderFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">사용 여부</label>
+                                    <div class="controls">
+                                        <select class="form-select" name="ifatUseNy" id="ifatUseNy">
+                                            <option value="1" th:selected="${item?.ifatUseNy == 1}">사용</option>
+                                            <option value="0" th:selected="${item?.ifatUseNy == 0}">미사용</option>
+                                        </select>
+                                        <div class="invalid-feedback" id="ifatUseNyFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">설명</label>
+                                    <div class="controls">
+                                        <textarea class="form-control" id="ifatDesc" name="ifatDesc" th:value="${item?.ifatDesc}"></textarea>
+                                        <div class="invalid-feedback" id="ifatDescFeedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="ms-2">
+                                <button class="btn btn-info-light btn-sm" id="btnList"><i class="fa fa-list"></i></button>
+                            </div>
+                            <div class="ms-2">
+                                <button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button>
+                            </div>
+                            <div class="ms-2 me-auto">
+                                <button class="btn btn-danger-light btn-sm" type="button" id="btnDelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button>
+                            </div>
+                            <div class="ms-2">
+                                <button class="btn btn-primary-light btn-sm" type="button" id="btnSubmit"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    </div>
+</form>
+<div th:replace="zxincludev1/footer"></div>
+<div th:replace="zxincludev1/modalbase"></div>
+</div><!--end wrapper-->
+<div th:replace="zxincludev1/linkJs"></div>
+<script src="/js/includeForm.js"></script>
+<script>
+    let goUrlInst = "/infra/auth/authInst";               /*###*/
+    let goUrlUpdt = "/infra/auth/authUpdt";               /*###*/
+    let goUrlDele = "/infra/auth/authDele";               /*###*/
+    let goUrlList = "/infra/auth/authList";               /*###*/
+    let goUrlUele = "/infra/auth/authUele";               /*###*/
+
+    let seq = document.querySelector("input[name=ifatSeq]");        /*###*/
+
+    function validationUpdt() {
+        if(!checkOnlyKoreanEnglishNumber('ifatName', 2, 0, "권한 이름은 한글, 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkOnlyEnglishNumber('ifatNameEng', 2, 1, "권한 이름(영문)은 영문대소문자, 숫자만 입력 가능합니다.")) return false;
+        if(!checkSelectNull('ifatAdminNy', 2, "어드민 여부를 선택해 주세요.")) return false;
+        if(!checkOnlyNumber('ifatOrder', 2, 0, 1, 0, 255, "순서는 숫자(0~255)만 입력 가능합니다.")) return false;
+        if(!checkSelectNull('ifatUseNy', 2, "사용 여부를 선택해 주세요.")) return false;
+    }
+</script>
+</body>
+</html>

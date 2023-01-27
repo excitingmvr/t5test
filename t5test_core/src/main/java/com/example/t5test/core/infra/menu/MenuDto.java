@@ -16,4 +16,8 @@ public class MenuDto extends BaseDto {
     private Integer ifmuUseNy;
     private Integer ifmuOrder;
     private String ifmuDesc;
+    private String IfatSeq;
+    private String IfauSeq;
+    private String parentsSeq;
+
 }
