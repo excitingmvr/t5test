@@ -1,303 +1,172 @@
 <div th:replace="zxincludev1/header"></div>
 <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <div class="container-full">
-            <!-- Main content -->
-            <section class="content">
-                <form name="formList" id="formList" method="post">
-                    <input type="hidden" name="ifcdSeq">
-                    <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
-                    <input type="hidden" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-                    <input type="hidden" name="checkboxSeqArray">
-                    <h3 class="page-title">Code</h3>                          <!--###-->
-                    <div class="box">
-                        <div class="box-body">
-                            <div id="searchWrap" style="display: block">
-                                <div class="row row-cols-2 row-cols-sm-6 g-2 px-2 mb-4">
-                                    <div class="col">
-                                        <select class="form-select" name="shDelNy" id="shDelNy">
-                                            <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
-                                            <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
-                                            <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <select class="form-select" name="shUseNy" id="shUseNy">
-                                            <option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
-                                            <option value="1" th:selected="${vo.shUseNy == 1}" >Y</option>
-                                            <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <select class="form-select" name="shOptionDate" id="shOptionDate">
-                                            <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
-                                            <option value="1" th:selected="${vo.shOptionDate == 1}">생성일</option>
-                                            <option value="2" th:selected="${vo.shOptionDate == 2}" >수정일</option>
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" id="shDateStart" name="shDateStart" placeholder="시작일">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" id="shDateEnd" name="shDateEnd" placeholder="종료일">
-                                    </div>
+<div class="content-wrapper">
+    <div class="container-full">
+        <!-- Main content -->
+        <section class="content">
+            <form name="formList" id="formList" method="post" autocomplete="off">
+                <input type="hidden" name="ifcdSeq">
+                <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+                <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+                <input type="hidden" name="checkboxSeqArray">
+                <h3 class="page-title">Code</h3>                          <!--###-->
+                <div class="box">
+                    <div class="box-body">
+                        <div id="searchWrap" style="display: block">
+                            <div class="row row-cols-2 row-cols-sm-6 g-2 px-2 mb-4">
+                                <div class="col">
+                                    <select class="form-select" name="shDelNy" id="shDelNy">
+                                        <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                                        <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+                                        <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
+                                    </select>
                                 </div>
-                                <div class="row row-cols-2 row-cols-sm-6 g-2 px-2">
-                                    <div class="col">
-                                        <select class="form-select" id="shOption" name="shOption">
-                                            <option value="" th:selected="${vo.shOption == null}">검색구분</option>
-                                            <option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
-                                            <option value="2" th:selected="${vo.shOption == 2}" >코드그룹 이름</option>
-                                            <option value="3" th:selected="${vo.shOption == 3}" >코드</option>
-                                            <option value="4" th:selected="${vo.shOption == 4}" >대체 코드</option>
-                                            <option value="5" th:selected="${vo.shOption == 5}" >코드 이름</option>
-                                            <option value="6" th:selected="${vo.shOption == 6}" >코드 이름 (영문)</option>
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" th:value="${vo.shValue}" id="shValue" name="shValue" placeholder="검색어">
-                                    </div>
+                                <div class="col">
+                                    <select class="form-select" name="shUseNy" id="shUseNy">
+                                        <option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
+                                        <option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
+                                        <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" name="shOptionDate" id="shOptionDate">
+                                        <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                                        <option value="1" th:selected="${vo.shOptionDate == 1}">생성일</option>
+                                        <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="shDateStart" name="shDateStart" placeholder="시작일">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="shDateEnd" name="shDateEnd" placeholder="종료일">
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="mt-3 ms-2">
-                                <span style="cursor:pointer;" onclick="showHide('searchWrap');">
-                                    <button id="showBtn" class="btn btn-secondary btn-sm" type="button" onclick='change()'><i class="fa fa-chevron-up"></i></button>
-                                </span>
+                            <div class="row row-cols-2 row-cols-sm-6 g-2 px-2">
+                                <div class="col">
+                                    <select class="form-select" id="shOption" name="shOption">
+                                        <option value="" th:selected="${vo.shOption == null}">검색구분</option>
+                                        <option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
+                                        <option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
+                                        <option value="3" th:selected="${vo.shOption == 3}">코드</option>
+                                        <option value="4" th:selected="${vo.shOption == 4}">대체 코드</option>
+                                        <option value="5" th:selected="${vo.shOption == 5}">코드 이름</option>
+                                        <option value="6" th:selected="${vo.shOption == 6}">코드 이름 (영문)</option>
+                                    </select>
                                 </div>
-                                <div class="mt-3 ms-2">
-                                    <button class="btn btn-secondary btn-sm" id="btnReset"><i class="fa fa-rotate-left"></i></button>
-                                </div>
-                                <div class="mt-3 ms-2">
-                                    <button class="btn btn-secondary btn-sm" id="btnSearch"><i class="fa fa-search"></i></button>
+                                <div class="col">
+                                    <input type="text" class="form-control" th:value="${vo.shValue}" id="shValue" name="shValue" placeholder="검색어">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="box">
-                        <div class="box-body">
-                            <div class="table-responsive-sm">
-                                <div class="d-flex">
-                                    <div class="p-2 me-auto" th:text="'Total: '+${vo.totalRows}"></div>
-                                    <div class="p-2 text-end">
-                                        <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
-                                            <option value="10" th:selected="${vo.rowNumToShow eq 10}">10</option>
-                                            <option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
-                                            <option value="50" th:selected="${vo.rowNumToShow eq 50}">50</option>
-                                            <option value="80" th:selected="${vo.rowNumToShow eq 80}">80</option>
-                                            <option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <table class="table table-hover table-striped">
-                                    <thead style="background-color:#172b4c; color:#b5b5c3;">
-                                        <tr>
-                                            <td>
-                                                <div class="checkbox">
-                                                    <input type="checkbox" id="CheckBoxAll">
-                                                    <label for="CheckBoxAll"></label>
-                                                </div>
-                                            </td>
-                                            <td>#</td>
-                                            <td>코드그룹 코드</td>
-                                            <td>코드그룹 이름</td>
-                                            <td>코드</td>
-                                            <td>대체 코드</td>
-                                            <td>코드 이름</td>
-                                            <td>코드 이름 (영문)</td>
-                                            <td>사용</td>
-                                            <td>순서</td>
-                                            <td>등록일</td>
-                                            <td>수정일</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifcdSeq}">
-                                            <td>
-                                                <div class="checkbox">
-                                                    <input type="checkbox"  th:id="'checkboxSeq_' + ${list.ifcdSeq}" name="checkboxSeq" th:value="${list.ifcdSeq}">
-                                                    <label th:for="'checkboxSeq_' + ${list.ifcdSeq}"></label>
-                                                </div>
-                                            </td>
-                                            <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                            <td th:text="${list.ifcgSeq}"></td>
-                                            <td th:text="${list.ifcgName}"></td>
-                                            <td th:text="${list.ifcdSeq}"></td>
-                                            <td th:text="${list.ifcdSeqAnother}"></td>
-                                            <td th:text="${list.ifcdName}" th:attr="onclick=|goForm('${list.ifcgSeq}')|" style="cursor: pointer;"></td>
-                                            <td th:text="${list.ifcdNameEng}"></td>
-                                            <td th:if="${list.ifcdUseNy eq 0}">N</td>
-                                            <td th:unless="${list.ifcdUseNy eq 0}">Y</td>
-                                            <td th:text="${list.ifcdOrder}"></td>
-                                            <td th:text="${#dates.format(list.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                            <td th:text="${#dates.format(list.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="d-flex justify-content-start">
+                            <div class="mt-3 ms-2">
+                                <button class="btn btn-secondary btn-sm" type="button" id="btnShowHide"><i class="fa fa-chevron-up"></i></button>
                             </div>
-                            <div class="dataTables_paginate paging_simple_numbers">
-                                <ul class="pagination justify-content-center mb-0 pagination-sm">
-                                    <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous"><a class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a></li>
-                                    <li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" class="paginate_button page-item" th:classappend="${num eq vo.thisPage} ? active : ''">
-                                        <a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
-                                    </li>
-                                    <li th:if="${vo.endPage ne vo.totalPages}" class="paginate_button page-item next"><a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">></a></li>
-                                </ul>
+                            <div class="mt-3 ms-2">
+                                <button class="btn btn-secondary btn-sm" type="button" id="btnReset"><i class="fa fa-rotate-left"></i></button>
                             </div>
-                            <div class="d-flex">
-                                <div class="ms-2"><button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button></div>
-                                <div class="ms-2 me-auto"><button class="btn btn-danger-light btn-sm" id="btnDelete" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button></div>
-                                <div class="ms-2"><button class="btn btn-success-light btn-sm" id="btnExcel"><i class="fa fa-file-excel-o"></i></button></div>
-                                <div class="ms-2"><button class="btn btn-primary-light btn-sm" id="btnForm"><i class="fa fa-plus"></i></button></div>
+                            <div class="mt-3 ms-2">
+                                <button class="btn btn-secondary btn-sm" id="btnSearch"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
-                </form>
-            </section>
-        </div>
+                </div>
+                <div class="box">
+                    <div class="box-body">
+                        <div class="table-responsive-sm">
+                            <div th:replace="zxincludev1/totalAndRowNum"></div>
+                            <table class="table table-hover table-striped">
+                                <thead style="background-color:#172b4c; color:#b5b5c3;">
+                                    <tr>
+                                        <td style="width:20px;">
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="CheckBoxAll">
+                                                <label for="CheckBoxAll"></label>
+                                            </div>
+                                        </td>
+                                        <td style="width:50px;">#</td>
+                                        <td>코드그룹 코드</td>
+                                        <td>코드그룹 이름</td>
+                                        <td>코드</td>
+                                        <td>대체 코드</td>
+                                        <td>코드 이름</td>
+                                        <td>코드 이름 (영문)</td>
+                                        <td style="width:60px;">사용</td>
+                                        <td style="width:60px;">순서</td>
+                                        <td style="width:120px;">등록일</td>
+                                        <td style="width:120px;">수정일</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifcdSeq}">
+                                        <td>
+                                            <div class="checkbox">
+                                                <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifcdSeq}" name="checkboxSeq" th:value="${list.ifcdSeq}">
+                                                <label th:for="'checkboxSeq_' + ${list.ifcdSeq}"></label>
+                                            </div>
+                                        </td>
+                                        <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                                        <td th:text="${list.ifcgSeq}"></td>
+                                        <td th:text="${list.ifcgName}"></td>
+                                        <td th:text="${list.ifcdSeq}"></td>
+                                        <td th:text="${list.ifcdSeqAnother}"></td>
+                                        <td th:text="${list.ifcdName}" th:attr="onclick=|goForm('${list.ifcgSeq}')|" style="cursor: pointer;"></td>
+                                        <td th:text="${list.ifcdNameEng}"></td>
+                                        <td th:if="${list.ifcdUseNy eq 0}">N</td>
+                                        <td th:unless="${list.ifcdUseNy eq 0}">Y</td>
+                                        <td th:text="${list.ifcdOrder}"></td>
+                                        <td th:text="${#dates.format(list.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${#dates.format(list.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="dataTables_paginate paging_simple_numbers">
+                            <ul class="pagination justify-content-center mb-0 pagination-sm">
+                                <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous">
+                                    <a class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a>
+                                </li>
+                                <li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" class="paginate_button page-item" th:classappend="${num eq vo.thisPage} ? active : ''">
+                                    <a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
+                                </li>
+                                <li th:if="${vo.endPage ne vo.totalPages}" class="paginate_button page-item next"><a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">></a></li>
+                            </ul>
+                        </div>
+                        <div class="d-flex">
+                            <div class="ms-2">
+                                <button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button>
+                            </div>
+                            <div class="ms-2 me-auto">
+                                <button class="btn btn-danger-light btn-sm" id="btnDelete" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button>
+                            </div>
+                            <div class="ms-2">
+                                <button class="btn btn-success-light btn-sm" id="btnExcel"><i class="fa fa-file-excel-o"></i></button>
+                            </div>
+                            <div class="ms-2">
+                                <button class="btn btn-primary-light btn-sm" id="btnForm"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
     </div>
-    <div th:replace="zxincludev1/footer"></div>
-    <div th:replace="zxincludev1/modalbase"></div>
+</div>
+<div th:replace="zxincludev1/footer"></div>
+<div th:replace="zxincludev1/modalbase"></div>
 </div>
 
 <!-- Page Content overlay -->
 <div th:replace="zxincludev1/linkJs"></div>
+<script src="/js/includeList.js"></script>
 <script>
     let goUrlList = "/infra/code/codeList";
     let goUrlForm = "/infra/code/codeForm";
     let goUrlMultiDele = "/infra/code/codeMultiDele";
     let goUrlMultiUele = "/infra/code/codeMultiUele";
 
-    let form = $("form[name=formList]");
     let seq = $("[name=ifcdSeq]");
-    let checkboxSeqArray = [];
-
-    $(document).ready(function () {
-        $("#shDateStart, #shDateEnd").datepicker();
-    });
-
-    function change() {
-        const subs = document.getElementById("showBtn")
-        if(subs.innerHTML == '<i class="fa fa-chevron-down"></i>') {
-            subs.innerHTML = '<i class="fa fa-chevron-up"></i>';
-        } else subs.innerHTML ='<i class="fa fa-chevron-down"></i>';
-    }
-
-    function showHide(id){
-        let objId = document.getElementById(id);
-        if(objId.style.display == "none"){
-            objId.style.display = "block";
-        } else {
-            objId.style.display = "none";
-        }
-
-    $("#btnRefresh").on("click", function(){
-        form.attr("action", goUrlList).submit();
-    });
-
-    document.getElementById("btnSearch").onclick = function(){
-        form.attr("action", goUrlList).submit();
-    };
-
-    document.getElementById("changeRowNum").change = function () {
-        $("input:hidden[name=rowNumToShow]").val($("#changeRowNum option:selected").val());
-        form.attr("action", goUrlList).submit();
-    };
-
-    document.getElementsByName("checkboxSeq").change = function () {
-        if($("#checkboxSeq_" + $(this).val()).is(":checked")) {
-            $("#checkboxSeq_" + $(this).val()).prop("checked", true);
-            $("#trNum_" + $(this).val()).css("background-color", "#FFEAE5");
-        } else {
-            $("#checkboxSeq_" + $(this).val()).prop("checked", false);
-            $("#trNum_" + $(this).val()).css("background-color", "");
-        }
-    };
-
-     document.getElementById("CheckBoxAll").onclick = function () {
-        if($("#CheckBoxAll").is(":checked")) {
-            $("input[name=checkboxSeq]").prop("checked", true);
-            $("tbody tr").css("background-color", "#FFEAE5");
-        } else {
-            $("input[name=checkboxSeq]").prop("checked", false)
-            $("tbody tr").css("background-color", "");
-        }
-    }
-
-    document.getElementByName("CheckBoxAll").onclick = function () {
-        let total = $("input[name=CheckBoxAll]").length;
-        let checked = $("input[name=CheckBoxAll]:checked").length;
-
-        if(total != checked) {
-            $("#CheckBoxAll").prop("checked", false);
-            $("tbody tr").css("background-color", "");
-        }else {
-            $("#CheckBoxAll").prop("checked", true);
-            $("tbody tr").css("background-color", "#FFEAE5");
-        }
-    }
-
-    goForm = function(keyValue) {
-        seq.val(keyValue);
-        form.attr("action", goUrlForm).submit();
-    }
-
-    document.getElementById("btnForm").onclick = function () {
-        goForm(0);
-    }
-
-    goList = function(thisPage) {
-        $("input:hidden[name=thisPage]").val(thisPage);
-        form.attr("action", goUrlList).submit();
-    }
-
-    $("#btnUelete").on("click", function(){
-        if($("input[name=checkboxSeq]:checked").length > 0 ) {
-            $(".modal-title").text("확 인");
-            $(".modal-body").text("해당 데이터를 삭제하시겠습니까 ?");
-            $("#btnModalUelete").show();
-            $("#btnModalDelete").hide();
-        } else {
-            $(".modal-title").text("확 인");
-            $(".modal-body").text("데이터를 선택해 주세요!");
-            $("#btnModalDelete").hide();
-            $("#btnModalUelete").hide();
-        }
-    });
-
-    $("#btnModalUelete").on("click", function(){
-        $("input[name=checkboxSeq]:checked").each(function() {
-            checkboxSeqArray.push($(this).val());
-        });
-        $("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);
-        $("#modalConfirm").modal("hide");
-        form.attr("action", goUrlMultiUele).submit();
-    });
-
-    $("#btnDelete").on("click", function(){
-        if($("input[name=checkboxSeq]:checked").length > 0 ) {
-            $(".modal-title").text("확 인");
-            $(".modal-body").text("해당 데이터를 삭제하시겠습니까 ?");
-            $("#btnModalDelete").show();
-            $("#btnModalUelete").hide();
-        } else {
-            $(".modal-title").text("확 인");
-            $(".modal-body").text("데이터를 선택해 주세요!");
-            $("#btnModalDelete").hide();
-            $("#btnModalUelete").hide();
-        }
-    });
-
-    $("#btnModalDelete").on("click", function(){
-        $("input[name=checkboxSeq]:checked").each(function() {
-            checkboxSeqArray.push($(this).val());
-        });
-
-        $("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);
-        $("#modalConfirm").modal("hide");
-        form.attr("action", goUrlMultiDele).submit();
-    });
-
 </script>
 </body>
 </html>

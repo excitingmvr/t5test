@@ -1,0 +1,164 @@
+<div th:replace="zxincludev1/header"></div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <div class="container-full">
+        <!-- Main content -->
+        <section class="content">
+            <form name="formList" id="formList" method="post" autocomplete="off">
+                <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+                <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+                <input type="hidden" name="checkboxSeqArray">
+                <input type="hidden" name="ifmuSeq">
+                <h3 class="page-title">Menu</h3>
+                <div class="box">
+                    <div class="box-body">
+                        <div id="searchWrap" style="display: block">
+                            <div class="row row-cols-2 row-cols-sm-6 g-2 px-2 mb-4">
+                                <div class="col">
+                                    <select class="form-select" name="shDelNy" id="shDelNy">
+                                        <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                                        <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+                                        <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" name="shUseNy" id="shUseNy">
+                                        <option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
+                                        <option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
+                                        <option value="0" th:selected="${vo.shUseNy == 0}">N</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" name="shOptionDate" id="shOptionDate">
+                                        <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                                        <option value="1" th:selected="${vo.shOptionDate == 1}">생성일</option>
+                                        <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="shDateStart" name="shDateStart" placeholder="시작일">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="shDateEnd" name="shDateEnd" placeholder="종료일">
+                                </div>
+                            </div>
+                            <div class="row row-cols-2 row-cols-sm-6 g-2 px-2">
+                                <div class="col">
+                                    <select class="form-select" id="shOption" name="shOption">
+                                        <option value="" th:selected="${vo.shOption == null}">검색구분</option>
+                                        <option value="1" th:selected="${vo.shOption == 1}">메뉴 코드</option>
+                                        <option value="2" th:selected="${vo.shOption == 2}">메뉴 이름</option>
+                                        <option value="3" th:selected="${vo.shOption == 3}">메뉴 이름 (영문)</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" th:value="${vo.shValue}" id="shValue" name="shValue" placeholder="검색어">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <div class="mt-3 ms-2">
+                                <button class="btn btn-secondary btn-sm" type="button" id="btnShowHide"><i class="fa fa-chevron-up"></i></button>
+                            </div>
+                            <div class="mt-3 ms-2">
+                                <button class="btn btn-secondary btn-sm" type="button" id="btnReset"><i class="fa fa-rotate-left"></i></button>
+                            </div>
+                            <div class="mt-3 ms-2">
+                                <button class="btn btn-secondary btn-sm" id="btnSearch"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-body">
+                        <div class="table-responsive-sm">
+                            <div th:replace="zxincludev1/totalAndRowNum"></div>
+                            <table class="table table-hover table-striped">
+                                <thead style="background-color:#172b4c; color:#b5b5c3;">
+                                    <tr>
+                                        <td style="width:20px;">
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="CheckBoxAll">
+                                                <label for="CheckBoxAll"></label>
+                                            </div>
+                                        </td>
+                                        <td style="width:50px">#</td>
+                                        <td style="width:80px;">메뉴 코드</td>
+                                        <td>메뉴 이름</td>
+                                        <td>메뉴 이름 (영문)</td>
+                                        <td>메뉴 URL</td>
+                                        <td style="width:60px;">사용</td>
+                                        <td style="width:60px;">순서</td>
+                                        <td style="width:120px;">등록일</td>
+                                        <td style="width:120px;">수정일</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="list : ${list}" th:id="'trNum_' + ${list.ifmuSeq}">
+                                        <td>
+                                            <div class="checkbox">
+                                                <input type="checkbox" th:id="'checkboxSeq_' + ${list.ifmuSeq}" name="checkboxSeq" th:value="${list.ifmuSeq}">
+                                                <label th:for="'checkboxSeq_' + ${list.ifmuSeq}"></label>
+                                            </div>
+                                        </td>
+                                        <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                                        <td th:text="${list.ifmuSeq}"></td>
+                                        <td th:text="${list.ifmuName}" th:attr="onclick=|goForm('${list.ifmuSeq}')|" style="cursor: pointer;"></td>
+                                        <td th:text="${list.ifmuNameEng}"></td>
+                                        <td th:text="${list.ifmuUrl}"></td>
+                                        <td th:if="${list.ifmuUseNy eq 0}">N</td>
+                                        <td th:unless="${list.ifmuUseNy eq 0}">Y</td>
+                                        <td th:text="${list.ifmuOrder}"></td>
+                                        <td th:text="${#dates.format(list.regDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${#dates.format(list.modDateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="dataTables_paginate paging_simple_numbers">
+                            <ul class="pagination justify-content-center mb-0 pagination-sm">
+                                <li th:if="${vo.startPage gt vo.pageNumToShow}" class="paginate_button page-item previous"><a class="page-link" th:attr="onclick=|goList('${vo.startPage - 1}')|"><</a></li>
+                                <li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" class="paginate_button page-item" th:classappend="${num eq vo.thisPage} ? active : ''">
+                                    <a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
+                                </li>
+                                <li th:if="${vo.endPage ne vo.totalPages}" class="paginate_button page-item next"><a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">></a></li>
+                            </ul>
+                        </div>
+                        <div class="d-flex">
+                            <div class="ms-2">
+                                <button class="btn btn-warning-light btn-sm" type="button" id="btnUelete" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-trash"></i></button>
+                            </div>
+                            <div class="ms-2 me-auto">
+                                <button class="btn btn-danger-light btn-sm" id="btnDelete" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-remove"></i></button>
+                            </div>
+                            <div class="ms-2">
+                                <button class="btn btn-success-light btn-sm" id="btnExcel"><i class="fa fa-file-excel-o"></i></button>
+                            </div>
+                            <div class="ms-2">
+                                <button class="btn btn-primary-light btn-sm" id="btnForm"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+<div th:replace="zxincludev1/footer"></div>
+<div th:replace="zxincludev1/modalbase"></div>
+</div><!--end wrapper-->
+
+<!-- Page Content overlay -->
+<div th:replace="zxincludev1/linkJs"></div>
+<script>
+    let goUrlList = "/infra/menu/menuList";                        /*###*/
+    let goUrlForm = "/infra/menu/menuForm";                        /*###*/
+    let goUrlMultiUele = "/infra/menu/menuMultiUele";              /*###*/
+    let goUrlMultiDele = "/infra/menu/menuMultiDele";              /*###*/
+
+    let seq = document.querySelector("input[name=ifmuSeq]");        /*###*/
+</script>
+<script src="/js/includeList.js"></script>
+
+</body>
+</html>

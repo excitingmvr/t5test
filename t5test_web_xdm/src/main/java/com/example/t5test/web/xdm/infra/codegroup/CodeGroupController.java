@@ -34,9 +34,21 @@ public class CodeGroupController {
     }
     @RequestMapping(value = "/codeGroupList")
     public String codeGroupList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
+        vo.setParamsPaging(service.selectOneCount(vo));
+        model.addAttribute("list", service.selectList(vo));
+        return "infra/codegroup/codeGroupList";
+    }
+
+    @RequestMapping(value = "/codeGroupAjaxList")
+    public String codeGroupAjaxList(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
+        return "infra/codegroup/codeGroupAjaxList";
+    }
+
+    @RequestMapping(value = "/codeGroupAjaxLita")
+    public String codeGroupLita(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
             vo.setParamsPaging(service.selectOneCount(vo));
             model.addAttribute("list", service.selectList(vo));
-        return "infra/codegroup/codeGroupList";
+        return "infra/codegroup/codeGroupAjaxLita";
     }
     @RequestMapping(value= "/codeGroupForm")
     public String codeGroupForm(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws  Exception {

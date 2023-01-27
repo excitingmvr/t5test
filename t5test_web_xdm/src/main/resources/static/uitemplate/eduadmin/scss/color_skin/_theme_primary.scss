@@ -11,13 +11,10 @@ Theme Primary Color
 .theme-primary{ 
     .bg-gradient-primary{@extend .bg-gradient-primary}
     .art-bg{@extend .bg-gradient-primary}
-    &.fixed {        
+    &.fixed {
         .main-header {
-            background: #ececec;
+            background-color: #ececec;
         }
-    }
-    .main-header{
-        background: transparent;
     }
 }
 
