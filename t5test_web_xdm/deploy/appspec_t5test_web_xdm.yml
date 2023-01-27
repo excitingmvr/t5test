@@ -3,9 +3,9 @@ os: linux
 
 files:
   - source: /
-    destination: /home/centos/
+    destination: /home/centos/deploy
 permissions:
-  - object: /home/centos/
+  - object: /home/centos/deploy
     pattern: "**"
     owner: centos
     group: centos
