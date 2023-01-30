@@ -34,6 +34,10 @@ public class AuthController {
 //		    ? UtilDateTime.nowString()
 //		    : UtilDateTime.addNowTimeString(vo.getShDateEnd()));
     }
+    @RequestMapping(value = "/login")
+    public String authLogin(Model model) throws Exception{
+        return "infra/auth/auth_login";
+    }
     @RequestMapping(value = "/authList")
     public String authList(@ModelAttribute("vo") AuthVo vo, Model model) throws Exception{
         vo.setParamsPaging(service.selectOneCount(vo));
